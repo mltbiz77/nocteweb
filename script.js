@@ -1,5 +1,5 @@
-// Ultra-lightweight particle system
-class MinimalParticleSystem {
+// Ultra-lightweight particle system with Matrix-style effects
+class HackerParticleSystem {
     constructor(canvas) {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
@@ -27,18 +27,20 @@ class MinimalParticleSystem {
         this.particles = [];
         const isMobile = window.innerWidth < 768;
         
-        // Reduced particle count for better performance
-        const particleCount = isMobile ? 12 : 20;
+        // Matrix-style falling particles
+        const particleCount = isMobile ? 8 : 15;
         
         for (let i = 0; i < particleCount; i++) {
             this.particles.push({
                 x: Math.random() * this.canvas.width,
-                y: Math.random() * this.canvas.height,
-                vx: (Math.random() - 0.5) * 0.08,
-                vy: (Math.random() - 0.5) * 0.08,
-                size: Math.random() * 0.6 + 0.3,
-                opacity: Math.random() * 0.15 + 0.05,
-                color: `hsl(${220 + Math.random() * 40}, 60%, 50%)`
+                y: Math.random() * this.canvas.height - this.canvas.height,
+                vx: 0,
+                vy: Math.random() * 2 + 1,
+                size: Math.random() * 1 + 0.5,
+                opacity: Math.random() * 0.3 + 0.1,
+                color: Math.random() > 0.5 ? '#00ff41' : '#0099ff',
+                char: String.fromCharCode(0x30A0 + Math.random() * 96),
+                life: Math.random() * 100
             });
         }
     }
@@ -65,14 +67,19 @@ class MinimalParticleSystem {
         if (this.frameCount % 4 !== 0) return;
         
         this.particles.forEach(particle => {
-            particle.x += particle.vx;
             particle.y += particle.vy;
+            particle.life++;
             
-            // Wrap around screen
-            if (particle.x < 0) particle.x = this.canvas.width;
-            if (particle.x > this.canvas.width) particle.x = 0;
-            if (particle.y < 0) particle.y = this.canvas.height;
-            if (particle.y > this.canvas.height) particle.y = 0;
+            // Fade effect
+            particle.opacity = Math.sin(particle.life * 0.02) * 0.3 + 0.2;
+            
+            // Reset when off screen
+            if (particle.y > this.canvas.height + 50) {
+                particle.y = -50;
+                particle.x = Math.random() * this.canvas.width;
+                particle.char = String.fromCharCode(0x30A0 + Math.random() * 96);
+                particle.life = 0;
+            }
         });
     }
     
@@ -86,9 +93,8 @@ class MinimalParticleSystem {
             this.ctx.save();
             this.ctx.globalAlpha = particle.opacity;
             this.ctx.fillStyle = particle.color;
-            this.ctx.beginPath();
-            this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-            this.ctx.fill();
+            this.ctx.font = `${particle.size * 12}px monospace`;
+            this.ctx.fillText(particle.char, particle.x, particle.y);
             this.ctx.restore();
         });
     }
@@ -131,7 +137,7 @@ class SmoothScrollAnimationObserver {
         
         // Observe animated elements
         const animatedElements = document.querySelectorAll(
-            '.definition-title, .definition-subtitle, .text-card, .definition-essence, .portfolio-title, .portfolio-description, .portfolio-item'
+            '.definition-title, .definition-subtitle, .text-card, .portfolio-title, .portfolio-description, .portfolio-item'
         );
         
         animatedElements.forEach(el => {
@@ -151,7 +157,7 @@ class SmoothScrollAnimationObserver {
 
 // Main initialization
 document.addEventListener('DOMContentLoaded', function() {
-    // Only initialize particles on desktop and high-performance devices
+    // Initialize hacker particle system on desktop only
     const canvas = document.getElementById('particleCanvas');
     let particleSystem = null;
     
@@ -159,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const isHighPerformance = navigator.hardwareConcurrency > 4 && window.innerWidth > 768;
     
     if (isHighPerformance) {
-        particleSystem = new MinimalParticleSystem(canvas);
+        particleSystem = new HackerParticleSystem(canvas);
     }
     
     // Initialize smooth scroll animations
