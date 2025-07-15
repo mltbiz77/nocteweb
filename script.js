@@ -27,17 +27,17 @@ class MinimalParticleSystem {
         this.particles = [];
         const isMobile = window.innerWidth < 768;
         
-        // Drastically reduced particle count
-        const particleCount = isMobile ? 15 : 25;
+        // Reduced particle count for better performance
+        const particleCount = isMobile ? 12 : 20;
         
         for (let i = 0; i < particleCount; i++) {
             this.particles.push({
                 x: Math.random() * this.canvas.width,
                 y: Math.random() * this.canvas.height,
-                vx: (Math.random() - 0.5) * 0.1,
-                vy: (Math.random() - 0.5) * 0.1,
-                size: Math.random() * 0.8 + 0.4,
-                opacity: Math.random() * 0.2 + 0.1,
+                vx: (Math.random() - 0.5) * 0.08,
+                vy: (Math.random() - 0.5) * 0.08,
+                size: Math.random() * 0.6 + 0.3,
+                opacity: Math.random() * 0.15 + 0.05,
                 color: `hsl(${220 + Math.random() * 40}, 60%, 50%)`
             });
         }
@@ -61,8 +61,8 @@ class MinimalParticleSystem {
     updateParticles() {
         if (!this.isVisible) return;
         
-        // Only update every 3rd frame for performance
-        if (this.frameCount % 3 !== 0) return;
+        // Only update every 4th frame for better performance
+        if (this.frameCount % 4 !== 0) return;
         
         this.particles.forEach(particle => {
             particle.x += particle.vx;
@@ -78,7 +78,7 @@ class MinimalParticleSystem {
     
     drawParticles() {
         // Clear with low frequency
-        if (this.frameCount % 2 === 0) {
+        if (this.frameCount % 3 === 0) {
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         }
         
@@ -107,34 +107,44 @@ class MinimalParticleSystem {
     }
 }
 
-// Intersection Observer for scroll animations
-class ScrollAnimationObserver {
+// Enhanced Intersection Observer for smooth section transitions
+class SmoothScrollAnimationObserver {
     constructor() {
         this.setupObserver();
+        this.setupSmoothTransitions();
     }
     
     setupObserver() {
         const observerOptions = {
             threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+            rootMargin: '0px 0px -100px 0px'
         };
         
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.style.animationPlayState = 'running';
+                    entry.target.classList.add('in-view');
                 }
             });
         }, observerOptions);
         
         // Observe animated elements
         const animatedElements = document.querySelectorAll(
-            '.definition-title, .definition-subtitle, .text-block, .definition-visual, .portfolio-title, .portfolio-description, .portfolio-item'
+            '.definition-title, .definition-subtitle, .text-card, .definition-essence, .portfolio-title, .portfolio-description, .portfolio-item'
         );
         
         animatedElements.forEach(el => {
             el.style.animationPlayState = 'paused';
             observer.observe(el);
+        });
+    }
+    
+    setupSmoothTransitions() {
+        // Add smooth transition classes to sections
+        const sections = document.querySelectorAll('section');
+        sections.forEach(section => {
+            section.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
         });
     }
 }
@@ -152,10 +162,10 @@ document.addEventListener('DOMContentLoaded', function() {
         particleSystem = new MinimalParticleSystem(canvas);
     }
     
-    // Initialize scroll animations
-    new ScrollAnimationObserver();
+    // Initialize smooth scroll animations
+    new SmoothScrollAnimationObserver();
     
-    // Simplified modal functionality
+    // Enhanced modal functionality
     const modals = document.querySelectorAll('.modal');
     const modalTriggers = document.querySelectorAll('.legal-link');
     const closeButtons = document.querySelectorAll('.close');
@@ -199,12 +209,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Smooth scroll for scroll indicator
+    // Enhanced smooth scroll for scroll indicator
     const scrollIndicator = document.querySelector('.scroll-indicator');
     if (scrollIndicator) {
         scrollIndicator.addEventListener('click', () => {
             document.querySelector('.definition-section').scrollIntoView({
-                behavior: 'smooth'
+                behavior: 'smooth',
+                block: 'start'
             });
         });
     }
