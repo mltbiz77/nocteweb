@@ -11,7 +11,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="custom-cursor"></div>
     <div class="container">
         <main class="hero-section">
             <canvas id="particleCanvas"></canvas>
@@ -22,11 +21,6 @@
                     <div class="glow-effect"></div>
                 </div>
                 <p class="tagline">Where Late Night Ideas Become Tomorrow's Innovations</p>
-                <div class="floating-elements">
-                    <div class="floating-dot dot-1"></div>
-                    <div class="floating-dot dot-2"></div>
-                    <div class="floating-dot dot-3"></div>
-                </div>
                 <div class="cta-section">
                     <a href="mailto:hello@nocteventures.com" class="cta-button">
                         <span class="button-text">Get In Touch</span>
@@ -50,16 +44,34 @@
                     <div class="definition-subtitle">From Latin "nox, noctis" - meaning night, darkness</div>
                 </div>
                 <div class="definition-text">
-                    <p class="definition-main">In ancient Rome, <strong>"nocte"</strong> referred to the ablative case of "nox" - the time of night when the world transforms. It's during these quiet, dark hours that the mind breaks free from daily constraints and ventures into uncharted territories of creativity.</p>
-                    <p class="definition-secondary">At <strong>Nocte Ventures</strong>, we embrace this ancient wisdom. We believe that innovation doesn't follow a 9-to-5 schedule. The most groundbreaking ideas emerge in the stillness of night, when conventional thinking gives way to bold imagination. We capture these nocturnal sparks of genius and forge them into digital realities that illuminate tomorrow.</p>
-                    <p class="definition-tertiary">From the Latin darkness comes the light of innovation.</p>
+                    <div class="text-block">
+                        <p class="definition-main">In ancient Rome, <strong>"nocte"</strong> referred to the ablative case of "nox" - the time of night when the world transforms. It's during these quiet, dark hours that the mind breaks free from daily constraints and ventures into uncharted territories of creativity.</p>
+                    </div>
+                    <div class="text-block">
+                        <p class="definition-secondary">At <strong>Nocte Ventures</strong>, we embrace this ancient wisdom. We believe that innovation doesn't follow a 9-to-5 schedule. The most groundbreaking ideas emerge in the stillness of night, when conventional thinking gives way to bold imagination.</p>
+                    </div>
+                    <div class="text-block">
+                        <p class="definition-tertiary">We capture these nocturnal sparks of genius and forge them into digital realities that illuminate tomorrow.</p>
+                    </div>
+                    <div class="definition-quote">
+                        <blockquote>"From the Latin darkness comes the light of innovation."</blockquote>
+                    </div>
                 </div>
                 <div class="definition-visual">
-                    <div class="night-icon">🌙</div>
+                    <div class="visual-item">
+                        <div class="night-icon">🌙</div>
+                        <span class="visual-label">Night</span>
+                    </div>
                     <div class="arrow-transform">→</div>
-                    <div class="business-icon">💡</div>
+                    <div class="visual-item">
+                        <div class="business-icon">💡</div>
+                        <span class="visual-label">Ideas</span>
+                    </div>
                     <div class="arrow-transform">→</div>
-                    <div class="innovation-icon">🚀</div>
+                    <div class="visual-item">
+                        <div class="innovation-icon">🚀</div>
+                        <span class="visual-label">Innovation</span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -67,34 +79,53 @@
         <section class="portfolio-section">
             <div class="portfolio-content">
                 <h2 class="portfolio-title">Our Portfolio</h2>
+                <p class="portfolio-description">Transforming midnight inspirations into digital realities</p>
                 <div class="portfolio-grid">
-                    <div class="portfolio-item coming-soon">
+                    <div class="portfolio-item">
                         <div class="portfolio-card">
-                            <div class="coming-soon-icon">⚡</div>
-                            <h3>Coming Soon</h3>
-                            <p>Exciting projects in development</p>
-                            <div class="progress-bar">
-                                <div class="progress-fill"></div>
+                            <div class="card-header">
+                                <div class="coming-soon-icon">⚡</div>
+                                <div class="card-status">In Development</div>
+                            </div>
+                            <h3>Project Alpha</h3>
+                            <p>Revolutionary productivity solutions born from late-night coding sessions</p>
+                            <div class="progress-container">
+                                <div class="progress-bar">
+                                    <div class="progress-fill"></div>
+                                </div>
+                                <span class="progress-text">Coming Soon</span>
                             </div>
                         </div>
                     </div>
-                    <div class="portfolio-item coming-soon">
+                    <div class="portfolio-item">
                         <div class="portfolio-card">
-                            <div class="coming-soon-icon">🚀</div>
-                            <h3>Coming Soon</h3>
-                            <p>Innovation in progress</p>
-                            <div class="progress-bar">
-                                <div class="progress-fill"></div>
+                            <div class="card-header">
+                                <div class="coming-soon-icon">🚀</div>
+                                <div class="card-status">Conceptualizing</div>
+                            </div>
+                            <h3>Project Beta</h3>
+                            <p>Next-generation mobile experiences crafted in the quiet hours</p>
+                            <div class="progress-container">
+                                <div class="progress-bar">
+                                    <div class="progress-fill"></div>
+                                </div>
+                                <span class="progress-text">Coming Soon</span>
                             </div>
                         </div>
                     </div>
-                    <div class="portfolio-item coming-soon">
+                    <div class="portfolio-item">
                         <div class="portfolio-card">
-                            <div class="coming-soon-icon">✨</div>
-                            <h3>Coming Soon</h3>
-                            <p>Nocturnal ideas taking shape</p>
-                            <div class="progress-bar">
-                                <div class="progress-fill"></div>
+                            <div class="card-header">
+                                <div class="coming-soon-icon">✨</div>
+                                <div class="card-status">Ideating</div>
+                            </div>
+                            <h3>Project Gamma</h3>
+                            <p>Innovative solutions emerging from nocturnal creativity</p>
+                            <div class="progress-container">
+                                <div class="progress-bar">
+                                    <div class="progress-fill"></div>
+                                </div>
+                                <span class="progress-text">Coming Soon</span>
                             </div>
                         </div>
                     </div>
@@ -105,8 +136,8 @@
         <footer class="footer">
             <div class="footer-content">
                 <div class="company-info">
-                    <p><strong>Nocte Ventures Ltd</strong> • Company Registration: 16579177 • Registered in England and Wales</p>
-                    <p>Registered Office: 128 City Road, London, EC1V 2NX, United Kingdom</p>
+                    <p><strong>Nocte Ventures Ltd</strong> • Registration: 16579177 • England and Wales</p>
+                    <p>128 City Road, London, EC1V 2NX, United Kingdom</p>
                 </div>
                 <div class="legal-links">
                     <a href="#privacy" class="legal-link">Privacy Policy</a>
