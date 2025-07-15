@@ -129,7 +129,7 @@ class ScrollAnimationObserver {
         
         // Observe animated elements
         const animatedElements = document.querySelectorAll(
-            '.definition-title, .definition-subtitle, .text-block, .definition-quote, .definition-visual, .portfolio-title, .portfolio-description, .portfolio-item'
+            '.definition-title, .definition-subtitle, .text-block, .definition-visual, .portfolio-title, .portfolio-description, .portfolio-item'
         );
         
         animatedElements.forEach(el => {
