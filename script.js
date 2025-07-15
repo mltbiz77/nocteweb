@@ -142,13 +142,10 @@ class ParticleSystem {
     }
 }
 
-// Custom Cursor
+// Custom Cursor System - Fixed
 class CustomCursor {
     constructor() {
-        this.cursor = document.createElement('div');
-        this.cursor.className = 'custom-cursor';
-        document.body.appendChild(this.cursor);
-        
+        this.cursor = document.querySelector('.custom-cursor');
         this.setupEventListeners();
     }
     
@@ -158,17 +155,59 @@ class CustomCursor {
             this.cursor.style.top = e.clientY + 'px';
         });
         
+        // Add hover effects for interactive elements
+        const interactiveElements = document.querySelectorAll('a, button, .cta-button, .legal-link, .close');
+        
+        interactiveElements.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                this.cursor.classList.add('hover');
+            });
+            
+            element.addEventListener('mouseleave', () => {
+                this.cursor.classList.remove('hover');
+            });
+        });
+        
         document.addEventListener('mousedown', () => {
-            this.cursor.style.transform = 'scale(0.8)';
+            this.cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
         });
         
         document.addEventListener('mouseup', () => {
-            this.cursor.style.transform = 'scale(1)';
+            this.cursor.style.transform = 'translate(-50%, -50%) scale(1)';
         });
     }
 }
 
-// Modal functionality
+// Scroll Animation Observer
+class ScrollAnimationObserver {
+    constructor() {
+        this.setupObserver();
+    }
+    
+    setupObserver() {
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all animated elements
+        const animatedElements = document.querySelectorAll('.definition-title, .definition-subtitle, .definition-main, .definition-secondary, .definition-visual, .portfolio-title, .portfolio-item');
+        animatedElements.forEach(el => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+    }
+}
+
+// Main initialization
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize particle system
     const canvas = document.getElementById('particleCanvas');
@@ -178,6 +217,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if (window.innerWidth > 768) {
         new CustomCursor();
     }
+    
+    // Initialize scroll animations
+    new ScrollAnimationObserver();
     
     // Modal functionality
     const modals = document.querySelectorAll('.modal');
@@ -227,21 +269,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Smooth scroll and enhanced animations
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-
     // Enhanced hover effects for company name
     const companyName = document.querySelector('.company-name');
     if (companyName) {
@@ -268,25 +295,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Smooth scroll for scroll indicator
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+    if (scrollIndicator) {
+        scrollIndicator.addEventListener('click', () => {
+            document.querySelector('.definition-section').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    }
+
     // Cleanup on page unload
     window.addEventListener('beforeunload', () => {
         particleSystem.destroy();
     });
 });
-
-// Add CSS for custom cursor
-const style = document.createElement('style');
-style.textContent = `
-    .custom-cursor {
-        position: fixed;
-        width: 20px;
-        height: 20px;
-        background: radial-gradient(circle, #3b82f6 0%, transparent 70%);
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: 9999;
-        mix-blend-mode: difference;
-        transition: transform 0.1s ease-out;
-    }
-`;
-document.head.appendChild(style);
