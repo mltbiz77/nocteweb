@@ -14,7 +14,6 @@
     --text-tertiary: #71717a;
     --border-color: #27272a;
     --hover-color: #2563eb;
-    --glow-color: #3b82f6;
     --card-bg: #141414;
 }
 
@@ -56,16 +55,6 @@ body {
     pointer-events: none;
 }
 
-#textCanvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 3;
-    pointer-events: none;
-}
-
 .hero-content {
     text-align: center;
     max-width: 900px;
@@ -83,22 +72,26 @@ body {
     font-size: clamp(2.5rem, 8vw, 7rem);
     font-weight: 900;
     letter-spacing: -0.02em;
-    color: transparent;
+    background: linear-gradient(135deg, #ffffff 0%, #e4e4e7 50%, #a1a1aa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     animation: titleReveal 2s cubic-bezier(0.23, 1, 0.32, 1);
     position: relative;
     z-index: 4;
+    will-change: transform;
 }
 
-.glow-effect {
+.text-glow {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 120%;
-    height: 120%;
+    width: 110%;
+    height: 110%;
     background: radial-gradient(ellipse, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
     border-radius: 50%;
-    animation: pulse 6s ease-in-out infinite;
+    animation: textGlow 8s ease-in-out infinite;
     z-index: 1;
 }
 
@@ -147,6 +140,7 @@ body {
     position: relative;
     overflow: hidden;
     z-index: 1;
+    will-change: transform;
 }
 
 .button-bg {
@@ -370,15 +364,15 @@ body {
 
 .night-icon, .business-icon, .innovation-icon {
     font-size: 2.5rem;
-    animation: bounce 3s ease-in-out infinite;
+    animation: gentleBounce 4s ease-in-out infinite;
 }
 
 .business-icon {
-    animation-delay: 0.5s;
+    animation-delay: 1s;
 }
 
 .innovation-icon {
-    animation-delay: 1s;
+    animation-delay: 2s;
 }
 
 .visual-label {
@@ -390,7 +384,7 @@ body {
 .arrow-transform {
     color: var(--accent-color);
     font-size: 1.5rem;
-    animation: pulse 3s ease-in-out infinite;
+    animation: gentlePulse 4s ease-in-out infinite;
 }
 
 /* Portfolio Section */
@@ -461,6 +455,7 @@ body {
     height: 100%;
     display: flex;
     flex-direction: column;
+    will-change: transform;
 }
 
 .portfolio-card::before {
@@ -493,7 +488,7 @@ body {
 
 .coming-soon-icon {
     font-size: 2rem;
-    animation: bounce 3s ease-in-out infinite;
+    animation: gentleBounce 4s ease-in-out infinite;
 }
 
 .card-status {
@@ -538,7 +533,7 @@ body {
     height: 100%;
     background: linear-gradient(90deg, var(--accent-color), var(--accent-secondary));
     border-radius: 2px;
-    animation: progressLoad 4s ease-in-out infinite;
+    animation: progressLoad 6s ease-in-out infinite;
 }
 
 .progress-text {
@@ -565,7 +560,7 @@ body {
     width: 100%;
     height: 1px;
     background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
-    animation: shimmer 4s ease-in-out infinite;
+    animation: shimmer 6s ease-in-out infinite;
 }
 
 .footer-content {
@@ -695,17 +690,15 @@ body {
     line-height: 1.6;
 }
 
-/* Animations */
+/* Optimized Animations - Reduced frequency and complexity */
 @keyframes titleReveal {
     0% {
         opacity: 0;
         transform: translateY(30px) scale(0.95);
-        filter: blur(5px);
     }
     100% {
         opacity: 1;
         transform: translateY(0) scale(1);
-        filter: blur(0);
     }
 }
 
@@ -725,14 +718,25 @@ body {
     to { opacity: 1; }
 }
 
-@keyframes pulse {
-    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
-    50% { transform: translate(-50%, -50%) scale(1.05); opacity: 0.5; }
+@keyframes textGlow {
+    0%, 100% { 
+        transform: translate(-50%, -50%) scale(1); 
+        opacity: 0.3; 
+    }
+    50% { 
+        transform: translate(-50%, -50%) scale(1.02); 
+        opacity: 0.5; 
+    }
 }
 
-@keyframes bounce {
+@keyframes gentleBounce {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
+    50% { transform: translateY(-5px); }
+}
+
+@keyframes gentlePulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
 }
 
 @keyframes lineExpand {
@@ -747,7 +751,7 @@ body {
 
 @keyframes scrollPulse {
     0%, 100% { opacity: 0.6; transform: scaleY(1); }
-    50% { opacity: 1; transform: scaleY(1.2); }
+    50% { opacity: 1; transform: scaleY(1.1); }
 }
 
 @keyframes shimmer {
@@ -757,7 +761,7 @@ body {
 
 @keyframes progressLoad {
     0% { width: 0%; }
-    50% { width: 60%; }
+    50% { width: 50%; }
     100% { width: 0%; }
 }
 
@@ -880,5 +884,14 @@ body {
     
     .arrow-transform {
         font-size: 1.2rem;
+    }
+}
+
+/* Performance optimizations */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
 }
