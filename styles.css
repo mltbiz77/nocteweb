@@ -16,29 +16,37 @@
     --glow-color: #3b82f6;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background: var(--primary-bg);
     color: var(--text-primary);
     line-height: 1.6;
     overflow-x: hidden;
-    cursor: none;
 }
 
-/* Custom Cursor */
-body::before {
-    content: '';
+/* Custom Cursor - Fixed to be always visible */
+.custom-cursor {
     position: fixed;
-    top: 0;
-    left: 0;
     width: 20px;
     height: 20px;
-    background: radial-gradient(circle, var(--accent-color) 0%, transparent 70%);
+    background: radial-gradient(circle, var(--accent-color) 0%, rgba(59, 130, 246, 0.3) 50%, transparent 70%);
+    border: 2px solid rgba(59, 130, 246, 0.5);
     border-radius: 50%;
     pointer-events: none;
     z-index: 9999;
-    mix-blend-mode: difference;
-    transition: transform 0.1s ease-out;
+    transition: all 0.1s ease-out;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+}
+
+.custom-cursor.hover {
+    transform: translate(-50%, -50%) scale(1.5);
+    background: radial-gradient(circle, var(--accent-secondary) 0%, rgba(139, 92, 246, 0.3) 50%, transparent 70%);
+    border-color: rgba(139, 92, 246, 0.7);
 }
 
 .container {
@@ -48,7 +56,7 @@ body::before {
 }
 
 .hero-section {
-    flex: 1;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -77,11 +85,11 @@ body::before {
 .company-name-container {
     position: relative;
     display: inline-block;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
 }
 
 .company-name {
-    font-size: clamp(2.5rem, 8vw, 7rem);
+    font-size: clamp(3rem, 10vw, 8rem);
     font-weight: 900;
     letter-spacing: -0.02em;
     background: linear-gradient(135deg, #ffffff 0%, #e4e4e7 50%, #a1a1aa 100%);
@@ -114,7 +122,7 @@ body::before {
 }
 
 .tagline {
-    font-size: clamp(1.1rem, 3vw, 1.6rem);
+    font-size: clamp(1.2rem, 4vw, 2rem);
     color: var(--text-secondary);
     margin-bottom: 3rem;
     font-weight: 400;
@@ -125,10 +133,10 @@ body::before {
 .tagline::after {
     content: '';
     position: absolute;
-    bottom: -10px;
+    bottom: -15px;
     left: 50%;
     transform: translateX(-50%);
-    width: 60px;
+    width: 80px;
     height: 2px;
     background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
     animation: lineExpand 1s ease-out 1s both;
@@ -233,7 +241,7 @@ body::before {
 
 .scroll-indicator {
     position: absolute;
-    bottom: 2rem;
+    bottom: 3rem;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -248,13 +256,254 @@ body::before {
     height: 40px;
     background: linear-gradient(to bottom, var(--accent-color), transparent);
     animation: scrollPulse 2s ease-in-out infinite;
+    margin-bottom: 0.5rem;
 }
 
+.scroll-text {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    animation: fadeInUp 0.5s ease-out 3s both;
+}
+
+/* Definition Section */
+.definition-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, var(--primary-bg) 0%, #0f0f0f 100%);
+    position: relative;
+}
+
+.definition-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 70%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.definition-content {
+    max-width: 800px;
+    text-align: center;
+    z-index: 2;
+    position: relative;
+}
+
+.definition-header {
+    margin-bottom: 3rem;
+}
+
+.definition-title {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 800;
+    margin-bottom: 1rem;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s ease-out forwards;
+}
+
+.nocte-highlight {
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+}
+
+.nocte-highlight::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-color), var(--accent-secondary));
+    border-radius: 2px;
+    animation: underlineExpand 1s ease-out 1.5s both;
+}
+
+.definition-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1s ease-out 0.3s forwards;
+}
+
+.definition-text {
+    margin-bottom: 3rem;
+    text-align: left;
+}
+
+.definition-main {
+    font-size: 1.3rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    color: var(--text-primary);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1s ease-out 0.6s forwards;
+}
+
+.definition-secondary {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1s ease-out 0.9s forwards;
+}
+
+.definition-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    font-size: 3rem;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1s ease-out 1.2s forwards;
+}
+
+.night-icon, .business-icon {
+    animation: bounce 2s ease-in-out infinite;
+}
+
+.business-icon {
+    animation-delay: 1s;
+}
+
+.arrow-transform {
+    color: var(--accent-color);
+    font-size: 2rem;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Portfolio Section */
+.portfolio-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    background: var(--primary-bg);
+    position: relative;
+}
+
+.portfolio-content {
+    max-width: 1200px;
+    width: 100%;
+    text-align: center;
+}
+
+.portfolio-title {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 800;
+    margin-bottom: 4rem;
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s ease-out forwards;
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.portfolio-item {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s ease-out forwards;
+}
+
+.portfolio-item:nth-child(1) { animation-delay: 0.2s; }
+.portfolio-item:nth-child(2) { animation-delay: 0.4s; }
+.portfolio-item:nth-child(3) { animation-delay: 0.6s; }
+
+.portfolio-card {
+    background: linear-gradient(135deg, var(--secondary-bg) 0%, #1f1f23 100%);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 2.5rem;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.portfolio-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+    transition: left 0.6s ease;
+}
+
+.portfolio-card:hover::before {
+    left: 100%;
+}
+
+.portfolio-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+    border-color: var(--accent-color);
+}
+
+.coming-soon-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+.portfolio-card h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.portfolio-card p {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 4px;
+    background: var(--border-color);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-color), var(--accent-secondary));
+    border-radius: 2px;
+    animation: progressLoad 3s ease-in-out infinite;
+}
+
+/* Footer */
 .footer {
-    background: var(--secondary-bg);
-    border-top: 1px solid var(--border-color);
+    background: var(--primary-bg);
     padding: 2rem;
-    margin-top: auto;
+    border-top: 1px solid var(--border-color);
     position: relative;
     overflow: hidden;
 }
@@ -273,26 +522,21 @@ body::before {
 .footer-content {
     max-width: 1200px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 2rem;
-    align-items: start;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
 .company-info {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: var(--text-secondary);
-    line-height: 1.6;
-    animation: fadeInUp 1s ease-out 1.5s both;
+    line-height: 1.5;
 }
 
 .company-info p {
     margin-bottom: 0.25rem;
-    transition: color 0.3s ease;
-}
-
-.company-info p:hover {
-    color: var(--text-primary);
 }
 
 .company-info strong {
@@ -301,17 +545,16 @@ body::before {
 
 .legal-links {
     display: flex;
-    gap: 2rem;
-    animation: fadeInUp 1s ease-out 1.7s both;
+    gap: 1.5rem;
 }
 
 .legal-link {
     color: var(--text-secondary);
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     transition: all 0.3s ease;
     position: relative;
-    padding: 0.5rem 0;
+    padding: 0.25rem 0;
 }
 
 .legal-link::after {
@@ -320,14 +563,13 @@ body::before {
     bottom: 0;
     left: 0;
     width: 0;
-    height: 2px;
+    height: 1px;
     background: var(--accent-color);
     transition: width 0.3s ease;
 }
 
 .legal-link:hover {
     color: var(--accent-color);
-    transform: translateY(-2px);
 }
 
 .legal-link:hover::after {
@@ -445,9 +687,19 @@ body::before {
     66% { transform: translateY(10px) rotate(240deg); }
 }
 
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
 @keyframes lineExpand {
     from { width: 0; }
-    to { width: 60px; }
+    to { width: 80px; }
+}
+
+@keyframes underlineExpand {
+    from { width: 0; }
+    to { width: 100%; }
 }
 
 @keyframes scrollPulse {
@@ -458,6 +710,12 @@ body::before {
 @keyframes shimmer {
     0% { left: -100%; }
     100% { left: 100%; }
+}
+
+@keyframes progressLoad {
+    0% { width: 0%; }
+    50% { width: 70%; }
+    100% { width: 0%; }
 }
 
 @keyframes modalFadeIn {
@@ -479,7 +737,7 @@ body::before {
 /* Responsive Design */
 @media (max-width: 768px) {
     .footer-content {
-        grid-template-columns: 1fr;
+        flex-direction: column;
         text-align: center;
     }
     
@@ -491,6 +749,11 @@ body::before {
         padding: 1rem;
     }
     
+    .definition-section,
+    .portfolio-section {
+        padding: 2rem 1rem;
+    }
+    
     .modal-content {
         margin: 10% auto;
         padding: 2rem;
@@ -499,15 +762,24 @@ body::before {
     .floating-elements {
         display: none;
     }
+    
+    .definition-visual {
+        gap: 1rem;
+        font-size: 2rem;
+    }
+    
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 480px) {
     .company-name {
-        font-size: 2.2rem;
+        font-size: 2.5rem;
     }
     
     .tagline {
-        font-size: 1rem;
+        font-size: 1.1rem;
     }
     
     .cta-button {
@@ -515,11 +787,15 @@ body::before {
         font-size: 1rem;
     }
     
-    body {
-        cursor: auto;
+    .definition-title {
+        font-size: 2rem;
     }
     
-    body::before {
+    .portfolio-title {
+        font-size: 2rem;
+    }
+    
+    .custom-cursor {
         display: none;
     }
 }
