@@ -1220,3 +1220,24 @@ body {
         justify-content: center;
     }
 }
+/* Portfolio card image styling */
+.portfolio-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
+    margin-bottom: 1.5rem;
+    object-fit: cover;
+}
+
+/* Make portfolio cards clickable */
+.portfolio-card {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+}
+
+.portfolio-card:hover {
+    text-decoration: none;
+    color: inherit;
+}
