@@ -4,170 +4,273 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nocte Ventures – Transforming Midnight Inspirations into Digital Realities</title>
+
+    <!-- fonts & css -->
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- meta -->
     <meta name="description" content="Nocte Ventures – Where innovation meets the night. Transforming midnight inspirations into digital realities through cutting-edge app development.">
-    <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://nocteventures.com">
 </head>
 <body>
-    <div class="container">
-        <!-- Hero Section -->
-        <section class="hero-section">
-            <canvas id="particleCanvas"></canvas>
-            <div class="hacker-overlay"></div>
+<div class="container">
 
-            <div class="hero-content">
-                <!-- Animated Name -->
-                <div class="company-name-container">
-                    <div class="text-glow"></div>
-                    <h1 class="company-name">
-                        <!-- animated letters (unchanged) -->
-                        <!-- N o c t e  V e n t u r e s -->
-                        <!-- … KEEP THE SAME LETTER HTML FROM YOUR EXISTING FILE … -->
-                    </h1>
-                </div>
+    <!-- ────────── HERO ────────── -->
+    <section class="hero-section">
+        <canvas id="particleCanvas"></canvas>
+        <div class="hacker-overlay"></div>
 
-                <!-- Tagline -->
-                <p class="tagline">Transforming midnight inspirations into digital realities</p>
+        <div class="hero-content">
 
-                <!-- Call-to-action Buttons -->
-                <div class="cta-section">
-                    <a href="#portfolio" class="cta-button">
-                        <span class="button-bg"></span>
-                        <span class="button-text">Explore our apps</span>
-                        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none">
-                            <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </a>
+            <!-- animated NOCTE VENTURES -->
+            <div class="company-name-container">
+                <div class="text-glow"></div>
+                <h1 class="company-name">
 
-                    <!-- NEW “Get in touch” button -->
-                    <a href="mailto:hello@nocteventures.com" class="cta-button contact-btn">
-                        <span class="button-bg"></span>
-                        <span class="button-text">Get in touch</span>
-                        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none">
-                            <path d="M4 4l16 8-16 8V4z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Scroll indicator -->
-            <div class="scroll-indicator">
-                <div class="scroll-line"></div>
-                <span class="scroll-text">Scroll</span>
-            </div>
-        </section>
-
-        <!-- Portfolio Section (immediately follows hero now) -->
-        <section id="portfolio" class="portfolio-section">
-            <div class="portfolio-content">
-                <h2 class="portfolio-title">Our Digital Creations</h2>
-                <p class="portfolio-description">Transforming midnight inspirations into digital realities</p>
-
-                <div class="portfolio-grid">
-                    <!-- Stickly card -->
-                    <div class="portfolio-item">
-                        <a href="/stickly" class="portfolio-card">
-                            <img src="assets/stickly-icon.png"
-                                 alt="Stickly app icon"
-                                 class="portfolio-img"
-                                 style="width:80px;height:80px;border-radius:16px;margin-bottom:1.5rem;">
-                            <div class="card-header">
-                                <span class="coming-soon-icon">🗒️</span>
-                                <span class="card-status">Available</span>
-                            </div>
-                            <h3>Stickly</h3>
-                            <p>A simple and convenient todo app inspired by traditional sticky notes. Write down your tasks and keep them visible until you complete them.</p>
-                            <div class="progress-container">
-                                <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
-                                <span class="progress-text">v1.0</span>
-                            </div>
-                        </a>
+                    <!-- N -->
+                    <div class="letter-container">
+                        <div class="letter">
+                            <span class="letter-main">N</span>
+                            <div class="letter-fragment"></div><div class="letter-fragment"></div>
+                            <div class="letter-fragment"></div><div class="letter-fragment"></div>
+                        </div>
+                    </div>
+                    <!-- O -->
+                    <div class="letter-container">
+                        <div class="letter">
+                            <span class="letter-main">o</span>
+                            <div class="letter-fragment"></div><div class="letter-fragment"></div>
+                            <div class="letter-fragment"></div><div class="letter-fragment"></div>
+                        </div>
+                    </div>
+                    <!-- C -->
+                    <div class="letter-container">
+                        <div class="letter">
+                            <span class="letter-main">c</span>
+                            <div class="letter-fragment"></div><div class="letter-fragment"></div>
+                            <div class="letter-fragment"></div><div class="letter-fragment"></div>
+                        </div>
+                    </div>
+                    <!-- T -->
+                    <div class="letter-container">
+                        <div class="letter">
+                            <span class="letter-main">t</span>
+                            <div class="letter-fragment"></div><div class="letter-fragment"></div>
+                            <div class="letter-fragment"></div><div class="letter-fragment"></div>
+                        </div>
+                    </div>
+                    <!-- E -->
+                    <div class="letter-container">
+                        <div class="letter">
+                            <span class="letter-main">e</span>
+                            <div class="letter-fragment"></div><div class="letter-fragment"></div>
+                            <div class="letter-fragment"></div><div class="letter-fragment"></div>
+                        </div>
                     </div>
 
-                    <!-- Subtracker card -->
-                    <div class="portfolio-item">
-                        <a href="/subtracker" class="portfolio-card">
-                            <img src="assets/subtracker-icon.png"
-                                 alt="Subtracker app icon"
-                                 class="portfolio-img"
-                                 style="width:80px;height:80px;border-radius:16px;margin-bottom:1.5rem;">
-                            <div class="card-header">
-                                <span class="coming-soon-icon">📊</span>
-                                <span class="card-status">Available</span>
-                            </div>
-                            <h3>Subtracker</h3>
-                            <p>Monitor all your subscriptions in one place and avoid surprise renewals. Keep track of your recurring payments effortlessly.</p>
-                            <div class="progress-container">
-                                <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
-                                <span class="progress-text">v1.0</span>
-                            </div>
-                        </a>
+                    <div class="word-space"></div>
+
+                    <!-- V -->
+                    <div class="letter-container">
+                        <div class="letter">
+                            <span class="letter-main">V</span>
+                            <div class="letter-fragment"></div><div class="letter-fragment"></div>
+                            <div class="letter-fragment"></div><div class="letter-fragment"></div>
+                        </div>
+                    </div>
+                    <!-- E -->
+                    <div class="letter-container">
+                        <div class="letter">
+                            <span class="letter-main">e</span>
+                            <div class="letter-fragment"></div><div class="letter-fragment"></div>
+                            <div class="letter-fragment"></div><div class="letter-fragment"></div>
+                        </div>
+                    </div>
+                    <!-- N -->
+                    <div class="letter-container">
+                        <div class="letter">
+                            <span class="letter-main">n</span>
+                            <div class="letter-fragment"></div><div class="letter-fragment"></div>
+                            <div class="letter-fragment"></div><div class="letter-fragment"></div>
+                        </div>
+                    </div>
+                    <!-- T -->
+                    <div class="letter-container">
+                        <div class="letter">
+                            <span class="letter-main">t</span>
+                            <div class="letter-fragment"></div><div class="letter-fragment"></div>
+                            <div class="letter-fragment"></div><div class="letter-fragment"></div>
+                        </div>
+                    </div>
+                    <!-- U -->
+                    <div class="letter-container">
+                        <div class="letter">
+                            <span class="letter-main">u</span>
+                            <div class="letter-fragment"></div><div class="letter-fragment"></div>
+                            <div class="letter-fragment"></div><div class="letter-fragment"></div>
+                        </div>
+                    </div>
+                    <!-- R -->
+                    <div class="letter-container">
+                        <div class="letter">
+                            <span class="letter-main">r</span>
+                            <div class="letter-fragment"></div><div class="letter-fragment"></div>
+                            <div class="letter-fragment"></div><div class="letter-fragment"></div>
+                        </div>
+                    </div>
+                    <!-- E -->
+                    <div class="letter-container">
+                        <div class="letter">
+                            <span class="letter-main">e</span>
+                            <div class="letter-fragment"></div><div class="letter-fragment"></div>
+                            <div class="letter-fragment"></div><div class="letter-fragment"></div>
+                        </div>
+                    </div>
+                    <!-- S -->
+                    <div class="letter-container">
+                        <div class="letter">
+                            <span class="letter-main">s</span>
+                            <div class="letter-fragment"></div><div class="letter-fragment"></div>
+                            <div class="letter-fragment"></div><div class="letter-fragment"></div>
+                        </div>
                     </div>
 
-                    <!-- Placeholder card -->
-                    <div class="portfolio-item">
-                        <div class="portfolio-card">
-                            <div class="card-header">
-                                <span class="coming-soon-icon">🚀</span>
-                                <span class="card-status">Coming soon</span>
-                            </div>
-                            <h3>Next-generation mobile experiences</h3>
-                            <p>Crafted in the quiet hours when innovation comes alive.</p>
-                            <div class="progress-container">
-                                <div class="progress-bar"><div class="progress-fill"></div></div>
-                                <span class="progress-text">In development</span>
-                            </div>
+                </h1>
+            </div>
+
+            <p class="tagline">Transforming midnight inspirations into digital realities</p>
+
+            <div class="cta-section">
+                <a href="#portfolio" class="cta-button">
+                    <span class="button-bg"></span>
+                    <span class="button-text">Explore our apps</span>
+                    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none">
+                        <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2"
+                              stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+
+                <!-- Get in touch -->
+                <a href="mailto:hello@nocteventures.com" class="cta-button contact-btn">
+                    <span class="button-bg"></span>
+                    <span class="button-text">Get in touch</span>
+                    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none">
+                        <path d="M4 4l16 8-16 8V4z" stroke="currentColor" stroke-width="2"
+                              stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <div class="scroll-line"></div>
+            <span class="scroll-text">Scroll</span>
+        </div>
+    </section>
+
+    <!-- ────────── PORTFOLIO ────────── -->
+    <section id="portfolio" class="portfolio-section">
+        <div class="portfolio-content">
+            <h2 class="portfolio-title">Our Digital Creations</h2>
+            <p class="portfolio-description">Transforming midnight inspirations into digital realities</p>
+
+            <div class="portfolio-grid">
+                <!-- Stickly -->
+                <div class="portfolio-item">
+                    <a href="/stickly" class="portfolio-card">
+                        <img src="assets/stickly-icon.png" alt="Stickly icon" class="portfolio-img"
+                             style="width:80px;height:80px;border-radius:16px;margin-bottom:1.5rem;">
+                        <div class="card-header">
+                            <span class="coming-soon-icon">🗒️</span><span class="card-status">Available</span>
+                        </div>
+                        <h3>Stickly</h3>
+                        <p>A simple todo app inspired by classic sticky notes.</p>
+                        <div class="progress-container">
+                            <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+                            <span class="progress-text">v1.0</span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Subtracker -->
+                <div class="portfolio-item">
+                    <a href="/subtracker" class="portfolio-card">
+                        <img src="assets/subtracker-icon.png" alt="Subtracker icon" class="portfolio-img"
+                             style="width:80px;height:80px;border-radius:16px;margin-bottom:1.5rem;">
+                        <div class="card-header">
+                            <span class="coming-soon-icon">📊</span><span class="card-status">Available</span>
+                        </div>
+                        <h3>Subtracker</h3>
+                        <p>Track all your subscriptions in one place and avoid surprise renewals.</p>
+                        <div class="progress-container">
+                            <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+                            <span class="progress-text">v1.0</span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Placeholder -->
+                <div class="portfolio-item">
+                    <div class="portfolio-card">
+                        <div class="card-header">
+                            <span class="coming-soon-icon">🚀</span><span class="card-status">Coming soon</span>
+                        </div>
+                        <h3>Next-generation mobile experiences</h3>
+                        <p>Crafted in the quiet hours when innovation comes alive.</p>
+                        <div class="progress-container">
+                            <div class="progress-bar"><div class="progress-fill"></div></div>
+                            <span class="progress-text">In development</span>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="footer-content">
-                <div class="company-info">
-                    <p><strong>Nocte Ventures Ltd</strong></p>
-                    <p>128 City Road, London, United Kingdom, EC1V 2NX</p>
-                    <p>Company No: 16579177</p>
-                </div>
-
-                <div class="footer-links">
-                    <div class="legal-links">
-                        <a href="#privacy" class="legal-link">Privacy Policy</a>
-                        <a href="#terms" class="legal-link">Terms of Service</a>
-                    </div>
-                </div>
+    <!-- ────────── FOOTER ────────── -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="company-info">
+                <p><strong>Nocte Ventures Ltd</strong></p>
+                <p>128 City Road, London, United Kingdom, EC1V 2NX</p>
+                <p>Company No: 16579177</p>
             </div>
-        </footer>
 
-        <!-- Privacy Policy Modal -->
-        <div id="privacy" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <div class="legal-text">
-                    <h2>Privacy Policy</h2>
-                    <!-- … your existing privacy text … -->
+            <div class="footer-links">
+                <div class="legal-links">
+                    <a href="#privacy" class="legal-link">Privacy Policy</a>
+                    <a href="#terms"   class="legal-link">Terms of Service</a>
                 </div>
             </div>
         </div>
+    </footer>
 
-        <!-- Terms of Service Modal -->
-        <div id="terms" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <div class="legal-text">
-                    <h2>Terms of Service</h2>
-                    <!-- … your existing terms text … -->
-                </div>
+    <!-- ────────── MODALS ────────── -->
+    <div id="privacy" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="legal-text">
+                <h2>Privacy Policy</h2>
+                <!-- your privacy text -->
             </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <div id="terms" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="legal-text">
+                <h2>Terms of Service</h2>
+                <!-- your terms text -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- scripts -->
+<script src="script.js"></script>
 </body>
 </html>
