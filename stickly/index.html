@@ -1,86 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stickly – Your Digital Sticky Notes</title>
-    <link rel="stylesheet" href="/styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Stickly – Digital Sticky Notes</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="container">
 
-    <!-- App hero -->
-    <section class="hero-section">
-        <canvas id="particleCanvas"></canvas>
-        <div class="hacker-overlay"></div>
+  <section class="hero-section" style="min-height:90vh">
+    <canvas id="particleCanvas"></canvas>
+    <div class="hacker-overlay"></div>
 
-        <div class="hero-content" style="max-width:700px">
-            <img src="/assets/stickly-icon.png" alt="Stickly icon"
-                 style="width:96px;height:96px;border-radius:24px;margin-bottom:1.5rem;">
-            <h1 style="font-size:clamp(2rem,6vw,4rem);font-weight:800;margin-bottom:1rem;">Stickly</h1>
-            <p class="tagline" style="margin-bottom:2.5rem;">
-                The simplest way to keep your tasks visible – just like real sticky notes.
-            </p>
-            <a href="https://apps.apple.com" class="cta-button">
-                <span class="button-bg"></span>
-                <span class="button-text">Download on the App Store</span>
-                <svg class="arrow-icon" viewBox="0 0 24 24" fill="none">
-                    <path d="M5 12h14M13 6l6 6-6 6"
-                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </a>
+    <div class="hero-content" style="max-width:640px">
+      <img src="/assets/stickly-icon.png" alt="Stickly icon" style="width:96px;height:96px;border-radius:24px;margin-bottom:1.5rem;">
+      <h1 style="font-size:clamp(2.2rem,6vw,3.5rem);font-weight:800;margin-bottom:1rem;">Stickly</h1>
+      <p class="tagline" style="margin-bottom:2.5rem;">Digital sticky notes that keep your tasks visible until they’re done.</p>
+
+      <div class="definition-text" style="gap:1.5rem">
+        <div class="text-card highlight-card"><div class="card-glow"></div>
+          <h3>🗒️ Instant Notes</h3>
+          <p>Tap, type, stick. Nothing gets in the way.</p>
         </div>
-    </section>
 
-    <!-- Features -->
-    <section class="definition-section" style="padding-top:4rem;">
-        <div class="definition-content">
-
-            <div class="definition-text">
-                <div class="text-card highlight-card">
-                    <div class="card-glow"></div>
-                    <h3>🗒️ Instant Sticky Notes</h3>
-                    <p>Tap, type, done. Your note appears instantly on a colourful board that mirrors real life.</p>
-                </div>
-
-                <div class="text-card">
-                    <div class="card-glow"></div>
-                    <h3>🎨 Colour-coded Boards</h3>
-                    <p>Assign colours for quick visual grouping and prioritisation.</p>
-                </div>
-
-                <div class="text-card">
-                    <div class="card-glow"></div>
-                    <h3>⏰ Optional Reminders</h3>
-                    <p>Need a nudge? Add a reminder that pings you and highlights the note.</p>
-                </div>
-
-                <div class="text-card">
-                    <div class="card-glow"></div>
-                    <h3>🔄 iCloud Sync</h3>
-                    <p>Your notes follow you across iPhone, iPad, and Mac without lifting a finger.</p>
-                </div>
-
-                <div class="text-card">
-                    <div class="card-glow"></div>
-                    <h3>🌙 Perfect Dark Mode</h3>
-                    <p>OLED-friendly dark theme that looks gorgeous day and night.</p>
-                </div>
-            </div>
+        <div class="text-card"><div class="card-glow"></div>
+          <h3>🎨 Colour-coded</h3>
+          <p>Use colours to group and prioritise tasks at a glance.</p>
         </div>
-    </section>
 
-    <!-- footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <a href="/" class="legal-link">← Back to Nocte Ventures</a>
+        <div class="text-card"><div class="card-glow"></div>
+          <h3>⏰ Optional Reminders</h3>
+          <p>Add a nudge for notes that can’t be missed.</p>
         </div>
-    </footer>
+      </div>
+
+      <a href="https://apps.apple.com" class="cta-button" style="margin-top:2.5rem">
+        <span class="button-bg"></span><span class="button-text">Download on the App Store</span>
+        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="/" class="legal-link" style="margin-top:2rem;display:inline-block;">← Back to Nocte Ventures</a>
+    </div>
+  </section>
+
 </div>
-
 <script src="/script.js"></script>
 </body>
 </html>
