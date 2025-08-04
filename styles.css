@@ -1241,3 +1241,14 @@ body {
     text-decoration: none;
     color: inherit;
 }
+/* contact button inherits the primary style but shifts colour */
+.contact-btn .button-bg {
+    background: linear-gradient(90deg, var(--hacker-blue), var(--hacker-green));
+}
+@media (min-width:600px){
+    .cta-section{
+        display:flex;
+        gap:1rem;
+        justify-content:center;
+    }
+}
