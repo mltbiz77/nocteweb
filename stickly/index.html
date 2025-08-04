@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Stickly – Digital Sticky Notes</title>
+
   <link rel="stylesheet" href="/styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,37 +13,62 @@
 <body>
 <div class="container">
 
-  <section class="hero-section" style="min-height:90vh">
+  <!-- HERO -->
+  <section class="hero-section" style="min-height:70vh;padding-top:6rem;padding-bottom:4rem;">
     <canvas id="particleCanvas"></canvas>
     <div class="hacker-overlay"></div>
 
-    <div class="hero-content" style="max-width:640px">
-      <img src="/assets/stickly-icon.png" alt="Stickly icon" style="width:96px;height:96px;border-radius:24px;margin-bottom:1.5rem;">
-      <h1 style="font-size:clamp(2.2rem,6vw,3.5rem);font-weight:800;margin-bottom:1rem;">Stickly</h1>
-      <p class="tagline" style="margin-bottom:2.5rem;">Digital sticky notes that keep your tasks visible until they’re done.</p>
+    <div class="hero-content" style="max-width:680px">
+      <img src="/assets/stickly-icon.png" alt="Stickly icon"
+           style="width:96px;height:96px;border-radius:24px;margin-bottom:1.5rem;">
+      <h1 style="font-size:clamp(2.2rem,6vw,3.8rem);font-weight:800;margin-bottom:1rem;">Stickly</h1>
+      <p class="tagline" style="margin-bottom:2rem;">
+        Simple todo lists inspired by classic sticky notes.
+      </p>
 
-      <div class="definition-text" style="gap:1.5rem">
+      <a href="https://apps.apple.com" class="cta-button">
+        <span class="button-bg"></span><span class="button-text">Download on the&nbsp;App&nbsp;Store</span>
+        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none">
+          <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="definition-section" style="padding:4rem 2rem;">
+    <div class="definition-content" style="max-width:800px">
+      <div class="definition-text">
+
         <div class="text-card highlight-card"><div class="card-glow"></div>
-          <h3>🗒️ Instant Notes</h3>
-          <p>Tap, type, stick. Nothing gets in the way.</p>
+          <h3>✍️ Quick Task Entry</h3>
+          <p>Write a note, hit save—done.</p>
         </div>
 
         <div class="text-card"><div class="card-glow"></div>
-          <h3>🎨 Colour-coded</h3>
-          <p>Use colours to group and prioritise tasks at a glance.</p>
+          <h3>🧘 No Deadlines or Reminders</h3>
+          <p>Keep tasks visible without the pressure of due dates.</p>
         </div>
 
         <div class="text-card"><div class="card-glow"></div>
-          <h3>⏰ Optional Reminders</h3>
-          <p>Add a nudge for notes that can’t be missed.</p>
+          <h3>🎨 Minimal Interface & Themes</h3>
+          <p>Pick a theme that suits your style.</p>
         </div>
+
+        <div class="text-card"><div class="card-glow"></div>
+          <h3>📱 Home & Lock-screen Widgets</h3>
+          <p>See your notes at a glance and add new ones instantly.</p>
+        </div>
+
+        <div class="text-card"><div class="card-glow"></div>
+          <h3>💎 Stickly Pro</h3>
+          <p>Unlock unlimited notes, extra themes, and full widget power.</p>
+        </div>
+
       </div>
 
-      <a href="https://apps.apple.com" class="cta-button" style="margin-top:2.5rem">
-        <span class="button-bg"></span><span class="button-text">Download on the App Store</span>
-        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-      <a href="/" class="legal-link" style="margin-top:2rem;display:inline-block;">← Back to Nocte Ventures</a>
+      <a href="/" class="legal-link" style="display:inline-block;margin-top:3rem;">← Back to Nocte Ventures</a>
     </div>
   </section>
 
