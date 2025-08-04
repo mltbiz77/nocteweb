@@ -1252,3 +1252,16 @@ body {
         justify-content:center;
     }
 }
+/* Contact button styling */
+.contact-btn .button-bg {
+    background: linear-gradient(90deg, var(--hacker-blue), var(--hacker-green));
+}
+
+/* Side-by-side buttons on wider screens */
+@media (min-width: 600px) {
+    .cta-section {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+    }
+}
