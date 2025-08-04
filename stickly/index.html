@@ -1,1 +1,83 @@
-x
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stickly - Simple Todo App | Nocte Ventures</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="icon" href="assets/stickly-icon.png" type="image/png">
+    <meta name="description" content="Stickly - A simple and convenient todo app inspired by traditional sticky notes. Write down your tasks and keep them visible until you complete them.">
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero-section" style="height: auto; padding: 4rem 2rem;">
+            <div class="hero-content">
+                <img src="assets/stickly-icon.png" alt="Stickly app icon" style="width: 120px; height: 120px; border-radius: 24px; margin-bottom: 2rem;">
+                <h1 class="company-name" style="font-size: clamp(2rem, 5vw, 4rem);">Stickly</h1>
+                <p class="tagline">A simple, beautiful todo app inspired by sticky notes</p>
+            </div>
+        </section>
+
+        <!-- Content Section -->
+        <section class="definition-section" style="padding-top: 0;">
+            <div class="definition-content">
+                <h2 class="definition-title">Stay Organized Without Pressure</h2>
+                <div class="definition-text">
+                    <div class="text-card">
+                        <p class="definition-main">
+                            Stickly is a simple and convenient todo app inspired by traditional sticky notes. 
+                            Write down your tasks and keep them visible until you complete them, no deadlines or complicated features involved.
+                        </p>
+                    </div>
+                    
+                    <div class="text-card highlight-card">
+                        <h3 style="color: var(--hacker-green); margin-bottom: 1rem;">Features</h3>
+                        <ul style="text-align: left; color: var(--text-secondary); line-height: 1.8;">
+                            <li>Quick and easy task entry</li>
+                            <li>No deadlines or reminders</li>
+                            <li>Beautiful, minimal interface and a selection of themes</li>
+                            <li>Home screen and lock screen widgets for quick access</li>
+                            <li>Seamless syncing within your device</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="text-card">
+                        <p class="definition-secondary">
+                            Stickly helps you stay organized without overwhelming you with unnecessary options or pressure. 
+                            Just write your todos and check them off when done.
+                        </p>
+                        <p class="definition-tertiary" style="margin-top: 1rem;">
+                            <strong>Upgrade to Stickly Pro</strong> for unlimited todos, extra themes, and full widget functionality.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="cta-section" style="margin-top: 3rem;">
+                    <a href="#" class="cta-button">
+                        <span class="button-bg"></span>
+                        <span class="button-text">Download on the App Store</span>
+                        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none">
+                            <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="company-info">
+                    <p><a href="/" class="legal-link" style="color: var(--hacker-green);">← Back to Nocte Ventures</a></p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
