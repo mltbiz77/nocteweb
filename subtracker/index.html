@@ -1,91 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SubTracker – Take Control of Your Subscriptions</title>
-    <link rel="stylesheet" href="/styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>SubTracker – Subscription Control</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="container">
 
-    <!-- App hero -->
-    <section class="hero-section">
-        <canvas id="particleCanvas"></canvas>
-        <div class="hacker-overlay"></div>
+  <section class="hero-section" style="min-height:90vh">
+    <canvas id="particleCanvas"></canvas>
+    <div class="hacker-overlay"></div>
 
-        <div class="hero-content" style="max-width:700px">
-            <img src="/assets/subtracker-icon.png" alt="SubTracker icon"
-                 style="width:96px;height:96px;border-radius:24px;margin-bottom:1.5rem;">
-            <h1 style="font-size:clamp(2rem,6vw,4rem);font-weight:800;margin-bottom:1rem;">SubTracker</h1>
-            <p class="tagline" style="margin-bottom:2.5rem;">
-                The ultimate subscription manager that keeps you informed and in control.
-            </p>
-            <a href="https://apps.apple.com" class="cta-button">
-                <span class="button-bg"></span>
-                <span class="button-text">Download on the App Store</span>
-                <svg class="arrow-icon" viewBox="0 0 24 24" fill="none">
-                    <path d="M5 12h14M13 6l6 6-6 6"
-                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </a>
+    <div class="hero-content" style="max-width:640px">
+      <img src="/assets/subtracker-icon.png" alt="SubTracker icon" style="width:96px;height:96px;border-radius:24px;margin-bottom:1.5rem;">
+      <h1 style="font-size:clamp(2.2rem,6vw,3.5rem);font-weight:800;margin-bottom:1rem;">SubTracker</h1>
+      <p class="tagline" style="margin-bottom:2.5rem;">Take control of your subscription spending.</p>
+
+      <div class="definition-text" style="gap:1.5rem">
+        <div class="text-card highlight-card"><div class="card-glow"></div>
+          <h3>📊 Real-time Spending Insights</h3>
+          <p>Live counter plus views by day, week, month or year — with 30+ currency symbols.</p>
         </div>
-    </section>
 
-    <!-- Features -->
-    <section class="definition-section" style="padding-top:4rem;">
-        <div class="definition-content">
-
-            <div class="definition-text">
-                <div class="text-card highlight-card">
-                    <div class="card-glow"></div>
-                    <h3>📊 Real-time Spending Insights</h3>
-                    <p>Live counter shows money flowing out; view by day, week, month, or year – with support for 30+ global currencies.</p>
-                </div>
-
-                <div class="text-card">
-                    <div class="card-glow"></div>
-                    <h3>⚡ Smart Renewal Reminders</h3>
-                    <p>Colour-coded alerts and push notifications ensure you’re never surprised by upcoming charges.</p>
-                </div>
-
-                <div class="text-card">
-                    <div class="card-glow"></div>
-                    <h3>🎯 Comprehensive Tracking</h3>
-                    <p>Unlimited subscriptions with SubTracker Pro. Organise by 12 categories and handle monthly or annual cycles effortlessly.</p>
-                </div>
-
-                <div class="text-card">
-                    <div class="card-glow"></div>
-                    <h3>💎 Pro-Only Extras</h3>
-                    <p>Unlimited entries, live counter, advanced analytics, extended currency options – everything power users need.</p>
-                </div>
-
-                <div class="text-card">
-                    <div class="card-glow"></div>
-                    <h3>🔒 Privacy First</h3>
-                    <p>All data stays on your device. No account needed; your financial info never leaves your phone.</p>
-                </div>
-
-                <div class="text-card">
-                    <div class="card-glow"></div>
-                    <h3>✨ Beautiful Design</h3>
-                    <p>Glassmorphism interface, OLED-optimised dark mode, and silky-smooth animations crafted for iOS.</p>
-                </div>
-            </div>
+        <div class="text-card"><div class="card-glow"></div>
+          <h3>⚡ Smart Renewal Reminders</h3>
+          <p>Custom dates and colour-coded alerts so you’re never surprised.</p>
         </div>
-    </section>
 
-    <!-- footer (reuse main footer) -->
-    <footer class="footer">
-        <div class="footer-content">
-            <a href="/" class="legal-link">← Back to Nocte Ventures</a>
+        <div class="text-card"><div class="card-glow"></div>
+          <h3>🔒 Privacy First</h3>
+          <p>All data stored locally on your device. No account required.</p>
         </div>
-    </footer>
+      </div>
+
+      <a href="https://apps.apple.com" class="cta-button" style="margin-top:2.5rem">
+        <span class="button-bg"></span><span class="button-text">Download on the App Store</span>
+        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="/" class="legal-link" style="margin-top:2rem;display:inline-block;">← Back to Nocte Ventures</a>
+    </div>
+  </section>
+
 </div>
+<script src="/script.js"></script>
+</body>
+</html>
+
 
 <script src="/script.js"></script>
 </body>
