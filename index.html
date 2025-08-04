@@ -1,142 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nocte Ventures – Digital Craftsmanship After Dark</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Nocte Ventures – Digital Craftsmanship After Dark</title>
 
-    <!-- fonts & css -->
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="container">
 
-    <!-- ────────── HERO ────────── -->
-    <section class="hero-section">
-        <canvas id="particleCanvas"></canvas>
-        <div class="hacker-overlay"></div>
+  <!-- ── HERO ── -->
+  <section class="hero-section">
+    <canvas id="particleCanvas"></canvas>
+    <div class="hacker-overlay"></div>
 
-        <div class="hero-content">
+    <div class="hero-content">
 
-            <!-- animated NOCTE VENTURES  (unchanged) -->
-            <div class="company-name-container">
-                <div class="text-glow"></div>
-                <h1 class="company-name">
-                    <!-- N O C T E / V E N T U R E S  -->
-                    <!-- … same letter-container markup you already have … -->
-                </h1>
-            </div>
+      <!-- animated NOCTE VENTURES -->
+      <div class="company-name-container">
+        <div class="text-glow"></div>
+        <h1 class="company-name">
 
-            <div class="cta-section">
-                <a href="#portfolio" class="cta-button">
-                    <span class="button-bg"></span>
-                    <span class="button-text">Explore our apps</span>
-                    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none">
-                        <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2"
-                              stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </a>
+          <!-- N O C T E -->
+          <div class="letter-container"><div class="letter"><span class="letter-main">N</span><div class="letter-fragment"></div><div class="letter-fragment"></div><div class="letter-fragment"></div><div class="letter-fragment"></div></div></div>
+          <div class="letter-container"><div class="letter"><span class="letter-main">o</span><div class="letter-fragment"></div><div class="letter-fragment"></div><div class="letter-fragment"></div><div class="letter-fragment"></div></div></div>
+          <div class="letter-container"><div class="letter"><span class="letter-main">c</span><div class="letter-fragment"></div><div class="letter-fragment"></div><div class="letter-fragment"></div><div class="letter-fragment"></div></div></div>
+          <div class="letter-container"><div class="letter"><span class="letter-main">t</span><div class="letter-fragment"></div><div class="letter-fragment"></div><div class="letter-fragment"></div><div class="letter-fragment"></div></div></div>
+          <div class="letter-container"><div class="letter"><span class="letter-main">e</span><div class="letter-fragment"></div><div class="letter-fragment"></div><div class="letter-fragment"></div><div class="letter-fragment"></div></div></div>
 
-                <!-- Get in touch -->
-                <a href="mailto:hello@nocteventures.com" class="cta-button contact-btn">
-                    <span class="button-bg"></span>
-                    <span class="button-text">Get in touch</span>
-                    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none">
-                        <path d="M4 4l16 8-16 8V4z" stroke="currentColor" stroke-width="2"
-                              stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </a>
-            </div>
+          <div class="word-space"></div>
+
+          <!-- V E N T U R E S -->
+          <div class="letter-container"><div class="letter"><span class="letter-main">V</span><div class="letter-fragment"></div><div class="letter-fragment"></div><div class="letter-fragment"></div><div class="letter-fragment"></div></div></div>
+          <div class="letter-container"><div class="letter"><span class="letter-main">e</span><div class="letter-fragment"></div><div class="letter-fragment"></div><div class="letter-fragment"></div><div class="letter-fragment"></div></div></div>
+          <div class="letter-container"><div class="letter"><span class="letter-main">n</span><div class="letter-fragment"></div><div class="letter-fragment"></div><div class="letter-fragment"></div><div class="letter-fragment"></div></div></div>
+          <div class="letter-container"><div class="letter"><span class="letter-main">t</span><div class="letter-fragment"></div><div class="letter-fragment"></div><div class="letter-fragment"></div><div class="letter-fragment"></div></div></div>
+          <div class="letter-container"><div class="letter"><span class="letter-main">u</span><div class="letter-fragment"></div><div class="letter-fragment"></div><div class="letter-fragment"></div><div class="letter-fragment"></div></div></div>
+          <div class="letter-container"><div class="letter"><span class="letter-main">r</span><div class="letter-fragment"></div><div class="letter-fragment"></div><div class="letter-fragment"></div><div class="letter-fragment"></div></div></div>
+          <div class="letter-container"><div class="letter"><span class="letter-main">e</span><div class="letter-fragment"></div><div class="letter-fragment"></div><div class="letter-fragment"></div><div class="letter-fragment"></div></div></div>
+          <div class="letter-container"><div class="letter"><span class="letter-main">s</span><div class="letter-fragment"></div><div class="letter-fragment"></div><div class="letter-fragment"></div><div class="letter-fragment"></div></div></div>
+
+        </h1>
+      </div>
+
+      <div class="cta-section">
+        <a href="#portfolio" class="cta-button">
+          <span class="button-bg"></span><span class="button-text">Explore our apps</span>
+          <svg class="arrow-icon" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+
+        <a href="mailto:hello@nocteventures.com" class="cta-button contact-btn">
+          <span class="button-bg"></span><span class="button-text">Get in touch</span>
+          <svg class="arrow-icon" viewBox="0 0 24 24" fill="none"><path d="M4 4l16 8-16 8V4z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="scroll-indicator"><div class="scroll-line"></div><span class="scroll-text">Scroll</span></div>
+  </section>
+
+  <!-- ── PORTFOLIO ── -->
+  <section id="portfolio" class="portfolio-section">
+    <div class="portfolio-content">
+      <h2 class="portfolio-title">Portfolio</h2>
+
+      <div class="portfolio-grid">
+        <!-- Stickly -->
+        <div class="portfolio-item">
+          <a href="/stickly" class="portfolio-card">
+            <img src="assets/stickly-icon.png" alt="Stickly icon" class="portfolio-img" style="width:80px;height:80px;border-radius:16px;margin-bottom:1.5rem;">
+            <div class="card-header"><span class="coming-soon-icon">🗒️</span><span class="card-status">Available</span></div>
+            <h3>Stickly</h3>
+            <p>Sticky-note-style todo app that keeps tasks front-and-centre.</p>
+            <div class="progress-container"><div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div><span class="progress-text">v1.0</span></div>
+          </a>
         </div>
 
-        <div class="scroll-indicator">
-            <div class="scroll-line"></div>
-            <span class="scroll-text">Scroll</span>
+        <!-- SubTracker -->
+        <div class="portfolio-item">
+          <a href="/subtracker" class="portfolio-card">
+            <img src="assets/subtracker-icon.png" alt="SubTracker icon" class="portfolio-img" style="width:80px;height:80px;border-radius:16px;margin-bottom:1.5rem;">
+            <div class="card-header"><span class="coming-soon-icon">📊</span><span class="card-status">Available</span></div>
+            <h3>SubTracker</h3>
+            <p>Real-time spend insights and smart renewal reminders.</p>
+            <div class="progress-container"><div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div><span class="progress-text">v1.0</span></div>
+          </a>
         </div>
-    </section>
 
-    <!-- ────────── PORTFOLIO ────────── -->
-    <section id="portfolio" class="portfolio-section">
-        <div class="portfolio-content">
-            <h2 class="portfolio-title">Portfolio</h2>
-
-            <div class="portfolio-grid">
-                <!-- Stickly -->
-                <div class="portfolio-item">
-                    <a href="/stickly" class="portfolio-card">
-                        <img src="assets/stickly-icon.png" alt="Stickly icon" class="portfolio-img"
-                             style="width:80px;height:80px;border-radius:16px;margin-bottom:1.5rem;">
-                        <div class="card-header">
-                            <span class="coming-soon-icon">🗒️</span><span class="card-status">Available</span>
-                        </div>
-                        <h3>Stickly</h3>
-                        <p>Sticky-note-inspired todo app that keeps tasks front & centre.</p>
-                        <div class="progress-container">
-                            <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
-                            <span class="progress-text">v1.0</span>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- SubTracker -->
-                <div class="portfolio-item">
-                    <a href="/subtracker" class="portfolio-card">
-                        <img src="assets/subtracker-icon.png" alt="SubTracker icon" class="portfolio-img"
-                             style="width:80px;height:80px;border-radius:16px;margin-bottom:1.5rem;">
-                        <div class="card-header">
-                            <span class="coming-soon-icon">📊</span><span class="card-status">Available</span>
-                        </div>
-                        <h3>SubTracker</h3>
-                        <p>Ultimate subscription manager with real-time spend & smart renewal alerts.</p>
-                        <div class="progress-container">
-                            <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
-                            <span class="progress-text">v1.0</span>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Placeholder -->
-                <div class="portfolio-item">
-                    <div class="portfolio-card">
-                        <div class="card-header">
-                            <span class="coming-soon-icon">🚀</span><span class="card-status">Coming soon</span>
-                        </div>
-                        <h3>Next-generation mobile experiences</h3>
-                        <p>Crafted in the quiet hours when innovation comes alive.</p>
-                        <div class="progress-container">
-                            <div class="progress-bar"><div class="progress-fill"></div></div>
-                            <span class="progress-text">In development</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- Placeholder -->
+        <div class="portfolio-item">
+          <div class="portfolio-card">
+            <div class="card-header"><span class="coming-soon-icon">🚀</span><span class="card-status">Coming soon</span></div>
+            <h3>Next-generation mobile experiences</h3>
+            <p>Crafted in the quiet hours when innovation comes alive.</p>
+            <div class="progress-container"><div class="progress-bar"><div class="progress-fill"></div></div><span class="progress-text">In development</span></div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- ────────── FOOTER ────────── -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="company-info">
-                <p><strong>Nocte Ventures Ltd</strong></p>
-                <p>128 City Road, London, United Kingdom, EC1V 2NX</p>
-                <p>Company No: 16579177</p>
-            </div>
-
-            <div class="footer-links">
-                <div class="legal-links">
-                    <a href="#privacy" class="legal-link">Privacy Policy</a>
-                    <a href="#terms"   class="legal-link">Terms of Service</a>
-                </div>
-            </div>
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="company-info">
+        <p><strong>Nocte Ventures Ltd</strong></p>
+        <p>128 City Road, London, United Kingdom, EC1V 2NX</p>
+        <p>Company No: 16579177</p>
+      </div>
+      <div class="footer-links">
+        <div class="legal-links">
+          <a href="#privacy" class="legal-link">Privacy Policy</a>
+          <a href="#terms"   class="legal-link">Terms of Service</a>
         </div>
-    </footer>
+      </div>
+    </div>
+  </footer>
 
-    <!-- ────────── MODALS (unchanged content) ────────── -->
-    <div id="privacy" class="modal"> … </div>
-    <div id="terms"   class="modal"> … </div>
+  <!-- Modals (unchanged) -->
+  <div id="privacy" class="modal"> … </div>
+  <div id="terms"   class="modal"> … </div>
 </div>
 
 <script src="script.js"></script>
