@@ -9,39 +9,39 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
     html, body {
-      height: 100%;
       margin: 0;
       padding: 0;
+      height: 100%;
       box-sizing: border-box;
+      background: linear-gradient(0deg, #f6f9fd 0%, #ffffff 90%);
+      width: 100vw;
     }
     body {
-      min-height: 100vh;
-      background: linear-gradient(0deg, #f6f9fd 0%, #ffffff 90%);
       font-family: 'Inter', Arial, sans-serif;
       color: #1d2532;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
       text-align: center;
-      padding: 0;
-      width: 100vw;
     }
     .container {
       width: 100%;
-      max-width: 450px;
+      max-width: 430px;
       margin: 0 auto;
-      padding: 0 1.3rem;
+      padding: 0 1.1rem;
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-top: 3.3rem;
+      margin-top: 3.2rem;
     }
     .headline {
-      font-size: 2.1rem;
+      font-size: 2rem;
       font-weight: 700;
-      margin-bottom: 0.3rem;
       letter-spacing: 0.01em;
+      margin-bottom: 0.32rem;
+      line-height: 1.13;
     }
     .headline span {
       font-style: italic;
@@ -53,91 +53,136 @@
       color: #49bcdf;
     }
     .subheadline {
-      font-size: 1.18rem;
-      font-weight: 400;
-      color: #599be6;
-      margin-bottom: 2.8rem;
+      font-size: 1.09rem;
+      font-weight: 500;
+      color: #6792cc;
+      margin-bottom: 2.5rem;
       margin-top: -0.2rem;
+      letter-spacing: 0.01em;
+      opacity: 0.98;
     }
-    .mockup-placeholder {
+    .mockup-card {
       width: 100%;
-      max-width: 370px;
-      height: 320px;
-      margin: 0 auto 2.5rem auto;
-      background: linear-gradient(125deg, #eaf3fa 70%, #f7fafd 100%);
-      box-shadow: 0 12px 36px rgba(80,120,200,0.07);
-      border-radius: 30px;
+      max-width: 350px;
+      aspect-ratio: 16 / 11;
+      margin: 0 auto 2.1rem auto;
+      background: linear-gradient(120deg, #f5fafd 85%, #ecf4fa 100%);
+      box-shadow: 0 8px 32px 0 rgba(70,119,210,0.09);
+      border-radius: 26px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      border: 1px solid #e2eafe;
+      position: relative;
+      overflow: hidden;
+    }
+    .mockup-top-bar {
+      width: 100%;
+      height: 32px;
+      background: linear-gradient(90deg, #f8fafc 85%, #eaf1fa 100%);
+      border-bottom: 1px solid #e3ebf4;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0 12px 0 0;
+    }
+    .mockup-gear {
+      width: 21px;
+      opacity: 0.8;
+      margin-left: 6px;
+    }
+    .mockup-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin: 24px 0 0 22px;
+      color: #1d2532;
+      letter-spacing: 0.01em;
+    }
+    .mockup-icon {
+      margin: 28px 0 0 22px;
+      width: 48px;
+      height: 48px;
+      background: rgba(81, 213, 174, 0.13);
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.5rem;
-      color: #95bbdf;
-      letter-spacing: 0.01em;
-      border: 1px solid #e2eafe;
+    }
+    .mockup-icon-star {
+      width: 28px;
+      height: 28px;
+      color: #4ec78e;
     }
     .cta {
-      margin: 2.7rem auto 0 auto;
       display: flex;
       flex-direction: column;
       align-items: center;
+      margin-top: 1.7rem;
+      width: 100%;
     }
-    .store-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.77rem;
-      padding: 0.97rem 2.1rem;
-      border: none;
-      border-radius: 36px;
-      font-weight: 700;
-      font-size: 1.15rem;
-      background: linear-gradient(90deg, #69aaff 0%, #226dee 100%);
-      color: #fff;
-      box-shadow: 0 3px 12px rgba(70,120,210,0.09);
-      cursor: pointer;
-      transition: background 0.18s;
-      text-decoration: none;
-      margin-bottom: 0.65rem;
-    }
-    .store-btn:hover {
-      background: linear-gradient(90deg, #428cfa 0%, #174fcf 100%);
-    }
-    .apple-badge {
+    .appstore-badge {
+      margin: 1.2rem auto 0.7rem auto;
       display: flex;
+      justify-content: center;
       align-items: center;
-      font-size: 1.1rem;
-      font-weight: 500;
-      color: #000;
-      background: #fff;
-      border-radius: 0.95rem;
-      border: 1px solid #dde6ef;
-      padding: 0.53rem 1.2rem 0.53rem 0.95rem;
-      margin-bottom: 1.25rem;
-      margin-top: 0.5rem;
+      max-width: 215px;
+      width: 74vw;
+      transition: transform 0.12s cubic-bezier(.4,2,.7,.8);
+    }
+    .appstore-badge img {
+      width: 100%;
+      min-width: 160px;
+      max-width: 215px;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+      box-shadow: 0 4px 28px rgba(0,0,0,0.16);
+    }
+    .cta-btn {
+      margin-top: 0.85rem;
+      background: linear-gradient(90deg, #71b8fa 0%, #295fee 100%);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.14rem;
+      padding: 1.05rem 1.9rem;
+      border: none;
+      border-radius: 32px;
+      box-shadow: 0 3px 18px rgba(70,140,210,0.09);
+      cursor: pointer;
       text-decoration: none;
-      transition: box-shadow 0.12s;
-      box-shadow: 0px 1px 8px 0px rgba(100,120,200,0.07);
-      gap: 0.77rem;
+      letter-spacing: 0.01em;
+      transition: background .17s, transform .14s;
+      display: inline-block;
     }
-    .apple-badge:hover {
-      box-shadow: 0px 2px 16px 0px rgba(50,80,180,0.09);
+    .cta-btn:active,
+    .cta-btn:focus {
+      background: linear-gradient(90deg, #428cfa 0%, #174fcf 100%);
+      outline: none;
+      transform: scale(0.98);
     }
-    .apple-logo {
-      width: 25px;
-      height: 25px;
-      vertical-align: middle;
-      margin-right: 0.75rem;
+    .cta-note {
+      color: #aac4dd;
+      font-size: 0.95rem;
+      margin-top: 1.2rem;
+      margin-bottom: 0.9rem;
     }
     .footer {
-      margin-top: 2.9rem;
+      margin-top: 2.3rem;
       font-size: 1rem;
       color: #99a6bb;
       letter-spacing: 0.03em;
     }
     @media (max-width: 600px) {
-      .container, .mockup-placeholder { max-width: 98vw; }
-      .headline { font-size: 1.34rem; }
-      .subheadline { font-size: 1.01rem; }
-      .mockup-placeholder { height: 180px; border-radius: 18px; font-size: 1.08rem; }
+      .container { padding: 0 0.7rem; }
+      .headline { font-size: 1.22rem; }
+      .subheadline { font-size: 0.97rem; }
+      .mockup-card { max-width: 98vw; font-size: 0.93rem; border-radius: 12px; }
+      .mockup-title { font-size: 1.08rem; margin: 18px 0 0 13px; }
+      .mockup-icon { width: 41px; height: 41px; margin: 19px 0 0 13px; }
+      .mockup-icon-star { width:21px; height:21px; }
+      .footer { font-size: 0.99rem; margin-top: 2rem; }
+      .cta-btn { padding: 1.03rem 1.38rem; font-size: 1.03rem; }
     }
   </style>
 </head>
@@ -152,30 +197,28 @@
     <div class="subheadline">
       Minimal. Fast. Really easy to use.
     </div>
-    <div class="mockup-placeholder">
-      <!-- Instead of an app screenshot, we keep this soft and clean. -->
-      Stickly Pro
+    <div class="mockup-card" aria-hidden="true">
+      <div class="mockup-top-bar">
+        <img class="mockup-gear" src="https://cdn-icons-png.flaticon.com/512/2099/2099058.png" alt="" />
+      </div>
+      <div class="mockup-title">Stickly Pro</div>
+      <div class="mockup-icon">
+        <svg class="mockup-icon-star" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="12" fill="#DCFAEE" /><path d="M12 7.5l1.41 2.86 3.14.46-2.27 2.21.54 3.13-2.82-1.48-2.82 1.48.54-3.13-2.27-2.21 3.14-.46L12 7.5z" fill="#4ec78e"/></svg>
+      </div>
     </div>
     <div class="cta">
-      <a
-        class="apple-badge"
-        href="https://apps.apple.com/us/app/stickly-todo-app/id6748267916"
-        target="_blank"
-        rel="noopener"
-        aria-label="Download on the App Store"
-      >
-        <svg class="apple-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="black"><path d="M13.801 11.839c-.129.301-.272.586-.43.856-.272.465-.494.789-.664.974-.221.258-.459.521-.713.527-.234.007-.3-.152-.624-.152-.325 0-.401.146-.626.158-.259.012-.456-.262-.677-.52-.184-.222-.408-.571-.734-1.125-.467-.792-.814-1.709-.739-2.6.044-.519.198-.912.477-1.178.259-.238.606-.368 1.043-.391.18-.01.378.029.591.116.154.062.345.155.574.279.182.099.355.093.508-.012.196-.117.486-.365.888-.74-.024-.03.219-.273.362-.592.489-1.039.18-2.371.18-2.371s.009-.022.027-.063c.08 0 .163.011.253.034.305.079.618.248.942.507.315.251.58.551.784.896.246.406.395.84.445 1.297.047.433-.035.888-.242 1.367-.02.044-.04.085-.06.134-.311.75-.381 1.397-.213 1.915.09.271.241.486.46.673zm-4.02-9.71c.101-.271.287-.531.542-.751.33-.282.679-.426 1.049-.426.014 0 .029.002.043.003.362.018.74.301 1.049.62.298.307.543.652.72 1.015.197.398.278.79.233 1.149a.08.08 0 01-.028.052c-.07.051-.144.099-.227.14-.214.104-.439.191-.675.256-.283.074-.543.055-.771-.055a1.163 1.163 0 01-.342-.198C8.584 3.58 8.54 3.381 8.548 3.128a1.21 1.21 0 01.19-.78z"/></svg>
-        Download now on the App&nbsp;Store
+      <a href="https://apps.apple.com/us/app/stickly-todo-app/id6748267916" target="_blank" rel="noopener" class="appstore-badge">
+        <img src="free-available-on-the-app-store-apple-button-png-704081694709480x6sfoe5ggk.jpeg" alt="Download on the App Store" />
       </a>
       <a
-        class="store-btn"
+        class="cta-btn"
         href="https://apps.apple.com/us/app/stickly-todo-app/id6748267916"
         target="_blank"
         rel="noopener"
-      >Get Stickly</a>
-      <div style="color:#aac4dd; font-size:0.98rem; margin-top:0.8rem;">
-        Only on iPhone<br>
-        Free to download, no signup required.
+      >Get Stickly – Free</a>
+      <div class="cta-note">
+        Only on iPhone.<br>
+        No signup required.
       </div>
     </div>
   </div>
@@ -184,3 +227,4 @@
   </div>
 </body>
 </html>
+
