@@ -2,71 +2,109 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Stickly – Digital Sticky Notes</title>
-
-  <link rel="stylesheet" href="/styles.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <title>Stickly – Your Todo List, Simplified</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Stickly: Your todo list, simplified. Just write and done. Experience effortless task management.">
+  <link rel="icon" href="favicon.ico">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', Arial, sans-serif;
+      background: #f9fbfd;
+      color: #23272F;
+      min-height: 100vh;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    header {
+      margin-top: 2.5rem;
+    }
+    .headline {
+      font-size: 2.1rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .subheadline {
+      font-size: 1.2rem;
+      color: #588bdd;
+      font-weight: 700;
+      margin-bottom: 2.5rem;
+      letter-spacing: 0.02em;
+    }
+    .simplified {
+      color: #6ba4e7;
+      font-style: italic;
+    }
+    .done {
+      color: #21a0a0;
+      font-style: italic;
+    }
+    .app-mockup {
+      max-width: 95vw;
+      width: 375px;
+      margin: 0 auto 2rem;
+      box-shadow: 0 12px 32px rgba(40,60,120,0.09);
+      border-radius: 32px;
+      background: #f6f8fa;
+      overflow: hidden;
+      border: 1px solid #eaeaea;
+    }
+    .cta {
+      margin-top: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .store-btn {
+      display: inline-block;
+      padding: 0.9rem 2.05rem;
+      border-radius: 32px;
+      font-weight: 700;
+      font-size: 1.2rem;
+      background: linear-gradient(90deg, #7dc4fe 0%, #384cdb 100%);
+      color: #fff;
+      text-decoration: none;
+      box-shadow: 0 3px 12px rgba(70,100,210,0.07);
+      transition: background 0.17s;
+    }
+    .store-btn:hover {
+      background: linear-gradient(90deg, #5faaff 0%, #242ee4 100%);
+    }
+    .footer {
+      margin-top: 3.5rem;
+      font-size: 0.95rem;
+      color: #999;
+    }
+    @media (max-width: 500px) {
+      .headline { font-size: 1.3rem; }
+      .subheadline { font-size: 1rem; }
+      .app-mockup { width: 100vw; }
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-
-  <!-- HERO -->
-  <section class="hero-section" style="min-height:70vh;padding-top:6rem;padding-bottom:4rem;">
-    <canvas id="particleCanvas"></canvas>
-    <div class="hacker-overlay"></div>
-
-    <div class="hero-content" style="max-width:680px">
-      <img src="/assets/stickly-icon.png" alt="Stickly icon" class="sub-app-icon">
-      <h1 style="font-size:clamp(2.2rem,6vw,3.8rem);font-weight:800;margin-bottom:1rem;">Stickly</h1>
-      <p class="tagline" style="margin-bottom:2rem;">Simple todo lists inspired by classic sticky notes.</p>
-
-      <a href="https://apps.apple.com/us/app/stickly-todo-app/id6748267916?l=en-GB" class="cta-button">
-        <span class="button-bg"></span><span class="button-text">Download on the&nbsp;App&nbsp;Store</span>
-        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
+  <header>
+    <div class="headline">Your todo list, <span class="simplified">simplified.</span></div>
+    <div class="headline">Just write and <span class="done">done.</span></div>
+  </header>
+  <div class="app-mockup">
+    <img src="stickly-app-screenshot.png" alt="Stickly Pro App Screenshot" style="width:100%; display:block;">
+  </div>
+  <div class="cta">
+    <a class="store-btn" href="https://apps.apple.com/us/app/stickly-todo-app/id6748267916" target="_blank" rel="noopener">
+      Get Stickly on the App Store
+    </a>
+    <div class="subheadline" style="margin-top:2rem; font-weight:400; color:#263346;">
+      Simplicity at its best. <br>Try Stickly today.
     </div>
-  </section>
-
-  <!-- FEATURES -->
-  <section class="definition-section" style="padding:4rem 2rem;">
-    <div class="definition-content" style="max-width:800px">
-      <div class="definition-text">
-
-        <div class="text-card highlight-card"><div class="card-glow"></div>
-          <h3>✍️ Quick Task Entry</h3>
-          <p>Write a note, hit save—done.</p>
-        </div>
-
-        <div class="text-card"><div class="card-glow"></div>
-          <h3>🧘 No Deadlines or Reminders</h3>
-          <p>Keep tasks visible without the pressure of due dates.</p>
-        </div>
-
-        <div class="text-card"><div class="card-glow"></div>
-          <h3>🎨 Minimal Interface & Themes</h3>
-          <p>Pick a theme that suits your style.</p>
-        </div>
-
-        <div class="text-card"><div class="card-glow"></div>
-          <h3>📱 Home & Lock-screen Widgets</h3>
-          <p>See your notes at a glance and add new ones instantly.</p>
-        </div>
-
-        <div class="text-card"><div class="card-glow"></div>
-          <h3>💎 Stickly Pro</h3>
-          <p>Unlock unlimited notes, extra themes, and full widget power.</p>
-        </div>
-
-      </div>
-
-      <a href="/" class="back-link">← Back to Nocte Ventures</a>
-    </div>
-  </section>
-
-</div>
-<script src="/script.js"></script>
+  </div>
+  <div class="footer">
+    © 2025 Nocte Ventures Ltd. &nbsp;|&nbsp; Stickly
+  </div>
 </body>
 </html>
