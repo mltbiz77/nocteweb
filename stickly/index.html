@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stickly - Your todo list, simplified.</title>
-    <meta name="description" content="Transform your productivity with Stickly - the ultimate todo list app. Simple, fast, and beautifully designed. Just write and done.">
+    <meta name="description" content="Stickly - Your todo list, simplified. Just write and done. Download now on the App Store.">
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
         
         * {
             margin: 0;
@@ -17,16 +17,18 @@
         
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #f0f7ff 0%, #e6f3ff 50%, #ffffff 100%);
-            color: #2c3e50;
+            background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%);
+            color: #1a202c;
             min-height: 100vh;
-            line-height: 1.6;
+            line-height: 1.5;
+            overflow-x: hidden;
         }
         
         .container {
-            max-width: 420px;
+            max-width: 100%;
+            width: 100%;
             margin: 0 auto;
-            padding: 2rem 1.5rem;
+            padding: 2rem 1rem;
             text-align: center;
             min-height: 100vh;
             display: flex;
@@ -36,32 +38,30 @@
         }
         
         .app-icon {
-            width: 100px;
-            height: 100px;
-            border-radius: 22px;
+            width: 90px;
+            height: 90px;
+            border-radius: 20px;
             margin: 0 auto 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
             display: block;
         }
         
-        .hero-text {
-            margin-bottom: 1.5rem;
-        }
-        
         .hero-title {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
             color: #1a202c;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.01em;
+            line-height: 1.2;
         }
         
         .hero-subtitle {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             color: #1a202c;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.01em;
+            line-height: 1.2;
         }
         
         .simplified {
@@ -75,180 +75,144 @@
         }
         
         .tagline {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #718096;
             font-weight: 400;
-            margin-bottom: 2.5rem;
-            opacity: 0.9;
-        }
-        
-        .features {
-            margin: 2rem 0;
-            text-align: left;
+            margin-bottom: 3rem;
             max-width: 300px;
-        }
-        
-        .feature {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-            font-size: 0.95rem;
-            color: #4a5568;
-        }
-        
-        .feature-icon {
-            width: 20px;
-            height: 20px;
-            background: linear-gradient(135deg, #63a7e6, #4a9eff);
-            border-radius: 50%;
-            margin-right: 0.8rem;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .feature-icon::after {
-            content: '✓';
-            color: white;
-            font-size: 0.7rem;
-            font-weight: bold;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .cta-section {
-            margin-top: 2.5rem;
+            margin-top: 2rem;
+            width: 100%;
+            max-width: 280px;
         }
         
         .app-store-badge {
             display: block;
             margin: 0 auto 1.5rem;
-            max-width: 200px;
             width: 100%;
+            max-width: 200px;
+            background: #000;
+            border-radius: 8px;
             transition: transform 0.2s ease;
         }
         
         .app-store-badge:hover {
-            transform: scale(1.05);
+            transform: scale(1.02);
         }
         
         .app-store-badge img {
             width: 100%;
             height: auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            display: block;
+            border-radius: 8px;
         }
         
         .secondary-cta {
             background: linear-gradient(135deg, #63a7e6, #4a9eff);
             color: white;
-            padding: 0.9rem 2rem;
-            border-radius: 50px;
+            padding: 1rem 2rem;
+            border-radius: 25px;
             text-decoration: none;
             font-weight: 600;
             font-size: 1rem;
             display: inline-block;
             margin-top: 1rem;
-            box-shadow: 0 4px 15px rgba(99, 167, 230, 0.3);
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(99, 167, 230, 0.25);
+            transition: all 0.2s ease;
             border: none;
             cursor: pointer;
+            width: 100%;
+            max-width: 200px;
         }
         
         .secondary-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(99, 167, 230, 0.4);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(99, 167, 230, 0.3);
         }
         
         .app-info {
             margin-top: 2rem;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #a0aec0;
+            line-height: 1.4;
         }
         
         .footer {
-            margin-top: 3rem;
-            font-size: 0.8rem;
-            color: #a0aec0;
+            margin-top: 2.5rem;
+            font-size: 0.75rem;
+            color: #cbd5e0;
         }
         
-        /* Mobile Optimizations */
-        @media (max-width: 480px) {
+        /* Mobile-first responsive design */
+        @media (max-width: 400px) {
             .container {
-                padding: 1.5rem 1rem;
+                padding: 1.5rem 0.8rem;
             }
             
             .hero-title, .hero-subtitle {
-                font-size: 1.6rem;
+                font-size: 1.5rem;
             }
             
             .app-icon {
-                width: 80px;
-                height: 80px;
+                width: 75px;
+                height: 75px;
+                border-radius: 16px;
             }
             
             .tagline {
-                font-size: 1rem;
-            }
-            
-            .features {
-                max-width: 280px;
+                font-size: 0.9rem;
+                margin-bottom: 2.5rem;
             }
             
             .app-store-badge {
                 max-width: 180px;
             }
-        }
-        
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+            
+            .secondary-cta {
+                font-size: 0.95rem;
+                padding: 0.9rem 1.8rem;
+                max-width: 180px;
             }
         }
         
-        .container > * {
-            animation: fadeInUp 0.6s ease forwards;
+        @media (min-width: 401px) and (max-width: 768px) {
+            .hero-title, .hero-subtitle {
+                font-size: 2rem;
+            }
+            
+            .app-icon {
+                width: 100px;
+                height: 100px;
+            }
         }
         
-        .container > *:nth-child(2) { animation-delay: 0.1s; }
-        .container > *:nth-child(3) { animation-delay: 0.2s; }
-        .container > *:nth-child(4) { animation-delay: 0.3s; }
-        .container > *:nth-child(5) { animation-delay: 0.4s; }
+        @media (min-width: 769px) {
+            .container {
+                max-width: 400px;
+            }
+            
+            .hero-title, .hero-subtitle {
+                font-size: 2.2rem;
+            }
+            
+            .tagline {
+                font-size: 1.1rem;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <img src="assets/sticky-icon.png" alt="Stickly App Icon" class="app-icon">
         
-        <div class="hero-text">
-            <h1 class="hero-title">Your todo list, <span class="simplified">simplified.</span></h1>
-            <h2 class="hero-subtitle">Just write and <span class="done">done.</span></h2>
-            <p class="tagline">Transform your productivity with the ultimate task organizer</p>
-        </div>
+        <h1 class="hero-title">Your todo list, <span class="simplified">simplified.</span></h1>
+        <h2 class="hero-subtitle">Just write and <span class="done">done.</span></h2>
         
-        <div class="features">
-            <div class="feature">
-                <div class="feature-icon"></div>
-                <span>Intuitive task management</span>
-            </div>
-            <div class="feature">
-                <div class="feature-icon"></div>
-                <span>Advanced organization by priority</span>
-            </div>
-            <div class="feature">
-                <div class="feature-icon"></div>
-                <span>Bookmark essential routines</span>
-            </div>
-            <div class="feature">
-                <div class="feature-icon"></div>
-                <span>Efficient daily planning</span>
-            </div>
-        </div>
+        <p class="tagline">The simplest way to organize your tasks</p>
         
         <div class="cta-section">
             <a href="https://apps.apple.com/us/app/stickly-todo-app/id6748267916" 
@@ -267,12 +231,12 @@
         </div>
         
         <div class="app-info">
-            <p>Free to download • No signup required<br>
-            Available exclusively on iPhone</p>
+            Free download • iPhone only<br>
+            No signup required
         </div>
         
         <div class="footer">
-            <p>© 2025 Nocte Ventures Ltd.</p>
+            © 2025 Nocte Ventures Ltd.
         </div>
     </div>
 </body>
