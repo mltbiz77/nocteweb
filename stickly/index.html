@@ -17,18 +17,16 @@
         
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%);
+            background: linear-gradient(135deg, #f0f8ff 0%, #ffffff 100%);
             color: #1a202c;
             min-height: 100vh;
             line-height: 1.5;
-            overflow-x: hidden;
         }
         
         .container {
             max-width: 100%;
-            width: 100%;
             margin: 0 auto;
-            padding: 2rem 1rem;
+            padding: 3rem 1rem;
             text-align: center;
             min-height: 100vh;
             display: flex;
@@ -38,29 +36,29 @@
         }
         
         .app-icon {
-            width: 90px;
-            height: 90px;
-            border-radius: 20px;
-            margin: 0 auto 2rem;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            width: 100px;
+            height: 100px;
+            border-radius: 22px;
+            margin: 0 auto 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             display: block;
         }
         
         .hero-title {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
             color: #1a202c;
-            letter-spacing: -0.01em;
+            letter-spacing: -0.02em;
             line-height: 1.2;
         }
         
         .hero-subtitle {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 700;
             margin-bottom: 1.5rem;
             color: #1a202c;
-            letter-spacing: -0.01em;
+            letter-spacing: -0.02em;
             line-height: 1.2;
         }
         
@@ -75,132 +73,108 @@
         }
         
         .tagline {
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: #718096;
             font-weight: 400;
             margin-bottom: 3rem;
-            max-width: 300px;
-            margin-left: auto;
-            margin-right: auto;
+            max-width: 280px;
         }
         
         .cta-section {
             margin-top: 2rem;
-            width: 100%;
-            max-width: 280px;
         }
         
         .app-store-badge {
-            display: block;
-            margin: 0 auto 1.5rem;
-            width: 100%;
-            max-width: 200px;
-            background: #000;
-            border-radius: 8px;
+            display: inline-block;
+            margin: 0 auto 2rem;
             transition: transform 0.2s ease;
         }
         
         .app-store-badge:hover {
-            transform: scale(1.02);
+            transform: scale(1.05);
         }
         
         .app-store-badge img {
-            width: 100%;
+            width: 200px;
             height: auto;
-            display: block;
-            border-radius: 8px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
         
         .secondary-cta {
             background: linear-gradient(135deg, #63a7e6, #4a9eff);
             color: white;
-            padding: 1rem 2rem;
-            border-radius: 25px;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 1.1rem;
             display: inline-block;
-            margin-top: 1rem;
-            box-shadow: 0 4px 15px rgba(99, 167, 230, 0.25);
-            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(99, 167, 230, 0.3);
+            transition: all 0.3s ease;
             border: none;
             cursor: pointer;
-            width: 100%;
-            max-width: 200px;
         }
         
         .secondary-cta:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(99, 167, 230, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(99, 167, 230, 0.4);
         }
         
         .app-info {
-            margin-top: 2rem;
-            font-size: 0.85rem;
+            margin-top: 2.5rem;
+            font-size: 0.95rem;
             color: #a0aec0;
-            line-height: 1.4;
         }
         
         .footer {
-            margin-top: 2.5rem;
-            font-size: 0.75rem;
+            margin-top: 3rem;
+            font-size: 0.8rem;
             color: #cbd5e0;
         }
         
-        /* Mobile-first responsive design */
-        @media (max-width: 400px) {
+        /* Mobile optimizations */
+        @media (max-width: 480px) {
             .container {
-                padding: 1.5rem 0.8rem;
+                padding: 2rem 1rem;
             }
             
             .hero-title, .hero-subtitle {
-                font-size: 1.5rem;
+                font-size: 1.6rem;
             }
             
             .app-icon {
-                width: 75px;
-                height: 75px;
-                border-radius: 16px;
+                width: 80px;
+                height: 80px;
+                border-radius: 18px;
             }
             
             .tagline {
-                font-size: 0.9rem;
-                margin-bottom: 2.5rem;
+                font-size: 1rem;
             }
             
-            .app-store-badge {
-                max-width: 180px;
+            .app-store-badge img {
+                width: 180px;
             }
             
             .secondary-cta {
-                font-size: 0.95rem;
-                padding: 0.9rem 1.8rem;
-                max-width: 180px;
+                font-size: 1rem;
+                padding: 0.9rem 2rem;
             }
         }
         
-        @media (min-width: 401px) and (max-width: 768px) {
-            .hero-title, .hero-subtitle {
-                font-size: 2rem;
-            }
-            
-            .app-icon {
-                width: 100px;
-                height: 100px;
-            }
-        }
-        
-        @media (min-width: 769px) {
+        @media (min-width: 768px) {
             .container {
-                max-width: 400px;
+                max-width: 450px;
             }
             
             .hero-title, .hero-subtitle {
-                font-size: 2.2rem;
+                font-size: 2.3rem;
             }
             
             .tagline {
-                font-size: 1.1rem;
+                font-size: 1.2rem;
+                max-width: 320px;
             }
         }
     </style>
@@ -212,7 +186,7 @@
         <h1 class="hero-title">Your todo list, <span class="simplified">simplified.</span></h1>
         <h2 class="hero-subtitle">Just write and <span class="done">done.</span></h2>
         
-        <p class="tagline">The simplest way to organize your tasks</p>
+        <p class="tagline">The simplest way to manage your tasks</p>
         
         <div class="cta-section">
             <a href="https://apps.apple.com/us/app/stickly-todo-app/id6748267916" 
@@ -221,6 +195,8 @@
                class="app-store-badge">
                 <img src="assets/appstorebadge.png" alt="Download on the App Store">
             </a>
+            
+            <br>
             
             <a href="https://apps.apple.com/us/app/stickly-todo-app/id6748267916" 
                target="_blank" 
@@ -241,4 +217,3 @@
     </div>
 </body>
 </html>
-
