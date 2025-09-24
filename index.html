@@ -50,6 +50,8 @@
 
   <!-- ── VENTURES SECTION - TERMINAL ── -->
   <section class="ventures-section">
+    <canvas id="venturesParticleCanvas"></canvas>
+    <div class="hacker-overlay"></div>
     <div class="ventures-content">
       <div class="terminal-window">
         <div class="terminal-header">
@@ -58,29 +60,57 @@
             <div class="terminal-button minimize"></div>
             <div class="terminal-button maximize"></div>
           </div>
-          <div class="terminal-title">nocte_ventures.exe</div>
+          <div class="terminal-title">nocte_ventures</div>
         </div>
         <div class="terminal-body">
-          <div class="terminal-line">
+          <div class="terminal-line prompt-line">
             <span class="prompt">user@nocte:~$</span>
-            <span class="command" id="command">nocte_ventures.execute()</span>
+            <span class="command" id="command">./execute</span>
             <span class="terminal-cursor" id="initial-cursor"></span>
           </div>
+          
           <div class="terminal-output">
+            <div class="output-line startup-line">
+              <span class="timestamp">[12:34:56]</span> Initializing Nocte Ventures...
+            </div>
+            
             <div class="output-line" id="line1">
-              <span class="loading-dots">Building innovative companies</span><span class="dots">...</span>
+              <span class="process-icon">▶</span> Building innovative companies
+              <span class="loading-animation">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+              </span>
             </div>
+            
             <div class="output-line" id="line2">
-              <span class="loading-dots">Investing in breakthrough ideas</span><span class="dots">...</span>
+              <span class="process-icon">▶</span> Investing in breakthrough ideas
+              <span class="loading-animation">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+              </span>
             </div>
+            
             <div class="output-line" id="line3">
-              <span class="loading-dots">Creating lasting impact</span><span class="dots">...</span>
+              <span class="process-icon">▶</span> Creating lasting impact
+              <span class="loading-animation">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+              </span>
             </div>
-            <div class="output-line success" id="line4">
-              <span class="success-icon">✓</span> Process complete.
+            
+            <div class="output-line success-line" id="line4">
+              <span class="success-icon">✓</span> All processes completed successfully
+            </div>
+            
+            <div class="output-line ready-line" id="line5">
+              <span class="ready-icon">●</span> Ready for collaboration
             </div>
           </div>
-          <div class="terminal-line final-line">
+          
+          <div class="terminal-line final-prompt">
             <span class="prompt">user@nocte:~$</span>
             <span class="terminal-cursor" id="final-cursor"></span>
           </div>
