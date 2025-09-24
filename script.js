@@ -113,6 +113,48 @@ class HackerParticleSystem {
     }
 }
 
+// Text switching controller
+class GlitchTextController {
+    constructor() {
+        this.texts = [
+            "Building companies",
+            "Investing in ideas", 
+            "Creating impact"
+        ];
+        this.currentIndex = 0;
+        this.textElement = document.querySelector('.glitch-text');
+        
+        if (this.textElement) {
+            this.startCycle();
+        }
+    }
+    
+    startCycle() {
+        // Start cycling after initial display
+        setTimeout(() => {
+            this.cycleText();
+            setInterval(() => {
+                this.cycleText();
+            }, 4000); // Change every 4 seconds
+        }, 3000); // Wait 3 seconds before starting cycle
+    }
+    
+    cycleText() {
+        this.currentIndex = (this.currentIndex + 1) % this.texts.length;
+        const newText = this.texts[this.currentIndex];
+        
+        // Update text and data attribute for glitch effect
+        this.textElement.textContent = newText;
+        this.textElement.setAttribute('data-text', newText);
+        
+        // Add a pulse effect during transition
+        this.textElement.style.transform = 'scale(1.02)';
+        setTimeout(() => {
+            this.textElement.style.transform = 'scale(1)';
+        }, 200);
+    }
+}
+
 // Enhanced Intersection Observer for smooth section transitions
 class SmoothScrollAnimationObserver {
     constructor() {
@@ -131,11 +173,6 @@ class SmoothScrollAnimationObserver {
                 if (entry.isIntersecting) {
                     entry.target.style.animationPlayState = 'running';
                     entry.target.classList.add('in-view');
-                    
-                    // Restart terminal animations when visible
-                    if (entry.target.classList.contains('ventures-section')) {
-                        this.restartTerminalAnimations();
-                    }
                 }
             });
         }, observerOptions);
@@ -152,91 +189,6 @@ class SmoothScrollAnimationObserver {
         const sections = document.querySelectorAll('section');
         sections.forEach(section => {
             section.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-        });
-    }
-    
-    restartTerminalAnimations() {
-        // Reset terminal animation elements
-        const terminalElements = document.querySelectorAll(
-            '.terminal-window, .terminal-button, .terminal-title, .prompt, .command, .output-line, .terminal-cursor'
-        );
-        
-        terminalElements.forEach(el => {
-            // Remove and re-add animation class to restart
-            const animationName = el.style.animationName;
-            el.style.animationName = 'none';
-            el.offsetHeight; // Trigger reflow
-            el.style.animationName = animationName;
-        });
-    }
-}
-
-// Terminal typing effect controller
-class TerminalTypingController {
-    constructor() {
-        this.setupTypingEffects();
-    }
-    
-    setupTypingEffects() {
-        // Enhanced typewriter effect for command
-        const commandElement = document.getElementById('command');
-        if (commandElement) {
-            this.typewriterEffect(commandElement, './execute', 3500);
-        }
-        
-        // Add interactive terminal features
-        this.addTerminalInteractivity();
-    }
-    
-    typewriterEffect(element, text, delay) {
-        setTimeout(() => {
-            element.style.width = '0';
-            element.style.borderRight = '2px solid #00ff41';
-            
-            let i = 0;
-            const typing = setInterval(() => {
-                if (i < text.length) {
-                    element.textContent = text.substring(0, i + 1);
-                    i++;
-                } else {
-                    clearInterval(typing);
-                    setTimeout(() => {
-                        element.style.borderRight = 'none';
-                    }, 1000);
-                }
-            }, 100);
-        }, delay);
-    }
-    
-    addTerminalInteractivity() {
-        // Add glow effect on terminal hover
-        const terminal = document.querySelector('.terminal-window');
-        if (terminal) {
-            terminal.addEventListener('mouseenter', () => {
-                terminal.style.boxShadow = `
-                    0 25px 50px rgba(0, 0, 0, 0.8),
-                    0 0 50px rgba(0, 255, 65, 0.2)
-                `;
-            });
-            
-            terminal.addEventListener('mouseleave', () => {
-                terminal.style.boxShadow = `
-                    0 25px 50px rgba(0, 0, 0, 0.8),
-                    0 0 30px rgba(0, 255, 65, 0.1)
-                `;
-            });
-        }
-        
-        // Add click effect to terminal buttons
-        const buttons = document.querySelectorAll('.terminal-button');
-        buttons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                button.style.transform = 'scale(0.9)';
-                setTimeout(() => {
-                    button.style.transform = 'scale(1)';
-                }, 150);
-            });
         });
     }
 }
@@ -270,7 +222,7 @@ class PerformanceMonitor {
     
     optimizePerformance() {
         // Reduce animations if performance is poor
-        const particles = document.querySelectorAll('#particleCanvas, #venturesParticleCanvas');
+        const particles = document.querySelectorAll('#particleCanvas');
         particles.forEach(canvas => {
             if (canvas) {
                 canvas.style.display = 'none';
@@ -281,22 +233,15 @@ class PerformanceMonitor {
 
 // Main initialization
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize particle systems for both sections
+    // Initialize particle system
     const heroCanvas = document.getElementById('particleCanvas');
-    const venturesCanvas = document.getElementById('venturesParticleCanvas');
     let heroParticleSystem = null;
-    let venturesParticleSystem = null;
     
     // Check for high performance device
     const isHighPerformance = navigator.hardwareConcurrency > 4 && window.innerWidth > 768;
     
-    if (isHighPerformance) {
-        if (heroCanvas) {
-            heroParticleSystem = new HackerParticleSystem(heroCanvas);
-        }
-        if (venturesCanvas) {
-            venturesParticleSystem = new HackerParticleSystem(venturesCanvas);
-        }
+    if (isHighPerformance && heroCanvas) {
+        heroParticleSystem = new HackerParticleSystem(heroCanvas);
     }
     
     // Initialize performance monitoring
@@ -305,8 +250,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize smooth scroll animations
     new SmoothScrollAnimationObserver();
     
-    // Initialize terminal typing effects
-    new TerminalTypingController();
+    // Initialize glitch text controller
+    new GlitchTextController();
     
     // Enhanced modal functionality
     const modals = document.querySelectorAll('.modal');
@@ -370,9 +315,6 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('beforeunload', () => {
         if (heroParticleSystem) {
             heroParticleSystem.destroy();
-        }
-        if (venturesParticleSystem) {
-            venturesParticleSystem.destroy();
         }
     });
 });
