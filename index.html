@@ -48,35 +48,41 @@
     <div class="scroll-indicator"><div class="scroll-line"></div><span class="scroll-text">Scroll</span></div>
   </section>
 
-  <!-- ── VENTURES SECTION ── -->
+  <!-- ── VENTURES SECTION - TERMINAL ── -->
   <section class="ventures-section">
     <div class="ventures-content">
-      <div class="hexagon-grid">
-        <div class="hexagon-container" data-venture="build">
-          <div class="hexagon">
-            <div class="hex-content">
-              <div class="hex-icon">⚡</div>
-              <div class="hex-title">BUILD</div>
-            </div>
-            <div class="hex-tooltip">We craft digital experiences that matter</div>
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <div class="terminal-buttons">
+            <div class="terminal-button close"></div>
+            <div class="terminal-button minimize"></div>
+            <div class="terminal-button maximize"></div>
           </div>
+          <div class="terminal-title">nocte_ventures.exe</div>
         </div>
-        <div class="hexagon-container" data-venture="invest">
-          <div class="hexagon">
-            <div class="hex-content">
-              <div class="hex-icon">💎</div>
-              <div class="hex-title">INVEST</div>
-            </div>
-            <div class="hex-tooltip">We back visionary ideas and founders</div>
+        <div class="terminal-body">
+          <div class="terminal-line">
+            <span class="prompt">user@nocte:~$</span>
+            <span class="command" id="command">nocte_ventures.execute()</span>
+            <span class="terminal-cursor" id="initial-cursor"></span>
           </div>
-        </div>
-        <div class="hexagon-container" data-venture="create">
-          <div class="hexagon">
-            <div class="hex-content">
-              <div class="hex-icon">🚀</div>
-              <div class="hex-title">CREATE</div>
+          <div class="terminal-output">
+            <div class="output-line" id="line1">
+              <span class="loading-dots">Building innovative companies</span><span class="dots">...</span>
             </div>
-            <div class="hex-tooltip">We transform concepts into reality</div>
+            <div class="output-line" id="line2">
+              <span class="loading-dots">Investing in breakthrough ideas</span><span class="dots">...</span>
+            </div>
+            <div class="output-line" id="line3">
+              <span class="loading-dots">Creating lasting impact</span><span class="dots">...</span>
+            </div>
+            <div class="output-line success" id="line4">
+              <span class="success-icon">✓</span> Process complete.
+            </div>
+          </div>
+          <div class="terminal-line final-line">
+            <span class="prompt">user@nocte:~$</span>
+            <span class="terminal-cursor" id="final-cursor"></span>
           </div>
         </div>
       </div>
