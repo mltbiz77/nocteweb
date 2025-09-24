@@ -33,13 +33,14 @@ body {
 }
 /* Hero Section */
 .hero-section {
-  height: 100vh;
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 2rem;
   position: relative;
   overflow: hidden;
+  min-height: calc(100vh - 120px);
 }
 #particleCanvas {
   position: absolute;
@@ -65,7 +66,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   width: 100%;
 }
 .company-name {
@@ -200,12 +201,6 @@ body {
   max-width: 380px;
   margin: 0 auto;
 }
-@media (min-width: 600px) {
-  .cta-section {
-    flex-direction: row;
-    max-width: none;
-  }
-}
 .cta-button {
   display: inline-flex;
   align-items: center;
@@ -223,12 +218,8 @@ body {
   overflow: hidden;
   z-index: 1;
   will-change: transform;
-  flex: 1 1 auto;
   justify-content: center;
   width: 100%;
-}
-.cta-centered {
-  margin: 0 auto;
   max-width: 250px;
 }
 .button-bg {
@@ -262,129 +253,6 @@ body {
 .cta-button:hover .arrow-icon {
   transform: translate(3px, -3px) rotate(5deg);
 }
-.scroll-indicator {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  opacity: 0.6;
-  animation: fadeIn 2s ease-out 3s both;
-  cursor: pointer;
-  transition: opacity 0.3s ease;
-}
-.scroll-indicator:hover {
-  opacity: 1;
-}
-.scroll-line {
-  width: 2px;
-  height: 30px;
-  background: linear-gradient(to bottom, var(--hacker-green), transparent);
-  animation: scrollPulse 2s ease-in-out infinite;
-  margin-bottom: 0.5rem;
-}
-.scroll-text {
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-  animation: fadeInUp 0.5s ease-out 3.5s both;
-}
-
-/* Ventures Section - Seamless continuation */
-.ventures-section {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 6rem 2rem;
-  position: relative;
-  overflow: hidden;
-  background: var(--primary-bg);
-}
-
-.ventures-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0, 255, 65, 0.02) 2px,
-    rgba(0, 255, 65, 0.02) 4px
-  );
-  z-index: 1;
-  animation: scanlines 3s linear infinite;
-}
-
-.ventures-content {
-  max-width: 1200px;
-  width: 100%;
-  z-index: 2;
-  position: relative;
-  text-align: center;
-}
-
-.glitch-container {
-  position: relative;
-  display: inline-block;
-}
-
-.glitch-text {
-  font-size: clamp(2.5rem, 8vw, 6rem);
-  font-weight: 900;
-  color: var(--text-primary);
-  position: relative;
-  display: inline-block;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-  background: linear-gradient(135deg, var(--hacker-green) 0%, var(--hacker-blue) 50%, #ffffff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: 0 0 30px var(--glow-color);
-  animation: textGlow 3s ease-in-out infinite;
-}
-
-.glitch-text::before,
-.glitch-text::after {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-}
-
-.glitch-text::before {
-  color: var(--hacker-green);
-  animation: glitchEffect1 4s infinite;
-  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-}
-
-.glitch-text::after {
-  color: var(--hacker-blue);
-  animation: glitchEffect2 4s infinite;
-  clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
-}
-
-.glitch-underline {
-  position: absolute;
-  bottom: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--hacker-green), var(--hacker-blue));
-  border-radius: 2px;
-  animation: underlineGrow 2s ease-out 1s forwards;
-  box-shadow: 0 0 15px var(--hacker-green);
-}
 
 /* Footer */
 .footer {
@@ -393,7 +261,7 @@ body {
   border-top: 1px solid var(--border-color);
   position: relative;
   overflow: hidden;
-  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-top: auto;
 }
 .footer::before {
   content: '';
@@ -635,10 +503,6 @@ body {
   from { opacity: 0; }
   to { opacity: 1; }
 }
-@keyframes scrollPulse {
-  0%, 100% { opacity: 0.6; transform: scaleY(1); }
-  50% { opacity: 1; transform: scaleY(1.1); }
-}
 @keyframes shimmer {
   0% { left: -100%; }
   100% { left: 100%; }
@@ -658,97 +522,16 @@ body {
   }
 }
 
-/* Glitch Effect Animations */
-@keyframes glitchEffect1 {
-  0%, 95% {
-    transform: translate(0);
-    opacity: 1;
-  }
-  96% {
-    transform: translate(-2px, 0);
-    opacity: 0.8;
-  }
-  97% {
-    transform: translate(2px, 0);
-    opacity: 0.6;
-  }
-  98% {
-    transform: translate(-1px, 0);
-    opacity: 0.9;
-  }
-  99% {
-    transform: translate(1px, 0);
-    opacity: 0.7;
-  }
-  100% {
-    transform: translate(0);
-    opacity: 1;
-  }
-}
-
-@keyframes glitchEffect2 {
-  0%, 95% {
-    transform: translate(0);
-    opacity: 1;
-  }
-  96% {
-    transform: translate(2px, 0);
-    opacity: 0.7;
-  }
-  97% {
-    transform: translate(-2px, 0);
-    opacity: 0.8;
-  }
-  98% {
-    transform: translate(1px, 0);
-    opacity: 0.6;
-  }
-  99% {
-    transform: translate(-1px, 0);
-    opacity: 0.9;
-  }
-  100% {
-    transform: translate(0);
-    opacity: 1;
-  }
-}
-
-@keyframes textGlow {
-  0%, 100% {
-    text-shadow: 0 0 30px var(--glow-color);
-  }
-  50% {
-    text-shadow: 0 0 50px var(--glow-color), 0 0 80px rgba(0, 255, 65, 0.2);
-  }
-}
-
-@keyframes underlineGrow {
-  0% {
-    width: 0;
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    width: 80%;
-    opacity: 1;
-  }
-}
-
 /* Responsive Design */
 @media (max-width: 1200px) {
   .company-name {
     font-size: clamp(1.8rem, 7vw, 4.5rem);
   }
-  .glitch-text {
-    font-size: clamp(2rem, 7vw, 5rem);
-  }
 }
 @media (max-width: 768px) {
   .hero-section {
-    padding: 1rem;
-    height: 100vh;
+    padding: 2rem 1rem;
+    min-height: calc(100vh - 140px);
   }
   .company-name {
     font-size: clamp(1.5rem, 8vw, 3.5rem);
@@ -760,13 +543,6 @@ body {
   .cta-button {
     padding: 1rem 2rem;
     font-size: 1rem;
-  }
-  .ventures-section {
-    padding: 4rem 1rem;
-    min-height: 80vh;
-  }
-  .glitch-text {
-    font-size: clamp(1.8rem, 9vw, 4rem);
   }
   .footer-content {
     flex-direction: column;
@@ -784,7 +560,8 @@ body {
 }
 @media (max-width: 480px) {
   .hero-section {
-    padding: 1rem 0.5rem;
+    padding: 1.5rem 0.5rem;
+    min-height: calc(100vh - 160px);
   }
   .company-name {
     font-size: clamp(1.3rem, 9vw, 2.8rem);
@@ -793,16 +570,8 @@ body {
   .letter-container {
     margin: 0 clamp(0.01rem, 0.2vw, 0.05rem);
   }
-  .ventures-section {
-    padding: 3rem 0.5rem;
-    min-height: 70vh;
-  }
-  .glitch-text {
-    font-size: clamp(1.5rem, 10vw, 3rem);
-  }
-  .glitch-underline {
-    bottom: -15px;
-    height: 2px;
+  .company-name-container {
+    margin-bottom: 2rem;
   }
 }
 
@@ -822,9 +591,4 @@ body {
   .letter-fragment {
     animation: none;
   }
-  .glitch-text::before,
-  .glitch-text::after {
-    animation: none;
-  }
 }
-
