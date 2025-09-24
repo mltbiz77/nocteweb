@@ -137,7 +137,7 @@ class SmoothScrollAnimationObserver {
         
         // Observe animated elements
         const animatedElements = document.querySelectorAll(
-            '.definition-title, .definition-subtitle, .text-card, .portfolio-title, .portfolio-description, .portfolio-item'
+            '.terminal-window, .output-line, .terminal-line'
         );
         
         animatedElements.forEach(el => {
@@ -151,6 +151,48 @@ class SmoothScrollAnimationObserver {
         const sections = document.querySelectorAll('section');
         sections.forEach(section => {
             section.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+        });
+    }
+}
+
+// Terminal animation controller
+class TerminalAnimationController {
+    constructor() {
+        this.setupTerminalAnimations();
+    }
+    
+    setupTerminalAnimations() {
+        // Restart animations when terminal comes into view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.restartTerminalAnimation();
+                }
+            });
+        }, { threshold: 0.3 });
+        
+        const terminal = document.querySelector('.terminal-window');
+        if (terminal) {
+            observer.observe(terminal);
+        }
+    }
+    
+    restartTerminalAnimation() {
+        // Reset all animation elements
+        const animatedElements = [
+            '#command',
+            '#line1', '#line2', '#line3', '#line4',
+            '#initial-cursor', '#final-cursor',
+            '.prompt', '.terminal-title', '.terminal-button'
+        ];
+        
+        animatedElements.forEach(selector => {
+            const elements = document.querySelectorAll(selector);
+            elements.forEach(el => {
+                el.style.animation = 'none';
+                el.offsetHeight; // Trigger reflow
+                el.style.animation = null;
+            });
         });
     }
 }
@@ -171,11 +213,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize smooth scroll animations
     new SmoothScrollAnimationObserver();
     
+    // Initialize terminal animations
+    new TerminalAnimationController();
+    
     // Enhanced modal functionality
     const modals = document.querySelectorAll('.modal');
     const modalTriggers = document.querySelectorAll('.legal-link');
     const closeButtons = document.querySelectorAll('.close');
-
+    
     modalTriggers.forEach(trigger => {
         trigger.addEventListener('click', function(e) {
             e.preventDefault();
@@ -186,7 +231,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-
+    
     closeButtons.forEach(button => {
         button.addEventListener('click', function() {
             const modal = this.closest('.modal');
@@ -194,7 +239,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.style.overflow = 'auto';
         });
     });
-
+    
     modals.forEach(modal => {
         modal.addEventListener('click', function(e) {
             if (e.target === this) {
@@ -203,7 +248,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-
+    
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             modals.forEach(modal => {
@@ -214,18 +259,21 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     });
-
+    
     // Enhanced smooth scroll for scroll indicator
     const scrollIndicator = document.querySelector('.scroll-indicator');
     if (scrollIndicator) {
         scrollIndicator.addEventListener('click', () => {
-            document.querySelector('.definition-section').scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
+            const venturesSection = document.querySelector('.ventures-section');
+            if (venturesSection) {
+                venturesSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
         });
     }
-
+    
     // Cleanup on page unload
     window.addEventListener('beforeunload', () => {
         if (particleSystem) {
