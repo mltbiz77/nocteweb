@@ -113,124 +113,6 @@ class HackerParticleSystem {
     }
 }
 
-// Text switching controller
-class GlitchTextController {
-    constructor() {
-        this.texts = [
-            "Building companies",
-            "Investing in ideas", 
-            "Creating impact"
-        ];
-        this.currentIndex = 0;
-        this.textElement = document.querySelector('.glitch-text');
-        
-        if (this.textElement) {
-            this.startCycle();
-        }
-    }
-    
-    startCycle() {
-        // Start cycling after initial display
-        setTimeout(() => {
-            this.cycleText();
-            setInterval(() => {
-                this.cycleText();
-            }, 4000); // Change every 4 seconds
-        }, 3000); // Wait 3 seconds before starting cycle
-    }
-    
-    cycleText() {
-        this.currentIndex = (this.currentIndex + 1) % this.texts.length;
-        const newText = this.texts[this.currentIndex];
-        
-        // Update text and data attribute for glitch effect
-        this.textElement.textContent = newText;
-        this.textElement.setAttribute('data-text', newText);
-        
-        // Add a pulse effect during transition
-        this.textElement.style.transform = 'scale(1.02)';
-        setTimeout(() => {
-            this.textElement.style.transform = 'scale(1)';
-        }, 200);
-    }
-}
-
-// Enhanced Intersection Observer for smooth section transitions
-class SmoothScrollAnimationObserver {
-    constructor() {
-        this.setupObserver();
-        this.setupSmoothTransitions();
-    }
-    
-    setupObserver() {
-        const observerOptions = {
-            threshold: 0.2,
-            rootMargin: '0px 0px -100px 0px'
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animationPlayState = 'running';
-                    entry.target.classList.add('in-view');
-                }
-            });
-        }, observerOptions);
-        
-        // Observe sections
-        const sections = document.querySelectorAll('section');
-        sections.forEach(section => {
-            observer.observe(section);
-        });
-    }
-    
-    setupSmoothTransitions() {
-        // Add smooth transition classes to sections
-        const sections = document.querySelectorAll('section');
-        sections.forEach(section => {
-            section.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-        });
-    }
-}
-
-// Performance monitor
-class PerformanceMonitor {
-    constructor() {
-        this.lastTime = performance.now();
-        this.frameCount = 0;
-        this.fps = 60;
-        this.monitor();
-    }
-    
-    monitor() {
-        const currentTime = performance.now();
-        this.frameCount++;
-        
-        if (currentTime >= this.lastTime + 1000) {
-            this.fps = Math.round((this.frameCount * 1000) / (currentTime - this.lastTime));
-            this.frameCount = 0;
-            this.lastTime = currentTime;
-            
-            // Reduce particle count if performance is poor
-            if (this.fps < 30) {
-                this.optimizePerformance();
-            }
-        }
-        
-        requestAnimationFrame(() => this.monitor());
-    }
-    
-    optimizePerformance() {
-        // Reduce animations if performance is poor
-        const particles = document.querySelectorAll('#particleCanvas');
-        particles.forEach(canvas => {
-            if (canvas) {
-                canvas.style.display = 'none';
-            }
-        });
-    }
-}
-
 // Main initialization
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize particle system
@@ -243,15 +125,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (isHighPerformance && heroCanvas) {
         heroParticleSystem = new HackerParticleSystem(heroCanvas);
     }
-    
-    // Initialize performance monitoring
-    new PerformanceMonitor();
-    
-    // Initialize smooth scroll animations
-    new SmoothScrollAnimationObserver();
-    
-    // Initialize glitch text controller
-    new GlitchTextController();
     
     // Enhanced modal functionality
     const modals = document.querySelectorAll('.modal');
@@ -296,20 +169,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     });
-    
-    // Enhanced smooth scroll for scroll indicator
-    const scrollIndicator = document.querySelector('.scroll-indicator');
-    if (scrollIndicator) {
-        scrollIndicator.addEventListener('click', () => {
-            const venturesSection = document.querySelector('.ventures-section');
-            if (venturesSection) {
-                venturesSection.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    }
     
     // Cleanup on page unload
     window.addEventListener('beforeunload', () => {
