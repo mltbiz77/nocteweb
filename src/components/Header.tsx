@@ -6,10 +6,7 @@ export function Header() {
   const [solid, setSolid] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => {
-      const heroHeight = window.innerHeight
-      setSolid(window.scrollY > heroHeight * 0.5)
-    }
+    const onScroll = () => setSolid(window.scrollY > window.innerHeight * 0.4)
     window.addEventListener('scroll', onScroll, { passive: true })
     onScroll()
     return () => window.removeEventListener('scroll', onScroll)

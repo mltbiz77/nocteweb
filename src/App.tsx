@@ -1,8 +1,7 @@
 import { Header } from './components/Header'
 import { Hero } from './components/Hero'
-import { OrbitCapabilities } from './components/OrbitCapabilities'
-import { TransitionBand } from './components/TransitionBand'
-import { FocusAreas } from './components/FocusAreas'
+import { RibbonCapabilities } from './components/RibbonCapabilities'
+import { FlowSection } from './components/FlowSection'
 import { Footer } from './components/Footer'
 import './styles/global.css'
 
@@ -12,9 +11,8 @@ function App() {
       <Header />
       <main>
         <Hero />
-        <OrbitCapabilities />
-        <TransitionBand />
-        <FocusAreas />
+        <RibbonCapabilities />
+        <FlowSection />
       </main>
       <Footer />
     </>

@@ -1,57 +1,58 @@
 import { useEffect, useState } from 'react'
-import { HeroOrbitBackground } from './HeroOrbitBackground'
+import { HeroRibbons } from './HeroRibbons'
 
 const EMAIL = 'mailto:hello@nocteventures.com'
-
-const CYCLES = ['build', 'invest', 'advise'] as const
-const PREFIX = 'We '
-const SUFFIX = ' in software.'
+const HEADLINE = 'Build. Invest. Advise.'
+const SUBLINE = 'We build software products, invest in ventures, and advise founders and teams—for consumers and businesses.'
 
 export function Hero() {
-  const [wordIndex, setWordIndex] = useState(0)
-  const [headlineVisible, setHeadlineVisible] = useState(false)
+  const [visibleChars, setVisibleChars] = useState(0)
+  const [sublineVisible, setSublineVisible] = useState(false)
+  const reduceMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
   useEffect(() => {
-    setHeadlineVisible(true)
-  }, [])
-
-  useEffect(() => {
-    const reduceMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduceMotion) return
-
+    if (reduceMotion) {
+      setVisibleChars(HEADLINE.length)
+      setTimeout(() => setSublineVisible(true), 100)
+      return
+    }
     const interval = setInterval(() => {
-      setWordIndex((i) => (i + 1) % CYCLES.length)
-    }, 2800)
+      setVisibleChars((c) => {
+        if (c >= HEADLINE.length) {
+          clearInterval(interval)
+          setTimeout(() => setSublineVisible(true), 300)
+          return c
+        }
+        return c + 1
+      })
+    }, 80)
     return () => clearInterval(interval)
-  }, [])
+  }, [reduceMotion])
 
   return (
-    <section className="hero-neon">
-      <HeroOrbitBackground />
-      <div className="hero-gradient-bottom" aria-hidden />
-
-      <div className="hero-neon-content">
+    <section className="hero-ribbon">
+      <HeroRibbons />
+      <div className="hero-ribbon-content">
         <span className="hero-label">Technology & software ventures</span>
-
         <h1 className="hero-headline">
-          {headlineVisible && (
-            <>
-              {PREFIX}
-              <span className="word-cycler" key={wordIndex}>
-                {CYCLES[wordIndex]}
-              </span>
-              {SUFFIX}
-            </>
-          )}
+          {HEADLINE.split('').map((char, i) => (
+            <span
+              key={i}
+              className={`char ${i < visibleChars ? 'visible' : ''}`}
+              style={reduceMotion ? undefined : { animationDelay: `${i * 0.04}s` }}
+            >
+              {char === ' ' ? '\u00A0' : char}
+            </span>
+          ))}
         </h1>
-
-        <p className="hero-subline">
-          We build products, invest in ventures, and advise founders and teams—consumer and business.
+        <p className={`hero-subline ${sublineVisible ? 'is-visible' : ''}`}>
+          {SUBLINE}
         </p>
-
-        <a href={EMAIL} className="hero-cta focus-ring">
-          Get in touch
-        </a>
+        {sublineVisible && (
+          <a href={EMAIL} className="hero-cta focus-ring">
+            Get in touch
+          </a>
+        )}
       </div>
     </section>
   )
