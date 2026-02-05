@@ -1,5 +1,5 @@
 import { Header } from './components/Header'
-import { HeroLine } from './components/HeroLine'
+import { HeroPath } from './components/HeroPath'
 import { FocusSection } from './components/FocusSection'
 import { Footer } from './components/Footer'
 import './styles/global.css'
@@ -9,7 +9,7 @@ function App() {
     <>
       <Header />
       <main>
-        <HeroLine />
+        <HeroPath />
         <FocusSection />
       </main>
       <Footer />
