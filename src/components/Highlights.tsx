@@ -1,9 +1,9 @@
 import { useReveal } from '../hooks/useReveal'
 
 const items = [
-  'From zero to shipped product.',
-  'Capital for focused software.',
-  'Hands-on product and growth advice.',
+  { title: 'Hands-on product partners.', subline: 'From zero to shipped.' },
+  { title: 'Operational capital, not just checks.', subline: 'Aligned for the long term.' },
+  { title: 'Advice embedded in your team.', subline: 'Product, growth, and strategy.' },
 ] as const
 
 export function Highlights() {
@@ -12,13 +12,14 @@ export function Highlights() {
   return (
     <section className="highlights" ref={ref}>
       <div className="highlights-inner">
-        {items.map((title, i) => (
+        {items.map((item, i) => (
           <div
-            key={title}
+            key={item.title}
             className={`highlight-item ${isVisible ? 'is-visible' : ''}`}
-            style={{ transitionDelay: isVisible ? `${i * 0.1}s` : '0s' }}
+            style={{ transitionDelay: isVisible ? `${i * 0.12}s` : '0s' }}
           >
-            <h3 className="highlight-title">{title}</h3>
+            <h3 className="highlight-title">{item.title}</h3>
+            <p className="highlight-subline">{item.subline}</p>
           </div>
         ))}
       </div>

@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import { TypingIndicator } from './TypingIndicator'
+import { HeroOrbs } from './HeroOrbs'
 
 const EMAIL = 'mailto:hello@nocteventures.com'
-const HEADLINE = 'We build, invest & advise.'
-const SUBLINE = 'Software products, capital, and hands-on advice for founders and teams—consumer and business.'
+const HEADLINE = 'Build, invest & advise in software.'
+const SUBLINE = 'We build products, invest in ventures, and advise founders and teams—consumer and business.'
 
 export function Hero() {
   const [phase, setPhase] = useState<'dots' | 'typing' | 'subline'>('dots')
@@ -34,12 +35,19 @@ export function Hero() {
       return () => clearTimeout(t)
     }
 
-    const t = setTimeout(() => setVisibleChars((c) => c + 1), 70)
+    const t = setTimeout(() => setVisibleChars((c) => c + 1), 65)
     return () => clearTimeout(t)
   }, [phase, visibleChars, reduceMotion])
 
   return (
     <section className="hero-wrap">
+      <div className="hero-bg">
+        <div className="hero-bg-beam" />
+        <div className="hero-bg-blob blue" />
+        <div className="hero-bg-blob green" />
+        <div className="hero-bg-blob orange" />
+      </div>
+      <HeroOrbs />
       <div className="hero-content">
         <span className="hero-label">Software & technology ventures</span>
 
