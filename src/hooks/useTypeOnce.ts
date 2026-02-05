@@ -5,7 +5,7 @@ const TYPING_MS = 42
 export function useTypeOnce(
   phrase: string,
   reduceMotion: boolean,
-  startDelayMs: number = 0
+  startTyping: boolean
 ) {
   const [length, setLength] = useState(0)
   const [started, setStarted] = useState(false)
@@ -15,9 +15,8 @@ export function useTypeOnce(
       setLength(phrase.length)
       return
     }
-    const t = setTimeout(() => setStarted(true), startDelayMs)
-    return () => clearTimeout(t)
-  }, [reduceMotion, startDelayMs, phrase.length])
+    if (startTyping && !started) setStarted(true)
+  }, [reduceMotion, startTyping, started, phrase.length])
 
   useEffect(() => {
     if (!started || reduceMotion || length >= phrase.length) return
