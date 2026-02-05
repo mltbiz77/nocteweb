@@ -7,14 +7,13 @@ export function Footer() {
         <div className="footer-legal">
           <p><strong>Nocte Ventures Ltd</strong></p>
           <p>Company No: 16579177</p>
-          <p className="footer-note">Technology and software ventures from London.</p>
         </div>
         <a
           href={EMAIL}
           className="footer-link focus-ring"
-          aria-label="Get in touch by email"
+          aria-label="Email hello@nocteventures.com"
         >
-          Get in touch
+          hello@nocteventures.com
         </a>
       </div>
     </footer>

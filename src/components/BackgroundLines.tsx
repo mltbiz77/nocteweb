@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 
-export function BackgroundWave() {
+export function BackgroundLines() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -12,7 +12,7 @@ export function BackgroundWave() {
 
     const reduceMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
     let animationId: number
-    let phase = 0
+    let t = 0
 
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio ?? 1, 2)
@@ -28,37 +28,42 @@ export function BackgroundWave() {
       const h = canvas.offsetHeight
       ctx.clearRect(0, 0, w, h)
 
-      const speed = reduceMotion ? 0 : 0.015
-      phase += speed
-
-      const gradient = ctx.createLinearGradient(0, 0, w, h)
-      gradient.addColorStop(0, 'rgba(255, 221, 68, 0.06)')
-      gradient.addColorStop(0.5, 'rgba(255, 221, 68, 0.03)')
-      gradient.addColorStop(1, 'rgba(255, 221, 68, 0.08)')
-
-      ctx.beginPath()
-      ctx.moveTo(0, h)
-
-      for (let x = 0; x <= w + 50; x += 20) {
-        const y = h * 0.6 + Math.sin(x * 0.008 + phase) * 40 + Math.sin(x * 0.003 + phase * 0.7) * 25
-        ctx.lineTo(x, y)
+      if (reduceMotion) {
+        ctx.strokeStyle = 'rgba(37, 99, 235, 0.06)'
+        ctx.lineWidth = 1
+        ctx.beginPath()
+        ctx.moveTo(0, h * 0.4)
+        ctx.lineTo(w, h * 0.35)
+        ctx.stroke()
+        ctx.beginPath()
+        ctx.moveTo(0, h * 0.65)
+        ctx.lineTo(w, h * 0.6)
+        ctx.stroke()
+        return
       }
 
-      ctx.lineTo(w + 50, h)
-      ctx.closePath()
-      ctx.fillStyle = gradient
-      ctx.fill()
+      const speed = 0.012
+      t += speed
 
-      ctx.beginPath()
-      ctx.moveTo(0, h)
-      for (let x = 0; x <= w + 50; x += 18) {
-        const y = h * 0.7 + Math.sin(x * 0.006 + phase * 1.2) * 30 + Math.sin(x * 0.002 + phase) * 15
-        ctx.lineTo(x, y)
-      }
-      ctx.lineTo(w + 50, h)
-      ctx.closePath()
-      ctx.fillStyle = 'rgba(255, 221, 68, 0.04)'
-      ctx.fill()
+      const lines = [
+        { y: 0.35, amp: 25, freq: 0.004, phase: 0, speed: 1 },
+        { y: 0.5, amp: 40, freq: 0.003, phase: 1.5, speed: 0.7 },
+        { y: 0.65, amp: 20, freq: 0.005, phase: 3, speed: 1.2 },
+      ]
+
+      lines.forEach((line, i) => {
+        ctx.beginPath()
+        const baseY = h * line.y
+        const offset = (t * line.speed * 80) % (w + 200) - 100
+        for (let x = -50; x <= w + 50; x += 8) {
+          const y = baseY + Math.sin((x + offset) * line.freq + line.phase) * line.amp
+          if (x === -50) ctx.moveTo(x, y)
+          else ctx.lineTo(x, y)
+        }
+        ctx.strokeStyle = `rgba(37, 99, 235, ${0.04 + i * 0.02})`
+        ctx.lineWidth = 1
+        ctx.stroke()
+      })
 
       animationId = requestAnimationFrame(draw)
     }
@@ -76,7 +81,7 @@ export function BackgroundWave() {
   return (
     <canvas
       ref={canvasRef}
-      className="background-wave"
+      className="background-lines"
       aria-hidden
       style={{
         position: 'absolute',

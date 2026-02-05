@@ -1,8 +1,7 @@
 import { Header } from './components/Header'
 import { Hero } from './components/Hero'
-import { Pillars } from './components/Pillars'
-import { FlowLine } from './components/FlowLine'
-import { Approach } from './components/Approach'
+import { LinesSection } from './components/LinesSection'
+import { CompaniesOrFocus } from './components/CompaniesOrFocus'
 import { Footer } from './components/Footer'
 import './styles/global.css'
 
@@ -12,9 +11,8 @@ function App() {
       <Header />
       <main>
         <Hero />
-        <Pillars />
-        <FlowLine />
-        <Approach />
+        <LinesSection />
+        <CompaniesOrFocus />
       </main>
       <Footer />
     </>

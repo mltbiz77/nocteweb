@@ -1,7 +1,16 @@
 import { useEffect, useState } from 'react'
-import { BackgroundWave } from './BackgroundWave'
+import { BackgroundLines } from './BackgroundLines'
 
 const EMAIL = 'mailto:hello@nocteventures.com'
+const HEADLINE = 'Build, invest & advise.'
+
+function splitIntoChars(text: string) {
+  return text.split('').map((char, i) => (
+    <span key={i} className="char" style={{ transitionDelay: `${0.15 + i * 0.03}s` }}>
+      {char === ' ' ? '\u00A0' : char}
+    </span>
+  ))
+}
 
 export function Hero() {
   const [mounted, setMounted] = useState(false)
@@ -15,36 +24,29 @@ export function Hero() {
 
   return (
     <section className="hero-wrap">
-      <BackgroundWave />
-      <div className="hero-sun" aria-hidden />
-      <div className="hero-card">
+      <BackgroundLines />
+      <div className="hero-content">
         <span
           className={`hero-label reveal-hero${visible}`}
-          style={{ transition: 'opacity 0.5s ease, transform 0.5s ease', transitionDelay: '0.1s' }}
+          style={{ transition: 'opacity 0.5s ease, transform 0.5s ease', transitionDelay: '0.05s' }}
         >
-          Technology & software ventures
+          Software & technology ventures
         </span>
-        <h1
-          className={`hero-title reveal-hero${visible}`}
-          style={{ transition: 'opacity 0.55s ease, transform 0.55s ease', transitionDelay: '0.2s' }}
-        >
-          Build, invest & advise in software
+        <h1 className={`hero-title reveal-hero${visible}`}>
+          {splitIntoChars(HEADLINE)}
         </h1>
         <p
           className={`hero-desc reveal-hero${visible}`}
-          style={{ transition: 'opacity 0.5s ease, transform 0.5s ease', transitionDelay: '0.35s' }}
+          style={{ transition: 'opacity 0.5s ease, transform 0.5s ease', transitionDelay: '0.6s' }}
         >
-          We build, invest in and advise focused software ventures—for consumers and businesses.
+          We build products, invest in ventures, and advise founders and teams—across consumer and business software.
         </p>
         <div
           className={`hero-actions reveal-hero${visible}`}
-          style={{ transition: 'opacity 0.5s ease, transform 0.5s ease', transitionDelay: '0.5s' }}
+          style={{ transition: 'opacity 0.5s ease, transform 0.5s ease', transitionDelay: '0.75s' }}
         >
           <a href={EMAIL} className="btn btn-primary focus-ring">
             Get in touch
-          </a>
-          <a href="#what-we-do" className="btn btn-secondary focus-ring">
-            What we do
           </a>
         </div>
       </div>
