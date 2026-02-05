@@ -1,7 +1,6 @@
 import { Header } from './components/Header'
 import { Hero } from './components/Hero'
-import { RibbonCapabilities } from './components/RibbonCapabilities'
-import { FlowSection } from './components/FlowSection'
+import { StatementRow } from './components/StatementRow'
 import { Footer } from './components/Footer'
 import './styles/global.css'
 
@@ -11,8 +10,7 @@ function App() {
       <Header />
       <main>
         <Hero />
-        <RibbonCapabilities />
-        <FlowSection />
+        <StatementRow />
       </main>
       <Footer />
     </>
