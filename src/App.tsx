@@ -1,9 +1,9 @@
 import { Header } from './components/Header'
 import { Hero } from './components/Hero'
 import { Pillars } from './components/Pillars'
-import { FocusAreas } from './components/FocusAreas'
+import { Approach } from './components/Approach'
 import { Footer } from './components/Footer'
-import './App.css'
+import './styles/global.css'
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
       <main>
         <Hero />
         <Pillars />
-        <FocusAreas />
+        <Approach />
       </main>
       <Footer />
     </>

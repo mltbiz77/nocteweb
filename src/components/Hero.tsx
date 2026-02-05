@@ -1,51 +1,61 @@
-import { motion, useReducedMotion } from 'motion/react'
-import { LayoutShapes } from './LayoutShapes'
+import { useEffect, useRef, useState } from 'react'
+import { BackgroundGrid } from './BackgroundGrid'
 
 const EMAIL = 'mailto:hello@nocteventures.com'
-const ease = [0.25, 0.46, 0.45, 0.94] as const
 
 export function Hero() {
-  const reduceMotion = useReducedMotion()
+  const [mounted, setMounted] = useState(false)
+  const labelRef = useRef<HTMLSpanElement>(null)
+  const titleRef = useRef<HTMLHeadingElement>(null)
+  const descRef = useRef<HTMLParagraphElement>(null)
+  const actionsRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const t = requestAnimationFrame(() => {
+      setMounted(true)
+    })
+    return () => cancelAnimationFrame(t)
+  }, [])
+
+  const visible = mounted ? ' is-visible' : ''
 
   return (
-    <section className="hero">
-      <LayoutShapes />
-      <div className="hero-inner">
-        <motion.p
-          className="hero-label"
-          initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduceMotion ? 0 : 0.5, delay: reduceMotion ? 0 : 0.1, ease }}
+    <section className="hero-wrap">
+      <BackgroundGrid />
+      <div className="hero-card">
+        <span
+          ref={labelRef}
+          className={`hero-label reveal-hero${visible}`}
+          style={{ transition: 'opacity 0.5s ease, transform 0.5s ease', transitionDelay: '0.1s' }}
         >
-          Technology &amp; software ventures
-        </motion.p>
-        <motion.h1
-          className="hero-title"
-          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduceMotion ? 0 : 0.55, delay: reduceMotion ? 0 : 0.2, ease }}
+          Software & technology ventures
+        </span>
+        <h1
+          ref={titleRef}
+          className={`hero-title reveal-hero${visible}`}
+          style={{ transition: 'opacity 0.55s ease, transform 0.55s ease', transitionDelay: '0.2s' }}
         >
-          Nocte Ventures
-        </motion.h1>
-        <motion.p
-          className="hero-desc"
-          initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduceMotion ? 0 : 0.5, delay: reduceMotion ? 0 : 0.35, ease }}
+          Build, invest & advise in software
+        </h1>
+        <p
+          ref={descRef}
+          className={`hero-desc reveal-hero${visible}`}
+          style={{ transition: 'opacity 0.5s ease, transform 0.5s ease', transitionDelay: '0.35s' }}
         >
-          We build, invest in and advise on technology and software—for consumers and businesses.
-        </motion.p>
-        <motion.a
-          href={EMAIL}
-          className="btn btn-primary focus-ring"
-          initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: reduceMotion ? 0 : 0.5, delay: reduceMotion ? 0 : 0.5, ease }}
-          whileHover={reduceMotion ? undefined : { scale: 1.03, boxShadow: '0 12px 40px rgba(240, 138, 36, 0.2)' }}
-          whileTap={reduceMotion ? undefined : { scale: 0.98 }}
+          Nocte Ventures works with technology and software—for consumers and businesses. We create products, back teams, and advise on strategy and growth.
+        </p>
+        <div
+          ref={actionsRef}
+          className={`hero-actions reveal-hero${visible}`}
+          style={{ transition: 'opacity 0.5s ease, transform 0.5s ease', transitionDelay: '0.5s' }}
         >
-          Get in touch
-        </motion.a>
+          <a href={EMAIL} className="btn btn-primary focus-ring">
+            Get in touch
+          </a>
+          <a href="#what-we-do" className="btn btn-secondary focus-ring">
+            What we do
+          </a>
+        </div>
       </div>
     </section>
   )
