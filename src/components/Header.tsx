@@ -3,16 +3,20 @@ import { useEffect, useState } from 'react'
 const EMAIL = 'mailto:hello@nocteventures.com'
 
 export function Header() {
-  const [scrolled, setScrolled] = useState(false)
+  const [solid, setSolid] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
+    const onScroll = () => {
+      const heroHeight = window.innerHeight
+      setSolid(window.scrollY > heroHeight * 0.5)
+    }
     window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll()
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   return (
-    <header className={`header ${scrolled ? 'is-scrolled' : ''}`}>
+    <header className={`header ${solid ? 'is-solid' : ''}`}>
       <div className="header-inner">
         <a href="#" className="logo focus-ring" aria-label="Nocte Ventures home">
           Nocte Ventures

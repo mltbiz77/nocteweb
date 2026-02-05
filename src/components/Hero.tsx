@@ -1,87 +1,57 @@
 import { useEffect, useState } from 'react'
-import { TypingIndicator } from './TypingIndicator'
-import { HeroOrbs } from './HeroOrbs'
+import { HeroOrbitBackground } from './HeroOrbitBackground'
 
 const EMAIL = 'mailto:hello@nocteventures.com'
-const HEADLINE = 'Build, invest & advise in software.'
-const SUBLINE = 'We build products, invest in ventures, and advise founders and teams—consumer and business.'
+
+const CYCLES = ['build', 'invest', 'advise'] as const
+const PREFIX = 'We '
+const SUFFIX = ' in software.'
 
 export function Hero() {
-  const [phase, setPhase] = useState<'dots' | 'typing' | 'subline'>('dots')
-  const [visibleChars, setVisibleChars] = useState(0)
-  const [sublineVisible, setSublineVisible] = useState(false)
-  const reduceMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const [wordIndex, setWordIndex] = useState(0)
+  const [headlineVisible, setHeadlineVisible] = useState(false)
 
   useEffect(() => {
-    if (reduceMotion) {
-      setPhase('subline')
-      setVisibleChars(HEADLINE.length)
-      setSublineVisible(true)
-      return
-    }
-
-    const t1 = setTimeout(() => setPhase('typing'), 800)
-    return () => clearTimeout(t1)
-  }, [reduceMotion])
+    setHeadlineVisible(true)
+  }, [])
 
   useEffect(() => {
-    if (reduceMotion || phase !== 'typing') return
+    const reduceMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduceMotion) return
 
-    if (visibleChars >= HEADLINE.length) {
-      const t = setTimeout(() => {
-        setPhase('subline')
-        setTimeout(() => setSublineVisible(true), 200)
-      }, 400)
-      return () => clearTimeout(t)
-    }
-
-    const t = setTimeout(() => setVisibleChars((c) => c + 1), 65)
-    return () => clearTimeout(t)
-  }, [phase, visibleChars, reduceMotion])
+    const interval = setInterval(() => {
+      setWordIndex((i) => (i + 1) % CYCLES.length)
+    }, 2800)
+    return () => clearInterval(interval)
+  }, [])
 
   return (
-    <section className="hero-wrap">
-      <div className="hero-bg">
-        <div className="hero-bg-beam" />
-        <div className="hero-bg-blob blue" />
-        <div className="hero-bg-blob green" />
-        <div className="hero-bg-blob orange" />
-      </div>
-      <HeroOrbs />
-      <div className="hero-content">
-        <span className="hero-label">Software & technology ventures</span>
+    <section className="hero-neon">
+      <HeroOrbitBackground />
+      <div className="hero-gradient-bottom" aria-hidden />
 
-        <div className="hero-title">
-          {phase === 'dots' && (
-            <div className="hero-typing-wrap">
-              <TypingIndicator />
-            </div>
-          )}
-          {(phase === 'typing' || phase === 'subline' || reduceMotion) && (
+      <div className="hero-neon-content">
+        <span className="hero-label">Technology & software ventures</span>
+
+        <h1 className="hero-headline">
+          {headlineVisible && (
             <>
-              {HEADLINE.split('').map((char, i) => (
-                <span
-                  key={i}
-                  className={`char ${i < visibleChars ? 'visible' : ''}`}
-                >
-                  {i < visibleChars ? char : '\u00A0'}
-                </span>
-              ))}
+              {PREFIX}
+              <span className="word-cycler" key={wordIndex}>
+                {CYCLES[wordIndex]}
+              </span>
+              {SUFFIX}
             </>
           )}
-        </div>
+        </h1>
 
-        {phase === 'subline' && (
-          <p className={`hero-subline ${sublineVisible ? 'is-visible' : ''}`}>
-            {SUBLINE}
-          </p>
-        )}
+        <p className="hero-subline">
+          We build products, invest in ventures, and advise founders and teams—consumer and business.
+        </p>
 
-        {sublineVisible && (
-          <a href={EMAIL} className="hero-cta focus-ring">
-            Get in touch
-          </a>
-        )}
+        <a href={EMAIL} className="hero-cta focus-ring">
+          Get in touch
+        </a>
       </div>
     </section>
   )

@@ -1,8 +1,8 @@
 import { Header } from './components/Header'
 import { Hero } from './components/Hero'
-import { MessageMarquee } from './components/MessageMarquee'
-import { CapabilitiesStream } from './components/CapabilitiesStream'
-import { Highlights } from './components/Highlights'
+import { OrbitCapabilities } from './components/OrbitCapabilities'
+import { TransitionBand } from './components/TransitionBand'
+import { FocusAreas } from './components/FocusAreas'
 import { Footer } from './components/Footer'
 import './styles/global.css'
 
@@ -12,9 +12,9 @@ function App() {
       <Header />
       <main>
         <Hero />
-        <MessageMarquee />
-        <CapabilitiesStream />
-        <Highlights />
+        <OrbitCapabilities />
+        <TransitionBand />
+        <FocusAreas />
       </main>
       <Footer />
     </>
