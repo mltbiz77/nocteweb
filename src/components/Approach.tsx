@@ -1,9 +1,9 @@
 import { useReveal } from '../hooks/useReveal'
 
 const blocks = [
-  'Product-first: we focus on solving real problems with software.',
-  'Lean and data-driven: we iterate quickly and let evidence guide decisions.',
-  'Long-term partnerships: we work with founders and teams over years, not quarters.',
+  { title: 'Product-first', text: 'We focus on solving real problems with software.' },
+  { title: 'Lean & data-driven', text: 'We iterate quickly and let evidence guide decisions.' },
+  { title: 'Long-term partner', text: 'We work with founders and teams over years, not quarters.' },
 ] as const
 
 export function Approach() {
@@ -16,17 +16,18 @@ export function Approach() {
           How we work
         </h2>
         <div className="approach-grid">
-          {blocks.map((text, i) => (
-            <p
-              key={i}
+          {blocks.map((block, i) => (
+            <div
+              key={block.title}
               className={`approach-block reveal${isVisible ? ' is-visible' : ''}`}
               style={{
                 transition: 'opacity 0.4s ease, transform 0.4s ease',
                 transitionDelay: isVisible ? `${0.1 + i * 0.08}s` : '0s',
               }}
             >
-              {text}
-            </p>
+              <h3 className="approach-block-title">{block.title}</h3>
+              <p className="approach-block-text">{block.text}</p>
+            </div>
           ))}
         </div>
       </div>
