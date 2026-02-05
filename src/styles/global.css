@@ -1,11 +1,11 @@
-/* Nocte Ventures – Typing animation, light serif, mobile-first */
+/* Nocte Ventures – Light VC/tech, typing hero, mobile-first */
 
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
 :root {
-  --bg: #F7F3E8;
+  --bg: #F5F5F7;
   --text: #1C1917;
   --text-muted: #57534E;
   --accent-1: #0A84FF;
@@ -13,7 +13,7 @@
   --accent-3: #22C55E;
   --line: rgba(28, 25, 23, 0.08);
   --font-serif: 'DM Serif Display', Georgia, serif;
-  --font-sans: 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --space-xs: 0.5rem;
   --space-sm: 1rem;
   --space-md: 1.5rem;
@@ -68,8 +68,8 @@ body {
 }
 
 .header.is-solid {
-  background: rgba(247, 243, 232, 0.96);
-  box-shadow: 0 1px 0 var(--line);
+  background: rgba(245, 245, 247, 0.96);
+  box-shadow: 0 1px 0 var(--line), 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .header-inner {
@@ -111,7 +111,7 @@ body {
   background: rgba(10, 132, 255, 0.08);
 }
 
-/* ========== Hero – Typing animation ========== */
+/* ========== Hero ========== */
 .hero {
   position: relative;
   min-height: 100vh;
@@ -127,55 +127,50 @@ body {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.035;
 }
 
-.hero-bg::before {
-  content: '';
+.hero-beam {
   position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    var(--text) 2px,
-    var(--text) 3px
-  );
-  animation: heroScan 18s linear infinite;
-}
-
-.hero-bg::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -50%;
-  width: 200%;
-  height: 100%;
+  width: 120%;
+  height: 60%;
+  top: 20%;
+  left: -10%;
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(10, 132, 255, 0.03) 45%,
-    rgba(10, 132, 255, 0.06) 50%,
-    rgba(10, 132, 255, 0.03) 55%,
+    rgba(10, 132, 255, 0.04) 30%,
+    rgba(249, 115, 22, 0.05) 50%,
+    rgba(34, 197, 94, 0.04) 70%,
     transparent 100%
   );
-  filter: blur(40px);
-  animation: heroStripe 12s ease-in-out infinite;
+  filter: blur(60px);
+  animation: heroBeam 20s ease-in-out infinite;
 }
 
-@keyframes heroScan {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(60px); }
+.hero-dots {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 20% 30%, var(--accent-1) 1px, transparent 1px),
+    radial-gradient(circle at 80% 60%, var(--accent-2) 1px, transparent 1px),
+    radial-gradient(circle at 50% 80%, var(--accent-3) 1px, transparent 1px);
+  background-size: 120px 120px, 180px 180px, 140px 140px;
+  opacity: 0.2;
+  animation: heroDots 8s ease-in-out infinite;
 }
 
-@keyframes heroStripe {
-  0%, 100% { transform: translateX(-25%); }
-  50% { transform: translateX(0); }
+@keyframes heroBeam {
+  0%, 100% { transform: translateX(-5%) scale(1); opacity: 0.6; }
+  50% { transform: translateX(5%) scale(1.05); opacity: 1; }
+}
+
+@keyframes heroDots {
+  0%, 100% { transform: translate(0, 0); }
+  33% { transform: translate(2px, -3px); }
+  66% { transform: translate(-2px, 2px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-bg::before,
-  .hero-bg::after { animation: none; }
+  .hero-beam, .hero-dots { animation: none; }
 }
 
 .hero-inner {
@@ -289,6 +284,96 @@ body {
   .hero-cta:hover { transform: none; }
 }
 
+/* ========== Orbit strip ========== */
+.orbit-strip {
+  padding: var(--space-2xl) var(--space-md);
+  position: relative;
+}
+
+.orbit-strip-inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  position: relative;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orbit-svg {
+  position: absolute;
+  width: 100%;
+  max-width: 380px;
+  height: 140px;
+  overflow: visible;
+}
+
+.orbit-path {
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  transition: stroke 0.3s ease, opacity 0.3s ease;
+}
+
+.orbit-path-1 {
+  stroke: var(--accent-1);
+  opacity: 0.5;
+  animation: orbitRotate 24s linear infinite;
+}
+
+.orbit-path-2 {
+  stroke: var(--accent-2);
+  opacity: 0.4;
+  animation: orbitRotate 28s linear infinite reverse;
+}
+
+.orbit-dot {
+  opacity: 0.9;
+  filter: drop-shadow(0 0 4px rgba(10, 132, 255, 0.5));
+}
+
+@keyframes orbitRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit-path-1, .orbit-path-2 { animation: none; }
+}
+
+.orbit-labels {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-md) var(--space-xl);
+  padding: 0 var(--space-sm);
+}
+
+.orbit-label {
+  font-size: clamp(0.6875rem, 1.4vw, 0.75rem);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  transition: color 0.35s ease, opacity 0.35s ease, transform 0.35s ease;
+}
+
+.orbit-label.is-active {
+  color: var(--accent-1);
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+.orbit-label[data-active="invest"].is-active {
+  color: var(--accent-2);
+}
+
+.orbit-label[data-active="advise"].is-active {
+  color: var(--accent-3);
+}
+
 /* ========== Focus strip ========== */
 .focus-strip {
   padding: var(--space-3xl) var(--space-md);
@@ -299,12 +384,21 @@ body {
   margin: 0 auto;
 }
 
+.focus-strip-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+  font-weight: 400;
+  color: var(--text);
+  margin: 0 0 var(--space-xl);
+  letter-spacing: -0.02em;
+}
+
 .focus-strip-line {
   display: flex;
   align-items: baseline;
   gap: var(--space-sm);
   font-size: clamp(1rem, 2vw, 1.125rem);
-  line-height: 1.5;
+  line-height: 1.55;
   color: var(--text);
   margin: 0 0 var(--space-md);
   opacity: 0;
@@ -321,20 +415,19 @@ body {
   transform: translateY(0);
 }
 
-.focus-strip-dot {
+.focus-strip-underline {
   flex-shrink: 0;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent-2);
-  margin-top: 0.35em;
-}
-
-.focus-strip-line:nth-child(2) .focus-strip-dot {
+  width: 32px;
+  height: 2px;
   background: var(--accent-1);
+  margin-top: 0.5em;
 }
 
-.focus-strip-line:nth-child(3) .focus-strip-dot {
+.focus-strip-line:nth-child(3) .focus-strip-underline {
+  background: var(--accent-2);
+}
+
+.focus-strip-line:nth-child(4) .focus-strip-underline {
   background: var(--accent-3);
 }
 

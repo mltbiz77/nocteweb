@@ -8,10 +8,14 @@ const PHRASES = [
   'advise on focused software.',
 ]
 const STATIC_HEADLINE = 'We build, invest and advise in software.'
-const TYPING_MS = 55
-const PAUSE_MS = 1800
+const TYPING_MS = 52
+const PAUSE_MS = 2000
 
-export function Hero() {
+type HeroProps = {
+  onVerbChange?: (index: number) => void
+}
+
+export function Hero({ onVerbChange }: HeroProps) {
   const [mounted, setMounted] = useState(false)
   const [phraseIndex, setPhraseIndex] = useState(0)
   const [visibleLength, setVisibleLength] = useState(0)
@@ -27,7 +31,6 @@ export function Hero() {
 
   useEffect(() => {
     if (reduceMotion) return
-
     if (!mounted) return
 
     const phrase = PHRASES[phraseIndex]
@@ -41,6 +44,7 @@ export function Hero() {
     if (phase === 'typing') {
       if (visibleLength >= phrase.length) {
         setPhase('pause')
+        onVerbChange?.(phraseIndex)
         return
       }
       const t = setTimeout(() => setVisibleLength((n) => n + 1), TYPING_MS)
@@ -61,11 +65,11 @@ export function Hero() {
       const t = setTimeout(() => setVisibleLength((n) => n - 1), TYPING_MS * 0.6)
       return () => clearTimeout(t)
     }
-  }, [mounted, phraseIndex, visibleLength, phase, reduceMotion])
+  }, [mounted, phraseIndex, visibleLength, phase, reduceMotion, onVerbChange])
 
   if (reduceMotion) {
     return (
-      <section className="hero hero-typing">
+      <section className="hero">
         <div className="hero-bg" aria-hidden />
         <div className={`hero-inner ${mounted ? 'is-visible' : ''}`}>
           <span className="hero-label">Technology & software ventures</span>
@@ -73,7 +77,7 @@ export function Hero() {
             {STATIC_HEADLINE}
           </h1>
           <p className="hero-subline">
-            Build, invest, and advise—from first build to scale and exit.
+            We build products, invest in teams, and advise on product and growth—for consumers and businesses.
           </p>
           <a href={EMAIL} className="hero-cta focus-ring">
             Get in touch
@@ -87,8 +91,11 @@ export function Hero() {
   const visiblePart = phrase.slice(0, visibleLength)
 
   return (
-    <section className="hero hero-typing">
-      <div className="hero-bg" aria-hidden />
+    <section className="hero">
+      <div className="hero-bg" aria-hidden>
+        <div className="hero-beam" />
+        <div className="hero-dots" />
+      </div>
       <div className={`hero-inner ${mounted ? 'is-visible' : ''}`}>
         <span className="hero-label">Technology & software ventures</span>
         <h1 className="hero-headline hero-headline-typed" aria-live="polite">
@@ -97,7 +104,7 @@ export function Hero() {
           <span className="hero-typed-cursor" aria-hidden />
         </h1>
         <p className="hero-subline">
-          Build, invest, and advise—from first build to scale and exit.
+          We build products, invest in teams, and advise on product and growth—for consumers and businesses.
         </p>
         <a href={EMAIL} className="hero-cta focus-ring">
           Get in touch
