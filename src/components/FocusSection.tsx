@@ -1,10 +1,10 @@
 import { useReveal } from '../hooks/useReveal'
 
-const HEADING = 'We build, advise and invest—in one place.'
+const HEADING = 'Software, not everything.'
 const LINES = [
-  'We focus on software and technology: products, teams, and early-stage ventures.',
-  'Building products, advising on product and growth, and investing in focused teams.',
-  'We work alongside founders and teams from first build to scale.',
+  'We focus on software and technology: products and teams, from early stage to scale.',
+  'Nocte combines building products, advising on product and growth, and investing in focused ventures.',
+  'We work with founders and teams who care about product and distribution.',
 ]
 
 export function FocusSection() {

@@ -6,7 +6,7 @@ export function Header() {
   const [solid, setSolid] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setSolid(window.scrollY > window.innerHeight * 0.3)
+    const onScroll = () => setSolid(window.scrollY > window.innerHeight * 0.25)
     window.addEventListener('scroll', onScroll, { passive: true })
     onScroll()
     return () => window.removeEventListener('scroll', onScroll)
@@ -15,12 +15,9 @@ export function Header() {
   return (
     <header className={`header ${solid ? 'is-solid' : ''}`}>
       <div className="header-inner">
-        <div className="header-logo-wrap">
-          <span className="halo-badge" aria-hidden />
-          <a href="#" className="logo focus-ring" aria-label="Nocte Ventures home">
-            Nocte Ventures
-          </a>
-        </div>
+        <a href="#" className="logo focus-ring" aria-label="Nocte Ventures home">
+          Nocte Ventures
+        </a>
         <a
           href={EMAIL}
           className="header-cta focus-ring"
