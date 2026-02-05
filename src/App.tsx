@@ -1,6 +1,6 @@
 import { Header } from './components/Header'
-import { HeroPath } from './components/HeroPath'
-import { FocusSection } from './components/FocusSection'
+import { Hero } from './components/Hero'
+import { Pillars } from './components/Pillars'
 import { Footer } from './components/Footer'
 import './styles/global.css'
 
@@ -9,8 +9,8 @@ function App() {
     <>
       <Header />
       <main>
-        <HeroPath />
-        <FocusSection />
+        <Hero />
+        <Pillars />
       </main>
       <Footer />
     </>
