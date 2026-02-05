@@ -4,8 +4,8 @@ const EMAIL = 'mailto:hello@nocteventures.com'
 const PREFIX = 'We '
 const PHRASES = [
   'build focused software.',
-  'invest in sharp teams.',
-  'advise on product and growth.',
+  'invest in focused software.',
+  'advise on focused software.',
 ]
 const STATIC_HEADLINE = 'We build, invest and advise in software.'
 const TYPING_MS = 55
@@ -66,6 +66,7 @@ export function Hero() {
   if (reduceMotion) {
     return (
       <section className="hero hero-typing">
+        <div className="hero-bg" aria-hidden />
         <div className={`hero-inner ${mounted ? 'is-visible' : ''}`}>
           <span className="hero-label">Technology & software ventures</span>
           <h1 className="hero-headline hero-headline-static">
@@ -87,6 +88,7 @@ export function Hero() {
 
   return (
     <section className="hero hero-typing">
+      <div className="hero-bg" aria-hidden />
       <div className={`hero-inner ${mounted ? 'is-visible' : ''}`}>
         <span className="hero-label">Technology & software ventures</span>
         <h1 className="hero-headline hero-headline-typed" aria-live="polite">

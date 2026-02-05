@@ -1,6 +1,6 @@
 import { Header } from './components/Header'
 import { Hero } from './components/Hero'
-import { StatementRow } from './components/StatementRow'
+import { FocusStrip } from './components/FocusStrip'
 import { Footer } from './components/Footer'
 import './styles/global.css'
 
@@ -10,7 +10,7 @@ function App() {
       <Header />
       <main>
         <Hero />
-        <StatementRow />
+        <FocusStrip />
       </main>
       <Footer />
     </>

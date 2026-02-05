@@ -1,23 +1,24 @@
 import { useReveal } from '../hooks/useReveal'
 
 const LINES = [
-  'We focus on software products, not everything.',
-  'From first build to scaling and exits.',
+  'Early-stage and product-driven.',
+  'Capital, product and advisory in one place.',
+  'From first build to scaling revenue.',
 ]
 
-export function StatementRow() {
+export function FocusStrip() {
   const { ref, isVisible } = useReveal<HTMLElement>({ rootMargin: '-40px 0px' })
 
   return (
-    <section className="statement-row" ref={ref}>
-      <div className="statement-row-inner">
+    <section className="focus-strip" ref={ref}>
+      <div className="focus-strip-inner">
         {LINES.map((text, i) => (
           <p
             key={i}
-            className={`statement-line ${isVisible ? 'is-visible' : ''}`}
+            className={`focus-strip-line ${isVisible ? 'is-visible' : ''}`}
             style={{ transitionDelay: isVisible ? `${i * 0.1}s` : '0s' }}
           >
-            <span className="statement-dot" aria-hidden />
+            <span className="focus-strip-dot" aria-hidden />
             {text}
           </p>
         ))}
