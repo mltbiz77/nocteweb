@@ -1,0 +1,55 @@
+/* Nocte Ventures – design tokens (dark cinematic VC) */
+
+:root {
+  /* Background */
+  --bg: #050A12;
+  --bg-elevated: #0A1018;
+  --bg-card: rgba(15, 22, 35, 0.6);
+  --bg-card-hover: rgba(20, 30, 48, 0.8);
+
+  /* Foreground */
+  --fg: #F0F2F5;
+  --fg-muted: #8B95A5;
+  --fg-dim: #5C6573;
+
+  /* Accent – cyan */
+  --accent: #22D3EE;
+  --accent-glow: rgba(34, 211, 238, 0.35);
+  --accent-dim: rgba(34, 211, 238, 0.15);
+
+  /* Borders & outlines */
+  --border: rgba(240, 242, 245, 0.08);
+  --border-accent: rgba(34, 211, 238, 0.4);
+
+  /* Typography */
+  --font-display: 'Oswald', 'Helvetica Neue', system-ui, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Spacing */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --section-pad: clamp(4rem, 10vw, 7rem);
+
+  /* Layout */
+  --container: min(1200px, 92vw);
+  --nav-height: 72px;
+  --nav-height-scrolled: 60px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --ease-out: linear;
+    --ease-in-out: linear;
+  }
+}
