@@ -1,0 +1,19 @@
+:root {
+  --bg: #F9FAFB;
+  --bg-alt: #FFFFFF;
+  --fg: #111111;
+  --fg-muted: #4B5563;
+  --accent: #2563EB;
+  --accent-soft: rgba(37, 99, 235, 0.08);
+  --border: #E5E7EB;
+  --font-body: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4rem;
+  --container: min(1120px, 92vw);
+  --nav-h: 64px;
+  --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
