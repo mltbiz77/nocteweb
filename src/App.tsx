@@ -1,24 +1,14 @@
-import { Header } from './components/Header'
-import { Hero } from './components/Hero'
-import { ComparisonSection } from './components/ComparisonSection'
-import { ProductsSection } from './components/ProductsSection'
-import { FAQSection } from './components/FAQSection'
-import { CTASection } from './components/CTASection'
-import { Footer } from './components/Footer'
 import './styles/global.css'
+import { CircleWavesBackground } from './components/CircleWavesBackground'
+import { Hero } from './components/Hero'
+import { Footer } from './components/Footer'
 
 export default function App() {
   return (
-    <>
-      <Header />
-      <main>
-        <Hero />
-        <ComparisonSection />
-        <ProductsSection />
-        <FAQSection />
-        <CTASection />
-      </main>
+    <div className="page">
+      <CircleWavesBackground />
+      <Hero />
       <Footer />
-    </>
+    </div>
   )
 }

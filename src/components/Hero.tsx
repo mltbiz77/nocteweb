@@ -1,73 +1,25 @@
-import { useCallback } from 'react'
-import { motion } from 'framer-motion'
-import { fadeInUp } from '../motion/variants'
+import { useTypewriter } from '../hooks/useTypewriter'
 
 const CONTACT_MAILTO = 'mailto:hello@nocteventures.com'
 
+const LINE =
+  'Designing and building B2C and B2B apps and software, and guiding companies on their solutions.'
+
 export function Hero() {
-  const handleStartProject = useCallback(() => {
-    const el = document.getElementById('work')
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }, [])
+  const typed = useTypewriter(LINE)
 
   return (
-    <section className="hero" aria-labelledby="hero-heading">
+    <section className="hero" aria-label="Nocte Ventures">
       <div className="hero-inner">
-        <div>
-          <motion.h1
-            id="hero-heading"
-            className="hero-heading"
-            variants={fadeInUp}
-            initial="hidden"
-            animate="visible"
-          >
-            Build software that actually ships.
-          </motion.h1>
-          <motion.p
-            className="hero-sub"
-            variants={fadeInUp}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 0.1 }}
-          >
-            We design, build and advise on digital products from B2C apps to B2B tools.
-          </motion.p>
-          <motion.div
-            className="hero-actions"
-            variants={fadeInUp}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 0.2 }}
-          >
-            <a href="#build" className="primary focus-ring">
-              Work with us
-            </a>
-            <a
-              href={CONTACT_MAILTO}
-              className="secondary focus-ring"
-              aria-label="Contact"
-            >
-              Contact
-            </a>
-          </motion.div>
-        </div>
-
-        <motion.div
-          className="hero-panel"
-          variants={fadeInUp}
-          initial="hidden"
-          animate="visible"
-          transition={{ delay: 0.3 }}
+        <h1 className="hero-title">Nocte Ventures</h1>
+        <p className="hero-body">{typed}</p>
+        <a
+          href={CONTACT_MAILTO}
+          className="hero-button focus-ring"
+          aria-label="Contact Nocte Ventures"
         >
-          <input
-            type="text"
-            placeholder="Describe what you want to build…"
-            aria-label="Describe what you want to build"
-          />
-          <button type="button" onClick={handleStartProject}>
-            Start a project
-          </button>
-        </motion.div>
+          Contact
+        </a>
       </div>
     </section>
   )
