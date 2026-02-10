@@ -1,86 +1,23 @@
-@import './theme.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-* ,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
-  min-height:100vh;
-  font-family:var(--font-body);
-  background:var(--bg);
-  color:var(--fg);
-}
-#root{min-height:100vh;}
-a{text-decoration:none;color:inherit}
-button{font-family:inherit;cursor:pointer;border:none;background:none}
-.focus-ring:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-
-.page{
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:space-between;
-  padding:var(--space-lg);
-  position:relative;
-  overflow:hidden;
+:root {
+  --bg: #f9fafb;
+  --fg: #0f172a;
+  --fg-muted: #6b7280;
+  --accent: #2563eb;
 }
 
-.hero{
-  flex:1;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+body {
+  @apply min-h-screen bg-white text-slate-900 antialiased font-sans;
 }
 
-.hero-physics{
-  position:relative;
-  width:100%;
-  max-width:var(--container);
-  height:100%;
+a {
+  @apply no-underline;
 }
 
-.hero-char,
-.hero-btn-shell{
-  position:absolute;
-  will-change:transform;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  pointer-events:none;
+button {
+  @apply font-sans;
 }
 
-.hero-char span{
-  font-size:1.1rem;
-  font-weight:600;
-  letter-spacing:0.04em;
-  text-transform:uppercase;
-  color:var(--fg);
-}
-
-.hero-button{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:var(--space-sm) calc(var(--space-lg)*1.2);
-  font-weight:600;
-  font-size:0.9rem;
-  text-transform:uppercase;
-  letter-spacing:0.18em;
-  border-radius:999px;
-  background:var(--accent);
-  color:#ffffff;
-  box-shadow:0 10px 25px rgba(15,23,42,0.12);
-  transition:transform 0.18s ease-out,box-shadow 0.18s ease-out;
-  pointer-events:auto;
-}
-.hero-button:hover{
-  transform:scale(1.06);
-  box-shadow:0 18px 40px var(--accent-glow);
-}
-.hero-button:active{transform:scale(0.96);}
-
-.footer{
-  font-size:0.8rem;
-  color:var(--fg-muted);
-  text-align:center;
-  padding-top:var(--space-md);
-}
