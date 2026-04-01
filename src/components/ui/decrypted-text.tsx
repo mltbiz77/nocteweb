@@ -361,53 +361,73 @@ export default function DecryptedText({
     setDirection('forward');
   }, [animateOn, text, encryptInstantly]);
 
-  // Idle flicker: subtly swap 1-2 random characters periodically when not animating
+  // Persistent idle scramble: 1-2 characters always cycling through random letters
   const flickerIndicesRef = useRef<Set<number>>(new Set());
+  const scrambleSlotRef = useRef<number>(-1);
+  const scrambleSlot2Ref = useRef<number>(-1);
+  const tickCountRef = useRef(0);
+
   useEffect(() => {
     if (!idleFlicker) return;
     if (isAnimating) return;
 
+    // Build list of non-space indices
+    const validIndices: number[] = [];
+    for (let i = 0; i < text.length; i++) {
+      if (text[i] !== ' ') validIndices.push(i);
+    }
+    if (validIndices.length === 0) return;
+
+    // Pick initial slots
+    const pickSlot = (exclude: number) => {
+      let idx: number;
+      do {
+        idx = validIndices[Math.floor(Math.random() * validIndices.length)];
+      } while (idx === exclude && validIndices.length > 1);
+      return idx;
+    };
+
+    scrambleSlotRef.current = pickSlot(-1);
+    scrambleSlot2Ref.current = pickSlot(scrambleSlotRef.current);
+    tickCountRef.current = 0;
+
     const interval = setInterval(() => {
       if (isAnimating) return;
 
-      // Pick 1-2 random non-space indices to briefly flicker
-      const indices: number[] = [];
-      for (let i = 0; i < text.length; i++) {
-        if (text[i] !== ' ') indices.push(i);
-      }
-      if (indices.length === 0) return;
+      tickCountRef.current++;
 
-      const count = Math.random() < 0.5 ? 1 : 2;
-      const chosen = new Set<number>();
-      for (let c = 0; c < count; c++) {
-        chosen.add(indices[Math.floor(Math.random() * indices.length)]);
+      // Every ~8 ticks (~2.4s), move to new random positions
+      if (tickCountRef.current % 8 === 0) {
+        scrambleSlotRef.current = pickSlot(-1);
+        scrambleSlot2Ref.current = pickSlot(scrambleSlotRef.current);
       }
-      flickerIndicesRef.current = chosen;
 
-      // Show scrambled chars at those positions
+      const active = new Set<number>();
+      active.add(scrambleSlotRef.current);
+      // 50% chance second slot is also active for variety
+      if (tickCountRef.current % 3 !== 0) {
+        active.add(scrambleSlot2Ref.current);
+      }
+      flickerIndicesRef.current = active;
+
       setDisplayText(
         text
           .split('')
           .map((char, i) => {
-            if (chosen.has(i)) {
+            if (active.has(i)) {
               return availableChars[Math.floor(Math.random() * availableChars.length)];
             }
             return char;
           })
           .join('')
       );
+    }, 300);
 
-      // Restore after a short flash
-      setTimeout(() => {
-        flickerIndicesRef.current = new Set();
-        if (!isAnimating) {
-          setDisplayText(text);
-        }
-      }, 100 + Math.random() * 100);
-    }, idleFlickerSpeed + Math.random() * 1000);
-
-    return () => clearInterval(interval);
-  }, [idleFlicker, idleFlickerSpeed, isAnimating, text, availableChars]);
+    return () => {
+      clearInterval(interval);
+      flickerIndicesRef.current = new Set();
+    };
+  }, [idleFlicker, isAnimating, text, availableChars]);
 
   const animateProps =
     animateOn === 'hover' || animateOn === 'inViewHover'
