@@ -361,73 +361,19 @@ export default function DecryptedText({
     setDirection('forward');
   }, [animateOn, text, encryptInstantly]);
 
-  // Persistent idle scramble: 1-2 characters always cycling through random letters
-  const flickerIndicesRef = useRef<Set<number>>(new Set());
-  const scrambleSlotRef = useRef<number>(-1);
-  const scrambleSlot2Ref = useRef<number>(-1);
-  const tickCountRef = useRef(0);
+  // Idle shimmer: a subtle opacity wave that sweeps across characters
+  const [shimmerPhase, setShimmerPhase] = useState(0);
 
   useEffect(() => {
     if (!idleFlicker) return;
     if (isAnimating) return;
 
-    // Build list of non-space indices
-    const validIndices: number[] = [];
-    for (let i = 0; i < text.length; i++) {
-      if (text[i] !== ' ') validIndices.push(i);
-    }
-    if (validIndices.length === 0) return;
-
-    // Pick initial slots
-    const pickSlot = (exclude: number) => {
-      let idx: number;
-      do {
-        idx = validIndices[Math.floor(Math.random() * validIndices.length)];
-      } while (idx === exclude && validIndices.length > 1);
-      return idx;
-    };
-
-    scrambleSlotRef.current = pickSlot(-1);
-    scrambleSlot2Ref.current = pickSlot(scrambleSlotRef.current);
-    tickCountRef.current = 0;
-
     const interval = setInterval(() => {
-      if (isAnimating) return;
+      setShimmerPhase(prev => prev + 1);
+    }, 80);
 
-      tickCountRef.current++;
-
-      // Every ~8 ticks (~2.4s), move to new random positions
-      if (tickCountRef.current % 8 === 0) {
-        scrambleSlotRef.current = pickSlot(-1);
-        scrambleSlot2Ref.current = pickSlot(scrambleSlotRef.current);
-      }
-
-      const active = new Set<number>();
-      active.add(scrambleSlotRef.current);
-      // 50% chance second slot is also active for variety
-      if (tickCountRef.current % 3 !== 0) {
-        active.add(scrambleSlot2Ref.current);
-      }
-      flickerIndicesRef.current = active;
-
-      setDisplayText(
-        text
-          .split('')
-          .map((char, i) => {
-            if (active.has(i)) {
-              return availableChars[Math.floor(Math.random() * availableChars.length)];
-            }
-            return char;
-          })
-          .join('')
-      );
-    }, 300);
-
-    return () => {
-      clearInterval(interval);
-      flickerIndicesRef.current = new Set();
-    };
-  }, [idleFlicker, isAnimating, text, availableChars]);
+    return () => clearInterval(interval);
+  }, [idleFlicker, isAnimating]);
 
   const animateProps =
     animateOn === 'hover' || animateOn === 'inViewHover'
@@ -448,13 +394,23 @@ export default function DecryptedText({
       <span aria-hidden="true">
         {displayText.split('').map((char, index) => {
           const isRevealedOrDone = revealedIndices.has(index) || (!isAnimating && isDecrypted);
-          const isFlickering = flickerIndicesRef.current.has(index);
+
+          // Shimmer: a sine wave of opacity that travels across the characters
+          let shimmerStyle: React.CSSProperties | undefined;
+          if (idleFlicker && !isAnimating && isDecrypted && char !== ' ') {
+            const wave = Math.sin((shimmerPhase * 0.15) - (index * 0.7));
+            const opacity = 0.85 + wave * 0.15; // oscillates between 0.7 and 1.0
+            shimmerStyle = {
+              opacity,
+              transition: 'opacity 0.15s ease',
+            };
+          }
 
           return (
             <span
               key={index}
-              className={isFlickering ? encryptedClassName : (isRevealedOrDone ? className : encryptedClassName)}
-              style={isFlickering ? { transition: 'opacity 0.1s' } : undefined}
+              className={isRevealedOrDone ? className : encryptedClassName}
+              style={shimmerStyle}
             >
               {char}
             </span>
