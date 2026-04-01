@@ -65,7 +65,7 @@ export default function App() {
           <h1 className="font-semibold text-5xl sm:text-6xl md:text-7xl lg:text-8xl whitespace-pre-wrap leading-[1.05] tracking-tight">
             <DecryptedText
               text="Nocte Ventures"
-              animateOn="hover"
+              animateOn="view"
               speed={50}
               maxIterations={12}
               sequential={true}
@@ -73,9 +73,8 @@ export default function App() {
               characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
               className="text-white"
               encryptedClassName="text-white/30"
-              parentClassName="cursor-default pointer-events-auto"
+              parentClassName="cursor-default"
               idleFlicker={true}
-              idleFlickerSpeed={2500}
             />
           </h1>
           <p className="text-sm sm:text-base text-white/50 max-w-lg mx-auto leading-relaxed">
