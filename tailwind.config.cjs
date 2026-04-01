@@ -4,13 +4,15 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        accent: '#2563eb',
+        accent: '#ffffff',
+        muted: '#8a8a8a',
+        surface: '#111111',
+        'surface-light': '#1a1a1a',
       },
       fontFamily: {
-        sans: ['system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'sans-serif'],
+        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'sans-serif'],
       },
     },
   },
   plugins: [],
 };
-
