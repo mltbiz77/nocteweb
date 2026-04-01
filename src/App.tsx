@@ -12,27 +12,27 @@ const NAV_LINKS = [
 const SERVICES = [
   {
     number: '01',
-    title: 'Product Design',
+    title: 'Venture Development',
     description:
-      'We design intuitive digital products that users love. From wireframes to pixel-perfect interfaces, every detail is considered.',
+      'We build digital ventures, products, and business models from idea to execution.',
   },
   {
     number: '02',
-    title: 'Web & App Development',
+    title: 'Growth',
     description:
-      'Full-stack engineering for web and mobile applications. We build performant, scalable software that grows with your business.',
+      'We help digital businesses improve traction, sharpen positioning, and scale with focus.',
   },
   {
     number: '03',
-    title: 'Brand Strategy',
+    title: 'Strategic Advisory',
     description:
-      'We help define your brand identity and positioning. From visual identity to messaging, we ensure your brand resonates.',
+      'We advise founders and companies on product direction, business models, monetization, and execution.',
   },
   {
     number: '04',
-    title: 'Technical Consulting',
+    title: 'Investment & Transactions',
     description:
-      'Expert guidance on architecture, technology choices, and engineering processes. We help teams build better, faster.',
+      'We invest in selected digital ventures and support commercial growth, partnerships, and exit-ready positioning.',
   },
 ];
 
@@ -69,13 +69,12 @@ export default function App() {
         <div className="pointer-events-none z-10 text-center absolute space-y-8 px-6">
           <h1 className="font-semibold text-5xl sm:text-6xl md:text-7xl lg:text-8xl whitespace-pre-wrap leading-[1.05] tracking-tight">
             <span className="italic font-light text-4xl sm:text-5xl md:text-6xl lg:text-7xl block mb-2 text-white/80">
-              Designs That Speak
+              Digital ventures, built and grown.
             </span>
-            Louder Than Words
+            Nocte Ventures
           </h1>
           <p className="text-sm sm:text-base text-white/50 max-w-lg mx-auto leading-relaxed">
-            We craft stunning visuals and user-friendly experiences that help
-            your brand stand out and connect with your audience.
+            We develop, grow, advise, sell, and invest in digital ventures and business models.
           </p>
           <div className="pointer-events-auto">
             <Magnet>
@@ -83,7 +82,7 @@ export default function App() {
                 href={CONTACT_MAILTO}
                 className="inline-flex items-center gap-2 px-8 py-3.5 text-sm font-medium tracking-wide rounded-full bg-white text-black hover:bg-white/90 transition-all duration-300 shadow-[0_0_40px_rgba(255,255,255,0.1)]"
               >
-                Start a Project
+                Get in touch
                 <svg
                   className="w-4 h-4"
                   fill="none"
@@ -165,28 +164,26 @@ export default function App() {
                 About us
               </span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight mb-8">
-                Building the future,
+                Building digital ventures
                 <br />
-                <span className="text-white/40">one product at a time.</span>
+                <span className="text-white/40">with commercial focus.</span>
               </h2>
               <p className="text-white/50 leading-relaxed mb-6">
-                Nocte Ventures is a design and technology studio based in
-                England. We partner with ambitious companies to design, build,
-                and scale digital products that make an impact.
+                Nocte Ventures develops, grows, advises, sells, and invests in
+                digital ventures and business models.
               </p>
               <p className="text-white/50 leading-relaxed">
-                From early-stage startups to established enterprises, we bring
-                clarity to complex problems and turn ideas into exceptional
-                digital experiences.
+                We work across strategy, execution, and opportunity development
+                to turn strong ideas into scalable digital businesses.
               </p>
             </div>
 
             <div className="grid grid-cols-2 gap-6">
               {[
-                { value: '50+', label: 'Projects Delivered' },
-                { value: '4+', label: 'Years of Experience' },
-                { value: '100%', label: 'Client Satisfaction' },
-                { value: '24/7', label: 'Ongoing Support' },
+                { value: '01', label: 'Develop' },
+                { value: '02', label: 'Grow' },
+                { value: '03', label: 'Advise' },
+                { value: '04', label: 'Invest' },
               ].map((stat) => (
                 <div
                   key={stat.label}
@@ -212,13 +209,13 @@ export default function App() {
             Get in touch
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight mb-6">
-            Let&apos;s create something
+            Let&apos;s talk about your
             <br />
-            extraordinary together.
+            next venture.
           </h2>
           <p className="text-white/40 max-w-xl mx-auto mb-10 leading-relaxed">
-            Ready to bring your vision to life? We&apos;d love to hear about
-            your project and explore how we can help.
+            Whether you are building a new digital business, refining a model,
+            or exploring strategic growth, we are open to the right opportunities.
           </p>
           <Magnet>
             <a
