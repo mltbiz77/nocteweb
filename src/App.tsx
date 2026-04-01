@@ -1,4 +1,5 @@
 import { GLSLHills } from '@/components/ui/glsl-hills';
+import { DecryptedText } from '@/components/ui/decrypted-text';
 import { Magnet } from './components/Magnet';
 
 const CONTACT_MAILTO = 'mailto:hello@nocteventures.com';
@@ -68,7 +69,18 @@ export default function App() {
         <GLSLHills />
         <div className="pointer-events-none z-10 text-center absolute space-y-8 px-6">
           <h1 className="font-semibold text-5xl sm:text-6xl md:text-7xl lg:text-8xl whitespace-pre-wrap leading-[1.05] tracking-tight">
-            Nocte Ventures
+            <DecryptedText
+              text="Nocte Ventures"
+              animateOn="view"
+              speed={60}
+              maxIterations={15}
+              sequential={true}
+              revealDirection="center"
+              characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+              className="text-white"
+              encryptedClassName="text-white/30"
+              parentClassName="cursor-default"
+            />
           </h1>
           <p className="text-sm sm:text-base text-white/50 max-w-lg mx-auto leading-relaxed">
             We develop, grow, advise, sell, and invest in digital ventures and business models.
