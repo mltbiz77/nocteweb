@@ -68,9 +68,6 @@ export default function App() {
         <GLSLHills />
         <div className="pointer-events-none z-10 text-center absolute space-y-8 px-6">
           <h1 className="font-semibold text-5xl sm:text-6xl md:text-7xl lg:text-8xl whitespace-pre-wrap leading-[1.05] tracking-tight">
-            <span className="italic font-light text-4xl sm:text-5xl md:text-6xl lg:text-7xl block mb-2 text-white/80">
-              Digital ventures, built and grown.
-            </span>
             Nocte Ventures
           </h1>
           <p className="text-sm sm:text-base text-white/50 max-w-lg mx-auto leading-relaxed">
