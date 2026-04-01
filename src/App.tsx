@@ -42,8 +42,7 @@ export default function App() {
     <div className="relative min-h-screen bg-[#050505] text-white overflow-hidden">
       {/* ─── Navigation ─── */}
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 sm:px-10 lg:px-16 py-5 bg-[#050505]/60 backdrop-blur-md border-b border-white/5">
-        <a href="#" className="text-lg font-semibold tracking-tight">
-          Nocte Ventures
+        <a href="#" className="text-lg font-semibold tracking-tight" aria-label="Home">
         </a>
         <div className="hidden sm:flex items-center gap-8">
           {NAV_LINKS.map((link) => (
