@@ -395,14 +395,21 @@ export default function DecryptedText({
         {displayText.split('').map((char, index) => {
           const isRevealedOrDone = revealedIndices.has(index) || (!isAnimating && isDecrypted);
 
-          // Shimmer: a sine wave of opacity that travels across the characters
+          // Glow sweep: a sine wave of opacity + text-shadow that travels across characters
           let shimmerStyle: React.CSSProperties | undefined;
           if (idleFlicker && !isAnimating && isDecrypted && char !== ' ') {
-            const wave = Math.sin((shimmerPhase * 0.15) - (index * 0.7));
-            const opacity = 0.85 + wave * 0.15; // oscillates between 0.7 and 1.0
+            const wave = Math.sin((shimmerPhase * 0.12) - (index * 0.55));
+            const normalizedWave = (wave + 1) / 2; // 0 to 1
+            const opacity = 0.55 + normalizedWave * 0.45; // 0.55 to 1.0
+            const glowIntensity = Math.max(0, normalizedWave - 0.5) * 2; // 0 to 1, only top half glows
+            const glowBlur = glowIntensity * 12;
+            const glowOpacity = glowIntensity * 0.6;
             shimmerStyle = {
               opacity,
-              transition: 'opacity 0.15s ease',
+              textShadow: glowIntensity > 0.05
+                ? `0 0 ${glowBlur}px rgba(255, 255, 255, ${glowOpacity})`
+                : 'none',
+              transition: 'opacity 0.12s ease, text-shadow 0.12s ease',
             };
           }
 
