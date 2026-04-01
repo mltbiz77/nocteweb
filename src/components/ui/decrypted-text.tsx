@@ -31,6 +31,8 @@ interface DecryptedTextProps {
   encryptedClassName?: string;
   animateOn?: 'hover' | 'view' | 'click' | 'inViewHover';
   clickMode?: 'once' | 'toggle';
+  idleFlicker?: boolean;
+  idleFlickerSpeed?: number;
   [key: string]: unknown;
 }
 
@@ -47,6 +49,8 @@ export default function DecryptedText({
   encryptedClassName = '',
   animateOn = 'hover',
   clickMode = 'once',
+  idleFlicker = false,
+  idleFlickerSpeed = 2000,
   ...props
 }: DecryptedTextProps) {
   const [displayText, setDisplayText] = useState(text);
@@ -357,6 +361,54 @@ export default function DecryptedText({
     setDirection('forward');
   }, [animateOn, text, encryptInstantly]);
 
+  // Idle flicker: subtly swap 1-2 random characters periodically when not animating
+  const flickerIndicesRef = useRef<Set<number>>(new Set());
+  useEffect(() => {
+    if (!idleFlicker) return;
+    if (isAnimating) return;
+
+    const interval = setInterval(() => {
+      if (isAnimating) return;
+
+      // Pick 1-2 random non-space indices to briefly flicker
+      const indices: number[] = [];
+      for (let i = 0; i < text.length; i++) {
+        if (text[i] !== ' ') indices.push(i);
+      }
+      if (indices.length === 0) return;
+
+      const count = Math.random() < 0.5 ? 1 : 2;
+      const chosen = new Set<number>();
+      for (let c = 0; c < count; c++) {
+        chosen.add(indices[Math.floor(Math.random() * indices.length)]);
+      }
+      flickerIndicesRef.current = chosen;
+
+      // Show scrambled chars at those positions
+      setDisplayText(
+        text
+          .split('')
+          .map((char, i) => {
+            if (chosen.has(i)) {
+              return availableChars[Math.floor(Math.random() * availableChars.length)];
+            }
+            return char;
+          })
+          .join('')
+      );
+
+      // Restore after a short flash
+      setTimeout(() => {
+        flickerIndicesRef.current = new Set();
+        if (!isAnimating) {
+          setDisplayText(text);
+        }
+      }, 100 + Math.random() * 100);
+    }, idleFlickerSpeed + Math.random() * 1000);
+
+    return () => clearInterval(interval);
+  }, [idleFlicker, idleFlickerSpeed, isAnimating, text, availableChars]);
+
   const animateProps =
     animateOn === 'hover' || animateOn === 'inViewHover'
       ? {
@@ -376,9 +428,14 @@ export default function DecryptedText({
       <span aria-hidden="true">
         {displayText.split('').map((char, index) => {
           const isRevealedOrDone = revealedIndices.has(index) || (!isAnimating && isDecrypted);
+          const isFlickering = flickerIndicesRef.current.has(index);
 
           return (
-            <span key={index} className={isRevealedOrDone ? className : encryptedClassName}>
+            <span
+              key={index}
+              className={isFlickering ? encryptedClassName : (isRevealedOrDone ? className : encryptedClassName)}
+              style={isFlickering ? { transition: 'opacity 0.1s' } : undefined}
+            >
               {char}
             </span>
           );

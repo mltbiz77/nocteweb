@@ -55,12 +55,6 @@ export default function App() {
               {link.label}
             </a>
           ))}
-          <a
-            href={CONTACT_MAILTO}
-            className="text-sm px-5 py-2 rounded-full border border-white/20 text-white hover:bg-white hover:text-black transition-all duration-300"
-          >
-            Get in touch
-          </a>
         </div>
       </nav>
 
@@ -71,15 +65,17 @@ export default function App() {
           <h1 className="font-semibold text-5xl sm:text-6xl md:text-7xl lg:text-8xl whitespace-pre-wrap leading-[1.05] tracking-tight">
             <DecryptedText
               text="Nocte Ventures"
-              animateOn="view"
-              speed={60}
-              maxIterations={15}
+              animateOn="hover"
+              speed={50}
+              maxIterations={12}
               sequential={true}
               revealDirection="center"
               characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
               className="text-white"
               encryptedClassName="text-white/30"
-              parentClassName="cursor-default"
+              parentClassName="cursor-default pointer-events-auto"
+              idleFlicker={true}
+              idleFlickerSpeed={2500}
             />
           </h1>
           <p className="text-sm sm:text-base text-white/50 max-w-lg mx-auto leading-relaxed">
