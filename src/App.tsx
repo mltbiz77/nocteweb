@@ -3,9 +3,11 @@ import { DecryptedText } from '@/components/ui/decrypted-text';
 import { Magnet } from './components/Magnet';
 
 const CONTACT_MAILTO = 'mailto:hello@nocteventures.com';
+const INSTAGRAM_URL = 'https://www.instagram.com/nocteventures/';
 
 const NAV_LINKS = [
   { label: 'Services', href: '#services' },
+  { label: 'Portfolio', href: '#portfolio' },
   { label: 'About', href: '#about' },
   { label: 'Contact', href: '#contact' },
 ];
@@ -37,12 +39,64 @@ const SERVICES = [
   },
 ];
 
+const PORTFOLIO = [
+  {
+    number: '01',
+    name: 'Jott',
+    tagline: 'A minimalist to-do list',
+    description:
+      'A premium minimalist to-do list for iOS and iPadOS. The philosophy: a digital sticky note — write it down, it stays until you tick it off. No deadlines, no categories, just a beautiful tactile list.',
+    platform: 'iOS · iPadOS',
+    status: 'Live',
+  },
+  {
+    number: '02',
+    name: 'Track My Subs',
+    tagline: 'Take control of recurring spend',
+    description:
+      'A beautifully designed iOS app that helps users take control of their recurring subscription expenses. See your true monthly cost in one place and get smart reminders before renewals.',
+    platform: 'iOS',
+    status: 'Live',
+  },
+];
+
+const LogoMark = ({ className = 'h-7' }: { className?: string }) => (
+  <img
+    src="/nocte-logo-cropped.png"
+    alt="Nocte"
+    className={`${className} w-auto select-none`}
+    style={{
+      filter: 'invert(1) brightness(2) contrast(2)',
+      mixBlendMode: 'lighten',
+    }}
+    draggable={false}
+  />
+);
+
+const InstagramIcon = ({ className = 'w-4 h-4' }: { className?: string }) => (
+  <svg
+    className={className}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={1.8}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <rect x="3" y="3" width="18" height="18" rx="5" />
+    <circle cx="12" cy="12" r="4" />
+    <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none" />
+  </svg>
+);
+
 export default function App() {
   return (
     <div className="relative min-h-screen bg-[#050505] text-white overflow-hidden">
       {/* ─── Navigation ─── */}
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 sm:px-10 lg:px-16 py-5 bg-[#050505]/60 backdrop-blur-md border-b border-white/5">
-        <a href="#" className="text-lg font-semibold tracking-tight" aria-label="Home">
+        <a href="#" className="block" aria-label="Nocte Ventures — Home">
+          <LogoMark className="h-6 sm:h-7" />
         </a>
         <div className="hidden sm:flex items-center gap-8">
           {NAV_LINKS.map((link) => (
@@ -158,6 +212,59 @@ export default function App() {
         </div>
       </section>
 
+      {/* ─── Portfolio Section ─── */}
+      <section id="portfolio" className="relative py-32 px-6 sm:px-10 lg:px-16">
+        <div className="max-w-6xl mx-auto">
+          <div className="mb-20 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
+            <div>
+              <span className="text-xs uppercase tracking-[0.3em] text-white/30 block mb-4">
+                Selected work
+              </span>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight">
+                Portfolio
+              </h2>
+            </div>
+            <p className="text-sm text-white/40 max-w-sm leading-relaxed">
+              A selection of digital products we have built and brought to market.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {PORTFOLIO.map((project) => (
+              <article
+                key={project.name}
+                className="group relative bg-white/[0.02] border border-white/5 rounded-2xl p-8 sm:p-10 hover:border-white/15 hover:bg-white/[0.04] transition-all duration-500"
+              >
+                <div className="flex items-start justify-between mb-8">
+                  <span className="text-xs text-white/20 font-mono">
+                    {project.number}
+                  </span>
+                  <span className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-white/40">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400/70" />
+                    {project.status}
+                  </span>
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight mb-2 group-hover:text-white transition-colors">
+                  {project.name}
+                </h3>
+                <p className="text-sm text-white/50 mb-6">{project.tagline}</p>
+                <p className="text-sm sm:text-base text-white/40 leading-relaxed mb-8">
+                  {project.description}
+                </p>
+                <div className="flex items-center justify-between pt-6 border-t border-white/5">
+                  <span className="text-[11px] uppercase tracking-[0.25em] text-white/30">
+                    {project.platform}
+                  </span>
+                  <span className="text-[11px] uppercase tracking-[0.25em] text-white/30">
+                    Nocte Ventures
+                  </span>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ─── About Section ─── */}
       <section id="about" className="relative py-32 px-6 sm:px-10 lg:px-16">
         <div className="max-w-6xl mx-auto">
@@ -246,16 +353,30 @@ export default function App() {
 
       {/* ─── Footer ─── */}
       <footer className="border-t border-white/5 py-10 px-6 sm:px-10 lg:px-16">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <span className="text-sm font-semibold tracking-tight">
-            Nocte Ventures
-          </span>
-          <span className="text-xs text-white/30">
-            Registered in England, Company No. 16579177.
-          </span>
-          <span className="text-xs text-white/30">
-            &copy; {new Date().getFullYear()} All rights reserved.
-          </span>
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-3">
+            <LogoMark className="h-5" />
+            <span className="text-xs text-white/30 hidden sm:inline">
+              Ventures
+            </span>
+          </div>
+          <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 text-center">
+            <span className="text-xs text-white/30">
+              Registered in England, Company No. 16579177.
+            </span>
+            <span className="text-xs text-white/30">
+              &copy; {new Date().getFullYear()} All rights reserved.
+            </span>
+          </div>
+          <a
+            href={INSTAGRAM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Nocte Ventures on Instagram"
+            className="text-white/40 hover:text-white transition-colors duration-200"
+          >
+            <InstagramIcon className="w-5 h-5" />
+          </a>
         </div>
       </footer>
     </div>
