@@ -2,3 +2,11 @@ node_modules
 dist
 *.local
 tsconfig.tsbuildinfo
+.gstack/
+.vercel
+
+# Machine-local Claude Code permission cache
+.claude/settings.local.json
+
+# Internal type-comparison scratch page — must not ship to production
+public/type.html
