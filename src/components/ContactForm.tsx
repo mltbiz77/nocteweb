@@ -40,7 +40,9 @@ export function ContactForm() {
     setStatus('sending');
 
     try {
-      const response = await fetch('/api/contact', {
+      // Trailing slash on purpose: vercel.json sets trailingSlash, so posting to
+      // '/api/contact' costs a 308 hop before the function runs.
+      const response = await fetch('/api/contact/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
