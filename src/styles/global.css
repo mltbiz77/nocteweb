@@ -2,11 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Nocturne tokens ─────────────────────────────────────────────
+   Night is the system: blue-black surfaces (hue locked ~225–230°),
+   moonlight chrome, per-app accents as the only saturated color. */
 :root {
-  --bg: #050505;
-  --fg: #f0f0f0;
-  --fg-muted: #8a8a8a;
-  --accent: #ffffff;
+  --bg: #05060b;
+  --bg-deep: #030409;
+  --horizon-1: #0b1024;
+  --horizon-2: #0d1128;
+  --ink: #f2f3f7;
+  --ink-muted: #9ba1b4;
+  --ink-faint: rgba(155, 161, 180, 0.78);
+  --moonlight: #c9d4ee;
+  --line: rgba(148, 163, 199, 0.1);
+  --line-hover: rgba(148, 163, 199, 0.22);
+  --card: rgba(148, 163, 199, 0.03);
+  --card-hover: rgba(148, 163, 199, 0.05);
+  --star: #e7ecf7;
+  --dusk: rgba(212, 175, 140, 0.06);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 * {
@@ -17,10 +31,11 @@
 
 html {
   scroll-behavior: smooth;
+  background: var(--bg);
 }
 
 body {
-  @apply min-h-screen bg-[#050505] text-white antialiased font-sans;
+  @apply min-h-screen bg-night text-ink antialiased font-sans;
 }
 
 a {
@@ -31,20 +46,144 @@ button {
   @apply font-sans;
 }
 
-/* Custom scrollbar */
+::selection {
+  background: rgba(201, 212, 238, 0.18);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid rgba(201, 212, 238, 0.7);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
 ::-webkit-scrollbar {
   width: 6px;
 }
-
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: #10131f;
 }
-
 ::-webkit-scrollbar-thumb {
-  background: #333;
+  background: #2a3044;
   border-radius: 3px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: #3a4158;
+}
+
+/* Fine film grain — reads as night air, prevents banding in the sky gradient */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Horizontal screenshot rails: slim scrollbar (visible = keyboard/desktop affordance) */
+.overflow-x-auto::-webkit-scrollbar {
+  height: 4px;
+}
+.overflow-x-auto::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 199, 0.18);
+  border-radius: 2px;
+}
+
+/* ── Hero title: letters coalesce out of the dark ── */
+.coalesce span {
+  display: inline-block;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .coalesce span {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(10px);
+    animation: coalesce 0.7s var(--ease) forwards;
+  }
+}
+@keyframes coalesce {
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: none;
+  }
+}
+
+/* ── Constellation: unconnected stars land one after another ── */
+.node-inner {
+  opacity: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .node-inner {
+    animation: node-in 0.6s var(--ease) forwards;
+    /* delay set inline per node */
+  }
+  .node-bloom {
+    animation: bloom 0.6s ease-out;
+    /* delay set inline per node; fill none so hover glow still works */
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .node-inner {
+    opacity: 1;
+  }
+}
+@keyframes node-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes bloom {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.35;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Scroll cue: quiet pulse instead of a bounce */
+.scroll-cue {
+  animation: cue-pulse 2.4s ease-in-out infinite;
+}
+@keyframes cue-pulse {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* Never let a scroll-reveal hide content from print or a JS-less render */
+@media print {
+  .noise-overlay {
+    display: none;
+  }
+  .opacity-0,
+  [class*='translate-y-'] {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .scroll-cue,
+  .animate-ping {
+    animation: none;
+  }
 }

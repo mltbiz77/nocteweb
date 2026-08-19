@@ -3,33 +3,83 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#05060B" />
     <link rel="icon" type="image/png" href="/nocte-logo.png" />
     <link rel="apple-touch-icon" href="/nocte-logo.png" />
-    <title>Nocte Ventures</title>
+    <title>Nocte Ventures — A Company That Builds Companies</title>
     <meta
       name="description"
-      content="Nocte Ventures develops, grows, advises, sells, and invests in digital ventures and business models."
+      content="Nocte Ventures builds, owns, and advises digital businesses. We run our own portfolio of SaaS and digital products and provide advisory and AI solutions to clients."
     />
-    <meta
-      property="og:title"
-      content="Nocte Ventures"
-    />
+    <link rel="canonical" href="https://www.nocteventures.com/" />
+    <meta name="robots" content="index, follow, max-snippet:-1" />
+
+    <meta property="og:title" content="Nocte Ventures — A Company That Builds Companies" />
     <meta
       property="og:description"
-      content="Nocte Ventures develops, grows, advises, sells, and invests in digital ventures and business models."
+      content="A company that builds, owns, and advises digital businesses. Our own portfolio of SaaS and digital products, plus advisory and AI solutions for clients."
     />
-    <meta property="og:image" content="/nocte-logo.png" />
-    <meta property="og:url" content="https://www.nocteventures.com" />
+    <meta property="og:image" content="https://www.nocteventures.com/nocte-logo.png" />
+    <meta property="og:url" content="https://www.nocteventures.com/" />
     <meta property="og:type" content="website" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap"
-      rel="stylesheet"
+    <meta property="og:site_name" content="Nocte Ventures" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Nocte Ventures — A Company That Builds Companies" />
+    <meta
+      name="twitter:description"
+      content="A company that builds, owns, and advises digital businesses."
     />
+    <meta name="twitter:image" content="https://www.nocteventures.com/nocte-logo.png" />
+
+    <link rel="preconnect" href="https://api.fontshare.com" />
+    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=zodiak@300,400,500,301,401&f[]=switzer@400,500,600&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        href="https://api.fontshare.com/v2/css?f[]=zodiak@300,400,500,301,401&f[]=switzer@400,500,600&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Nocte Ventures",
+        "legalName": "Nocte Ventures Ltd",
+        "url": "https://www.nocteventures.com",
+        "logo": "https://www.nocteventures.com/nocte-logo.png",
+        "description": "A company that builds, owns, and advises digital businesses. Nocte Ventures runs its own portfolio of SaaS and digital products and provides advisory and AI solutions to clients.",
+        "email": "hello@nocteventures.com",
+        "foundingLocation": {
+          "@type": "Country",
+          "name": "United Kingdom"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "GB"
+        },
+        "sameAs": ["https://www.instagram.com/nocteventures/"]
+      }
+    </script>
   </head>
 <body>
-  <div id="root"></div>
+  <div id="root">
+      <style>
+        .njs{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;background:linear-gradient(to bottom,#030409,#05060B 55%,#0B1024 86%,#0D1128);color:#F2F3F7;font-family:Georgia,serif;text-align:center;padding:2rem}
+        .njs h1{font-size:clamp(3rem,8vw,6.5rem);font-weight:400;letter-spacing:-0.015em}
+        .njs p{color:#9BA1B4;font-family:system-ui,sans-serif;font-size:1rem;max-width:44ch;line-height:1.6}
+      </style>
+      <div class="njs">
+        <h1>Nocte Ventures</h1>
+        <p>A company that builds, owns, and advises digital businesses.</p>
+      </div>
+    </div>
   <script type="module" src="/src/main.tsx"></script>
 </body>
 </html>
