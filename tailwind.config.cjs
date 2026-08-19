@@ -1,25 +1,47 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  // Every route's HTML entry point plus all of src. New route → the glob already covers it.
+  // Every route's HTML entry point plus all of src.
   content: ['./index.html', './*/index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
-        night: '#05060B',
-        'night-deep': '#030409',
-        ink: '#F2F3F7',
-        'ink-muted': '#9BA1B4',
-        'ink-faint': 'rgba(155,161,180,0.78)',
-        moonlight: '#C9D4EE',
-        star: '#E7ECF7',
-        line: 'rgba(148,163,199,0.10)',
-        'line-hover': 'rgba(148,163,199,0.22)',
-        card: 'rgba(148,163,199,0.03)',
-        'card-hover': 'rgba(148,163,199,0.05)',
+        paper: 'var(--paper)',
+        'paper-sunk': 'var(--paper-sunk)',
+        ink: 'var(--ink)',
+        'ink-muted': 'var(--ink-muted)',
+        'ink-faint': 'var(--ink-faint)',
+        rule: 'var(--rule)',
+        'rule-soft': 'var(--rule-soft)',
+        night: 'var(--night)',
+        'night-ink': 'var(--night-ink)',
+        'night-muted': 'var(--night-muted)',
+        'night-rule': 'var(--night-rule)',
+      },
+      borderColor: {
+        DEFAULT: 'var(--rule)',
       },
       fontFamily: {
-        sans: ['Switzer', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'sans-serif'],
-        display: ['Zodiak', 'Georgia', 'serif'],
+        // Structure, headings, UI.
+        sans: ['Switzer', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        // Reading text — paragraphs, legal, long prose.
+        text: ['Erode', 'Iowan Old Style', 'Georgia', 'serif'],
+        // Every number, status, label and index numeral.
+        mono: [
+          'ui-monospace',
+          'SFMono-Regular',
+          'SF Mono',
+          'Menlo',
+          'Consolas',
+          'Liberation Mono',
+          'monospace',
+        ],
+      },
+      letterSpacing: {
+        masthead: '-0.035em',
+        label: '0.14em',
+      },
+      maxWidth: {
+        measure: '62ch',
       },
     },
   },

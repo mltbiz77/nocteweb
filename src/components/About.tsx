@@ -1,13 +1,13 @@
-import { Reveal } from './Reveal';
 import {
-  ButtonLink,
-  Card,
-  CONTACT_EMAIL,
-  Horizon,
-  PageHeader,
+  Container,
+  Display,
+  Entry,
+  Label,
+  NightBand,
+  PageMasthead,
   PageShell,
-  Section,
-  SectionHeading,
+  Prose,
+  SectionMark,
 } from './site';
 import { COMPANY } from '@/data/company';
 import { PRINCIPLES, TEAM } from '@/data/team';
@@ -23,167 +23,140 @@ const initials = (name: string) =>
 
 /** Who we are and what we are trying to build, in the fewest words that do it. */
 export default function About() {
-  const liveApps = APPS.filter((app) => app.status === 'live').length;
+  const live = APPS.filter((app) => app.status === 'live').length;
 
   return (
     <PageShell current="/about/">
-      <PageHeader
-        eyebrow="About"
+      <PageMasthead
+        slug="About"
         title={
           <>
-            We build companies,
-            <br />
-            <span className="italic" style={{ fontWeight: 380, color: 'rgba(242,243,247,0.5)' }}>
-              and then we run them.
-            </span>
+            We build companies, and then we run them.
           </>
         }
         lead={
           <>
             <p>
-              Nocte Ventures is a parent company for mobile and web apps, primarily SaaS and digital
-              products. We build and manage our own portfolio of businesses, buy, sell, and invest in
-              projects, and provide advisory and strategic services to other companies.
+              Nocte Ventures is a parent company for mobile and web apps, primarily SaaS and
+              digital products. We build and manage our own portfolio of businesses, buy, sell,
+              and invest in projects, and provide advisory and strategic services to other
+              companies.
             </p>
             <p>
-              We also build AI and digital solutions for business clients. The goal is a simple one
-              and a hard one: to repeatedly create and operate valuable digital companies.
+              We also build AI and digital solutions for business clients. The goal is a simple
+              one and a hard one: to repeatedly create and operate valuable digital companies.
             </p>
           </>
         }
+        facts={[
+          { label: 'Incorporated', value: COMPANY.founded },
+          { label: 'Jurisdiction', value: COMPANY.jurisdiction },
+          { label: 'Company no.', value: COMPANY.companyNumber },
+          { label: 'Products', value: `${APPS.length} · ${live} live` },
+        ]}
       />
 
-      {/* ─── Where we are ─── */}
-      <Section id="today">
-        <Reveal>
-          <div className="grid gap-8 sm:grid-cols-3 border-y border-line py-10">
-            <div>
-              <p className="font-display text-[2.75rem] leading-none" style={{ fontWeight: 340 }}>
-                {APPS.length}
-              </p>
-              <p className="mt-3 text-sm text-ink-muted">
-                products in the portfolio, {liveApps} of them shipping on the App Store today.
-              </p>
-            </div>
-            <div>
-              <p className="font-display text-[2.75rem] leading-none" style={{ fontWeight: 340 }}>
-                One
-              </p>
-              <p className="mt-3 text-sm text-ink-muted">
-                team across strategy, design, and engineering — no hand-offs between people who never
-                speak.
-              </p>
-            </div>
-            <div>
-              <p className="font-display text-[2.75rem] leading-none" style={{ fontWeight: 340 }}>
-                2025
-              </p>
-              <p className="mt-3 text-sm text-ink-muted">
-                {COMPANY.registration.replace('Registered in', 'Founded and registered in')}
-              </p>
-            </div>
+      {/* ─── §01 The shape of it ─── */}
+      <Container className="pt-16 sm:pt-24">
+        <SectionMark index="01" title="The shape of it" />
+        <div className="grid gap-x-8 gap-y-10 lg:grid-cols-12">
+          <div className="lg:col-span-7">
+            <Display as="h2" size="md">
+              One team across strategy, design, and engineering — no hand-offs between people who
+              never speak.
+            </Display>
           </div>
-        </Reveal>
-      </Section>
+          <div className="lg:col-span-5">
+            <Prose>
+              <p>
+                Most of what goes wrong in software goes wrong in the gap between deciding
+                something and building it. We keep that gap short by not having one: the people
+                who set the direction are the people who ship it.
+              </p>
+              <p>
+                That is also why we own products rather than only advise on them. An opinion about
+                pricing or retention is worth very little until it has been tested on the App
+                Store under your own name.
+              </p>
+            </Prose>
+          </div>
+        </div>
+      </Container>
 
-      {/* ─── How we think ─── */}
-      <Section id="principles" className="pt-0 sm:pt-0">
-        <Reveal>
-          <SectionHeading
-            eyebrow="How we think"
-            title="Three things we hold to."
-            lead="Not a manifesto — just the trade-offs we keep making the same way."
-          />
-        </Reveal>
-
-        <div className="grid gap-5 sm:grid-cols-3">
+      {/* ─── §02 How we think ─── */}
+      <Container className="pt-20 sm:pt-28">
+        <SectionMark index="02" title="How we think" />
+        <div className="border-t border-rule">
           {PRINCIPLES.map((principle, index) => (
-            <Reveal key={principle.title} delay={index * 0.06}>
-              <Card className="h-full p-7 sm:p-8">
-                <h3 className="text-lg font-medium text-ink mb-3">{principle.title}</h3>
-                <p className="text-sm text-ink-muted leading-relaxed">{principle.description}</p>
-              </Card>
-            </Reveal>
+            <Entry
+              key={principle.title}
+              index={String(index + 1).padStart(2, '0')}
+              title={principle.title}
+            >
+              <p>{principle.description}</p>
+            </Entry>
           ))}
         </div>
-      </Section>
+      </Container>
 
-      {/* ─── Team: renders only once there is someone in `TEAM` ─── */}
+      {/* ─── §03 Team: renders only once there is someone in `TEAM` ─── */}
       {TEAM.length > 0 ? (
-        <Section id="team">
-          <Reveal>
-            <SectionHeading eyebrow="Who you'd work with" title="The team." />
-          </Reveal>
-
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <Container className="pt-20 sm:pt-28">
+          <SectionMark index="03" title="Who you'd work with" />
+          <div className="border-t border-rule">
             {TEAM.map((member, index) => (
-              <Reveal key={member.name} delay={index * 0.06}>
-                <Card className="h-full p-7 sm:p-8">
+              <Entry
+                key={member.name}
+                index={String(index + 1).padStart(2, '0')}
+                title={member.name}
+                aside={
+                  <div className="flex flex-wrap items-center gap-5">
+                    <Label>{member.role}</Label>
+                    {member.links?.map((link) => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="link-quiet font-mono text-[10px] uppercase tracking-label text-ink"
+                      >
+                        {link.label} &rarr;
+                      </a>
+                    ))}
+                  </div>
+                }
+              >
+                <div className="flex items-start gap-5">
                   {member.photo ? (
                     <img
                       src={member.photo}
                       alt={member.name}
-                      className="h-16 w-16 rounded-full border border-line object-cover mb-5"
+                      className="h-14 w-14 shrink-0 border border-rule object-cover"
                       draggable={false}
                     />
                   ) : (
-                    <div className="h-16 w-16 rounded-full border border-line flex items-center justify-center text-sm tracking-[0.15em] text-ink-muted mb-5">
+                    <span className="flex h-14 w-14 shrink-0 items-center justify-center border border-rule font-mono text-[11px] tracking-label text-ink-faint">
                       {initials(member.name)}
-                    </div>
+                    </span>
                   )}
-                  <h3 className="text-lg font-medium text-ink">{member.name}</h3>
-                  <p className="text-sm text-moonlight/70 mt-1">{member.role}</p>
-                  <p className="text-sm text-ink-muted leading-relaxed mt-4">{member.bio}</p>
-                  {member.links?.length ? (
-                    <div className="flex flex-wrap gap-4 mt-5">
-                      {member.links.map((link) => (
-                        <a
-                          key={link.href}
-                          href={link.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-xs text-ink-muted hover:text-ink transition-colors"
-                        >
-                          {link.label} →
-                        </a>
-                      ))}
-                    </div>
-                  ) : null}
-                </Card>
-              </Reveal>
+                  <p>{member.bio}</p>
+                </div>
+              </Entry>
             ))}
           </div>
-        </Section>
+        </Container>
       ) : null}
 
-      {/* ─── Closing ─── */}
-      <Section className="overflow-hidden border-t border-line">
-        <Reveal className="relative text-center">
-          <span className="text-[11px] uppercase tracking-[0.3em] text-ink-faint block mb-5">
-            {COMPANY.tagline.replace(/\.$/, '')}
-          </span>
-          <h2
-            className="font-display text-[clamp(2rem,4.5vw,3.25rem)] tracking-tight mb-8 leading-[1.15]"
-            style={{ fontWeight: 420 }}
-          >
-            Two ways in.
-          </h2>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <ButtonLink href="/portfolio/">See our products</ButtonLink>
-            <ButtonLink href="/advisory/" variant="ghost">
-              Work with us
-            </ButtonLink>
-          </div>
-          <p className="mt-8 text-sm text-ink-faint">
-            Or just email{' '}
-            <a href={`mailto:${CONTACT_EMAIL}`} className="text-ink-muted hover:text-ink transition-colors">
-              {CONTACT_EMAIL}
-            </a>
-            .
+      <div className="pb-24 sm:pb-32" />
+
+      <NightBand heading="Two ways in.">
+        <Prose className="max-w-[44ch] text-night-muted">
+          <p>
+            Look at what we own, or tell us what you are building. Either is a good place to
+            start a conversation.
           </p>
-        </Reveal>
-        <Horizon className="bottom-0 h-16" />
-      </Section>
+        </Prose>
+      </NightBand>
     </PageShell>
   );
 }

@@ -31,7 +31,7 @@ export const OFFERINGS: Offering[] = [
   },
   {
     numeral: '03',
-    title: 'Build & Co-Build Engagements',
+    title: 'Build & Co-Build',
     description:
       'End-to-end product development, or a build alongside your own team. Design and engineering in one place, shipping on a schedule you can hold us to.',
     tags: ['Design', 'Engineering', 'Launch', 'Embedded team'],
@@ -70,29 +70,32 @@ export const HOW_WE_WORK: { title: string; description: string }[] = [
 ];
 
 /**
- * The two pillars of the business, used for the cards on the home page.
- * Keep this at two — the whole point is that a visitor picks one.
+ * The three ways the company makes money. This is the spine of the home
+ * page — a visitor should be able to place themselves in one of them.
  */
-export const PILLARS: {
-  eyebrow: string;
+export const MODES: {
+  index: string;
   title: string;
-  line: string;
   body: string;
-  cta: { label: string; href: string };
+  link: { label: string; href: string };
 }[] = [
   {
-    eyebrow: 'Pillar 01',
-    title: 'Our Products',
-    line: 'We build and operate our own SaaS and digital products.',
-    body: 'Apps we create, grow, and sometimes sell or spin out. Everything we recommend to a client has been run on our own P&L first.',
-    cta: { label: 'View portfolio', href: '/portfolio/' },
+    index: '01',
+    title: 'Build',
+    body: 'We start and operate our own products — mostly SaaS and mobile software. We keep them, run them, and answer for how they perform. Everything we recommend to a client has been run on our own P&L first.',
+    link: { label: 'The register', href: '/portfolio/' },
   },
   {
-    eyebrow: 'Pillar 02',
-    title: 'Advisory & Solutions',
-    line: 'We advise companies and build custom AI and digital solutions.',
-    body: 'Strategy, product, and technical execution for founders and companies — from a positioning problem to a system that has to go live.',
-    cta: { label: 'See how we can help', href: '/advisory/' },
+    index: '02',
+    title: 'Buy & invest',
+    body: 'We acquire digital products worth owning and back a small number of ventures with capital and hands-on work. Where a sale is the right outcome, we position for it rather than pretend it was never the plan.',
+    link: { label: 'Talk to us', href: '/contact/' },
+  },
+  {
+    index: '03',
+    title: 'Advise',
+    body: 'We work with founders and companies on strategy, product, and technical execution, including AI and automation that has to survive contact with a real business.',
+    link: { label: 'Advisory & solutions', href: '/advisory/' },
   },
 ];
 

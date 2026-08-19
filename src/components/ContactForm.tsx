@@ -3,10 +3,12 @@ import { CONTACT_EMAIL } from '@/data/company';
 
 type Status = 'idle' | 'sending' | 'sent' | 'fallback' | 'error';
 
+/* Underlined fields, not boxes — the page is a document, so the form is a
+   form on paper rather than a stack of rounded inputs. */
 const FIELD =
-  'w-full rounded-xl border border-line bg-card px-4 py-3 text-sm text-ink placeholder:text-ink-faint/70 transition-colors duration-200 focus:border-moonlight/40 focus:outline-none focus:ring-0';
+  'w-full border-0 border-b border-rule bg-transparent px-0 py-2.5 font-sans text-[1rem] text-ink placeholder:text-ink-faint/70 transition-colors focus:border-ink focus:outline-none focus:ring-0';
 
-const LABEL = 'block text-[11px] uppercase tracking-[0.2em] text-ink-faint mb-2';
+const LABEL = 'block font-mono text-[10px] uppercase tracking-label text-ink-faint mb-1';
 
 /** Builds the mail draft used when no delivery provider is configured. */
 const mailtoFor = (form: { name: string; email: string; company: string; message: string }) => {
@@ -22,7 +24,7 @@ const mailtoFor = (form: { name: string; email: string; company: string; message
 };
 
 /**
- * Posts to `/api/contact`. If that endpoint has no mail provider configured
+ * Posts to `/api/contact/`. If that endpoint has no mail provider configured
  * yet (503) or cannot be reached, we open a pre-filled draft in the visitor's
  * mail client instead of failing — the message still gets written and sent,
  * just by them rather than by us.
@@ -40,8 +42,8 @@ export function ContactForm() {
     setStatus('sending');
 
     try {
-      // Trailing slash on purpose: vercel.json sets trailingSlash, so posting to
-      // '/api/contact' costs a 308 hop before the function runs.
+      // Trailing slash on purpose: vercel.json sets trailingSlash, so posting
+      // to '/api/contact' costs a 308 hop before the function runs.
       const response = await fetch('/api/contact/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -56,7 +58,6 @@ export function ContactForm() {
         setStatus('error');
         return;
       }
-      // 503 not_configured, 502 delivery_failed, or anything unexpected.
       window.location.href = mailtoFor(form);
       setStatus('fallback');
     } catch {
@@ -67,11 +68,14 @@ export function ContactForm() {
 
   if (status === 'sent') {
     return (
-      <div className="rounded-2xl border border-line bg-card p-9 sm:p-10 text-center">
-        <h3 className="font-display text-2xl mb-3" style={{ fontWeight: 420 }}>
+      <div className="border-t border-ink pt-8">
+        <span className="font-mono text-[10px] uppercase tracking-label text-ink-faint">
+          Received
+        </span>
+        <p className="mt-4 font-sans text-[clamp(1.25rem,2.4vw,1.75rem)] tracking-[-0.02em] text-ink">
           Message sent.
-        </h3>
-        <p className="text-sm text-ink-muted leading-relaxed max-w-[40ch] mx-auto">
+        </p>
+        <p className="mt-4 max-w-[42ch] font-text text-[1rem] leading-[1.6] text-ink-muted">
           Thank you — we read everything that comes in and normally reply within two working days.
         </p>
       </div>
@@ -79,8 +83,8 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="rounded-2xl border border-line bg-card p-7 sm:p-9">
-      <div className="grid gap-5 sm:grid-cols-2">
+    <form onSubmit={onSubmit} className="border-t border-ink pt-8">
+      <div className="grid gap-x-8 gap-y-7 sm:grid-cols-2">
         <div>
           <label className={LABEL} htmlFor="cf-name">
             Name
@@ -116,9 +120,9 @@ export function ContactForm() {
         </div>
       </div>
 
-      <div className="mt-5">
+      <div className="mt-7">
         <label className={LABEL} htmlFor="cf-company">
-          Company <span className="normal-case tracking-normal text-ink-faint/70">(optional)</span>
+          Company <span className="text-ink-faint/60">(optional)</span>
         </label>
         <input
           id="cf-company"
@@ -132,7 +136,7 @@ export function ContactForm() {
         />
       </div>
 
-      <div className="mt-5">
+      <div className="mt-7">
         <label className={LABEL} htmlFor="cf-message">
           Message
         </label>
@@ -140,7 +144,7 @@ export function ContactForm() {
           id="cf-message"
           name="message"
           required
-          rows={6}
+          rows={5}
           maxLength={5000}
           className={`${FIELD} resize-y`}
           placeholder="What are you working on, and where could we help?"
@@ -162,20 +166,20 @@ export function ContactForm() {
         />
       </div>
 
-      <div className="mt-7 flex flex-col sm:flex-row sm:items-center gap-4">
+      <div className="mt-9 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
         <button
           type="submit"
           disabled={status === 'sending'}
-          className="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 text-sm font-medium tracking-wide rounded-full bg-white text-black transition-all duration-300 hover:bg-white/90 disabled:opacity-60 disabled:cursor-not-allowed"
+          className="inline-flex items-center gap-3 bg-ink px-6 py-3 font-mono text-[11px] uppercase tracking-label text-paper transition-colors hover:bg-ink/85 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          {status === 'sending' ? 'Sending…' : 'Send message'}
+          {status === 'sending' ? 'Sending' : 'Send message'}
+          <span aria-hidden="true">&rarr;</span>
         </button>
-        <p className="text-xs text-ink-faint leading-relaxed">
-          We use what you send only to reply. See our{' '}
-          <a href="/privacy/" className="text-ink-muted hover:text-ink transition-colors">
-            privacy policy
+        <p className="font-mono text-[10px] uppercase tracking-label text-ink-faint">
+          Used only to reply ·{' '}
+          <a href="/privacy/" className="link text-ink-muted">
+            Privacy
           </a>
-          .
         </p>
       </div>
 
@@ -184,10 +188,10 @@ export function ContactForm() {
       </p>
 
       {status === 'fallback' ? (
-        <p className="mt-5 text-sm text-ink-muted leading-relaxed">
+        <p className="mt-6 max-w-[52ch] font-text text-[0.95rem] leading-[1.6] text-ink-muted">
           We opened a pre-filled draft in your mail app — press send there and it reaches us. If
           nothing opened, email{' '}
-          <a href={`mailto:${CONTACT_EMAIL}`} className="text-ink hover:underline">
+          <a href={`mailto:${CONTACT_EMAIL}`} className="link text-ink">
             {CONTACT_EMAIL}
           </a>{' '}
           directly.
@@ -195,10 +199,10 @@ export function ContactForm() {
       ) : null}
 
       {status === 'error' ? (
-        <p className="mt-5 text-sm text-ink-muted leading-relaxed">
+        <p className="mt-6 max-w-[52ch] font-text text-[0.95rem] leading-[1.6] text-ink-muted">
           Something in the form was rejected — check the name, email, and message fields, or just
           email{' '}
-          <a href={`mailto:${CONTACT_EMAIL}`} className="text-ink hover:underline">
+          <a href={`mailto:${CONTACT_EMAIL}`} className="link text-ink">
             {CONTACT_EMAIL}
           </a>
           .

@@ -20,6 +20,46 @@ plus per-product subpages and the legal pages.
 Vite 6 **multi-page app** (no router), React 18, Tailwind 3, TypeScript. Every route is its
 own HTML entry point mounting its own React tree, so each page loads only its own JS.
 
+## The design, and why
+
+The site is **a document, not a theme**. Nocte is a holding company, so the site is built to
+read like a register: warm paper, black ink, hairline rules, and the portfolio as an actual
+table of holdings on the front page rather than a grid of cards.
+
+Everything that reads as decoration was removed on purpose. There are **no gradients, no
+glows, no particle fields, no grain overlays, no rounded cards, and no scroll animations** —
+those are the house style of every generated site, and they were what the previous version
+looked like. Structure comes from rules, the grid, and type alone.
+
+**Three type voices, each with one job:**
+
+| Voice | Family | Used for |
+|---|---|---|
+| Structure | `Switzer` (Fontshare) | Headings, product names, UI |
+| Reading | `Erode` (Fontshare) | Paragraphs, legal text, table descriptions |
+| Data | System monospace | Numbers, labels, statuses, index numerals, nav |
+
+**Colour is almost absent.** One warm paper (`--paper`), one near-black ink, two rule
+weights. The only saturated colour on the site is each product's accent, used solely as a
+7px status square in the register — a filled square is live, an outlined one is in build.
+
+**One black band closes every page** (`NightBand`). That is where "Digital Craftsmanship
+After Dark" earns its place, instead of being the wallpaper for the whole site.
+
+Flipping the whole site to a dark palette is a **token change only** — invert the values in
+`:root` in `src/styles/global.css`. No component reads a hard-coded colour.
+
+### The primitives (`src/components/site.tsx`)
+
+`Container` · `Label` · `SectionMark` (the `§01 ───── TITLE` rule) · `Display` (the one
+heading scale) · `Prose` (serif reading text) · `FactTable` (mono key/value rows) · `Entry`
+(the numbered ruled row that services, principles, features and clauses all use) ·
+`StatusMark` · `Button` · `ArrowLink` · `SiteNav` · `NightBand` · `SiteFooter` ·
+`PageMasthead` · `PageShell`.
+
+Build new sections out of these. If something needs a new visual treatment, it is usually a
+sign the content belongs in an existing one.
+
 ## How to run
 
 ```bash

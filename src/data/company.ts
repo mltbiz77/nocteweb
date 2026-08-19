@@ -15,7 +15,10 @@ export const COMPANY = {
   subline: 'A company that builds, owns, and advises digital businesses.',
   /** Kept as a motif, never as the primary explanation of what we do. */
   tagline: 'Digital Craftsmanship After Dark.',
-  registration: 'Registered in England, Company No. 16579177.',
+  registration: 'Registered in England · Company No. 16579177',
+  companyNumber: '16579177',
+  jurisdiction: 'England & Wales',
+  founded: '2025',
 } as const;
 
 export const CONTACT_EMAIL = 'hello@nocteventures.com';
@@ -38,13 +41,7 @@ export const NAV_LINKS: NavLink[] = [
   { label: 'Contact', href: '/contact/' },
 ];
 
-/** The footer carries everything, including the legal pages. */
-export const FOOTER_LINKS: NavLink[] = [
-  { label: 'Home', href: '/' },
-  { label: 'Portfolio', href: '/portfolio/' },
-  { label: 'Advisory', href: '/advisory/' },
-  { label: 'About', href: '/about/' },
-  { label: 'Contact', href: '/contact/' },
+export const LEGAL_LINKS: NavLink[] = [
   { label: 'Privacy', href: '/privacy/' },
   { label: 'Terms', href: '/terms/' },
 ];
