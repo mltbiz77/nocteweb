@@ -32,25 +32,27 @@ scroll the home page and see immediately that this company ships.
   the window down. No scroll listener is involved.
 - **The work sits on a soft warm white in between**, so product artwork reads cleanly.
 - **Each product gets a full-width band** (`Showcase.tsx`): its own colour as a flat 5% field,
-  its real App Store screenshots at 280px, its proof points, and the two links that matter.
-  Bands alternate sides so a long scroll has rhythm. Products without screenshots lead with
-  their icon at 200px instead of a placeholder.
-- **The hero's numbers are all checkable on the App Store** — products owned, live count,
-  languages shipped, platforms. Nothing about downloads or revenue, because we cannot stand
-  behind those.
+  its real App Store screenshots at 280px, and the two links that matter. Bands alternate
+  sides so a long scroll has rhythm. Products without screenshots lead with their icon at
+  200px instead of a placeholder — and in that case the icon is **not** repeated beside the
+  name, which is what `hasShots` guards.
+- **The hero is deliberately spare**: headline, one paragraph, two buttons, and the four
+  product icons as wordless proof. No counts, no captions.
 - **Depth comes from real shadows and flat colour fields.** No gradient meshes, no glows, no
   glassmorphism. The `.plate` / `.plate-lift` classes are the only shadows in the system.
 - **Motion is small and fast.** The hero animates itself in CSS (`.rise`, staggered) so it
   never waits on JavaScript; below the fold `Reveal` fades content up 12px over 500ms on
   intersection. Both are skipped under `prefers-reduced-motion`.
 
-**Three type voices, each with one job:**
+**Two families, self-hosted.** `Switzer` (400/500/600) carries everything structural,
+including the small letterspaced caps used for labels, eyebrows and buttons. `Erode` (400)
+carries prose. There is **no monospace** — it read as a different, techier register, and a
+letterspaced mono label sitting next to the geometric logotype was the most visible symptom.
 
-| Voice | Family | Used for |
-|---|---|---|
-| Structure | `Switzer` 400–700 (Fontshare) | Headings, product names, big numbers |
-| Reading | `Erode` (Fontshare) | Paragraphs, legal text, descriptions |
-| Data | System monospace | Labels, eyebrows, statuses, buttons |
+**Say less.** There are no specification tables, no counts of platforms or languages, no
+"hosted in X" bullet lists. The products and the copy carry the argument; a visitor should
+leave knowing what the company does and not much else. If you are tempted to add a metadata
+table, that is the instinct this pass removed.
 
 **Colour discipline.** One blue, one accent, two rule weights. Each product's own colour
 appears in three places and nowhere else: its band field, its tagline, and its status dot —
@@ -60,6 +62,10 @@ Re-inking the site is a **token change only** — edit the `:root` block in
 `src/styles/global.css`. No component reads a hard-coded colour.
 
 **Incorporation detail appears exactly once**, in the footer, from `COMPANY.legalLine`.
+
+**The old "a company that builds companies" line is gone** at Malte's request, along with the
+listy "builds, owns, and advises digital businesses" variant. The home headline is
+`We build software worth owning.` — set once in `src/App.tsx`.
 
 ### The primitives (`src/components/site.tsx`)
 

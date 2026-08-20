@@ -5,7 +5,6 @@ import {
   Container,
   Display,
   Entry,
-  FactStrip,
   Label,
   NightBand,
   PageShell,
@@ -13,58 +12,45 @@ import {
   Reveal,
   SectionHead,
 } from './components/site';
-import { COMPANY } from '@/data/company';
 import { MODES, OFFERINGS } from '@/data/services';
-import { APPS } from '@/data/apps';
+import { APPS, productPath } from '@/data/apps';
 
 /**
- * The home page makes one argument: this company builds real products, owns
- * them, and will do the same work for you. So it opens with a statement, then
- * spends most of its length showing the products at a size you can judge.
+ * One argument, made in as few words as possible: this company builds software
+ * it is willing to own. The products carry the rest, so the page gets out of
+ * their way quickly.
  */
 export default function App() {
-  const live = APPS.filter((app) => app.status === 'live').length;
-  const languages = Math.max(
-    ...APPS.map((app) => {
-      const entry = app.meta.find((m) => m.label === 'Languages');
-      return entry ? Number(entry.value) : 1;
-    }),
-  );
-
   return (
     <PageShell current="/" navTone="night">
       {/* ─── Hero ─── */}
-      <section className="relative bg-night text-night-ink">
-        <Container className="pt-20 pb-14 sm:pt-28 sm:pb-20">
-          <Label className="rise text-night-muted">{COMPANY.name}</Label>
-
+      <section className="bg-night text-night-ink">
+        <Container className="pt-20 pb-16 sm:pt-28 sm:pb-20">
           <Display
             as="h1"
             size="xxl"
             weight={600}
-            className="rise mt-7 max-w-[19ch] text-night-ink"
-            style={{ animationDelay: '70ms' }}
+            className="rise max-w-[17ch] text-night-ink"
           >
-            A company that builds, owns, and advises digital businesses.
+            We build software worth owning.
           </Display>
 
           <div className="mt-12 grid gap-x-12 gap-y-10 lg:grid-cols-12">
-            <div className="rise lg:col-span-5" style={{ animationDelay: '150ms' }}>
+            <div className="rise lg:col-span-5" style={{ animationDelay: '90ms' }}>
               <Prose className="text-night-muted">
                 <p>
-                  Nocte Ventures is a parent company for mobile and web software. We build and
-                  operate our own portfolio, buy and invest in digital products, and advise other
-                  companies on the same decisions we make with our own money.
+                  A parent company for digital products. We build and run our own, and work with a
+                  small number of companies on theirs.
                 </p>
               </Prose>
             </div>
 
             <div
               className="rise flex flex-wrap items-center gap-4 lg:col-span-6 lg:col-start-7 lg:justify-end"
-              style={{ animationDelay: '210ms' }}
+              style={{ animationDelay: '150ms' }}
             >
-              <Button href="#portfolio" variant="night-solid">
-                See our products
+              <Button href="#work" variant="night-solid">
+                See our work
               </Button>
               <Button href="/advisory/" variant="night-outline">
                 Work with us
@@ -72,32 +58,44 @@ export default function App() {
             </div>
           </div>
 
-          {/* Every number here is checkable on the App Store. */}
-          <div className="rise mt-16 sm:mt-20" style={{ animationDelay: '280ms' }}>
-            <FactStrip
-              items={[
-                { value: String(APPS.length), label: 'Products owned' },
-                { value: String(live), label: 'Live on App Store' },
-                { value: String(languages), label: 'Languages shipped' },
-                { value: 'iPhone · iPad', label: 'Platforms' },
-              ]}
-            />
-          </div>
+          {/* Wordless proof: the products themselves, no counts or captions. */}
+          <ul
+            className="rise mt-16 flex flex-wrap items-center gap-5 sm:mt-20 sm:gap-7"
+            style={{ animationDelay: '220ms' }}
+          >
+            {APPS.map((app) => (
+              <li key={app.slug}>
+                <a
+                  href={productPath(app)}
+                  aria-label={app.name}
+                  className="block transition-transform duration-300 hover:-translate-y-1"
+                >
+                  <img
+                    src={app.icon}
+                    alt={app.name}
+                    width={512}
+                    height={512}
+                    className="icon-mask plate h-[54px] w-[54px] sm:h-[64px] sm:w-[64px]"
+                    draggable={false}
+                  />
+                </a>
+              </li>
+            ))}
+          </ul>
         </Container>
       </section>
 
-      {/* ─── Portfolio ─── */}
-      <section id="portfolio" className="scroll-mt-4">
+      {/* ─── Work ─── */}
+      <section id="work" className="scroll-mt-4">
         <Container className="pt-20 pb-12 sm:pt-28 sm:pb-14">
           <Reveal>
             <SectionHead
-              eyebrow="Portfolio"
+              eyebrow="Our work"
               title="The products we own."
               lead={
                 <p>
-                  We build and operate our own software, primarily SaaS and mobile. These are
-                  companies we create, grow, and sometimes sell — designed and developed in-house
-                  rather than commissioned.
+                  Designed and built in-house, then run for the long term. These are companies, not
+                  client projects.
                 </p>
               }
               aside={<ArrowLink href="/portfolio/">All products</ArrowLink>}
@@ -112,19 +110,10 @@ export default function App() {
       <section className="bg-paper-sunk">
         <Container className="py-20 sm:py-28">
           <Reveal>
-            <SectionHead
-              eyebrow="What we do"
-              title="Three ways we get involved."
-              lead={
-                <p>
-                  Most conversations start in one of these and move into another. All three are the
-                  same skill applied at a different point.
-                </p>
-              }
-            />
+            <SectionHead eyebrow="What we do" title="Three ways we get involved." />
           </Reveal>
 
-          <div className="mt-14 border-t border-rule">
+          <div className="mt-12 border-t border-rule">
             {MODES.map((mode, i) => (
               <Reveal key={mode.index} delay={i * 60}>
                 <Entry
@@ -145,20 +134,19 @@ export default function App() {
         <Container className="py-20 sm:py-28">
           <Reveal>
             <SectionHead
-              eyebrow="Advisory & Solutions"
+              eyebrow="Advisory"
               title="We work with companies the way we work on our own."
               lead={
                 <p>
-                  Operator experience rather than a deck about it. The positions we take on
-                  pricing, retention, architecture, and launch timing have been tested somewhere
-                  real before they reach you.
+                  Operator experience rather than a deck about it. A small number of engagements at
+                  a time.
                 </p>
               }
               aside={<ArrowLink href="/advisory/">How we help</ArrowLink>}
             />
           </Reveal>
 
-          <div className="mt-14 grid gap-x-12 gap-y-10 sm:grid-cols-2">
+          <div className="mt-12 grid gap-x-14 gap-y-10 sm:grid-cols-2">
             {OFFERINGS.map((offering, i) => (
               <Reveal key={offering.numeral} delay={i * 60}>
                 <div className="border-t border-rule pt-6">
@@ -177,18 +165,14 @@ export default function App() {
       </section>
 
       <NightBand heading="Let’s talk about your next venture.">
-        <Prose className="max-w-[48ch] text-night-muted">
+        <Prose className="max-w-[44ch] text-night-muted">
           <p>
-            Building something new, looking for an operator to advise on it, or exploring a sale —
-            we are open to the right conversations.
+            Building something new, or exploring a sale — we are open to the right conversations.
           </p>
         </Prose>
         <div className="mt-9 flex flex-wrap gap-4">
           <Button href="/contact/" variant="night-solid">
             Get in touch
-          </Button>
-          <Button href="/portfolio/" variant="night-outline">
-            See the portfolio
           </Button>
         </div>
       </NightBand>

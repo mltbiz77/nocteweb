@@ -11,7 +11,6 @@ import {
   SectionHead,
 } from './site';
 import { PRINCIPLES, TEAM } from '@/data/team';
-import { APPS } from '@/data/apps';
 
 const initials = (name: string) =>
   name
@@ -23,8 +22,6 @@ const initials = (name: string) =>
 
 /** Who we are and what we are trying to build, in the fewest words that do it. */
 export default function About() {
-  const live = APPS.filter((app) => app.status === 'live').length;
-
   return (
     <PageShell current="/about/">
       <PageMasthead
@@ -35,25 +32,13 @@ export default function About() {
           </>
         }
         lead={
-          <>
-            <p>
-              Nocte Ventures is a parent company for mobile and web apps, primarily SaaS and
-              digital products. We build and manage our own portfolio of businesses, buy, sell,
-              and invest in projects, and provide advisory and strategic services to other
-              companies.
-            </p>
-            <p>
-              We also build AI and digital solutions for business clients. The goal is a simple
-              one and a hard one: to repeatedly create and operate valuable digital companies.
-            </p>
-          </>
+          <p>
+            Nocte Ventures is a parent company for digital products. We build and run our own,
+            acquire the ones worth owning, and work with a small number of companies on theirs.
+            The goal is simple to say and hard to do: create and operate valuable digital
+            companies, repeatedly.
+          </p>
         }
-        facts={[
-          { label: 'Products owned', value: String(APPS.length) },
-          { label: 'Live on the App Store', value: String(live) },
-          { label: 'Team', value: 'Small, senior' },
-          { label: 'Focus', value: 'SaaS · Mobile · AI' },
-        ]}
       />
 
       {/* ─── §01 The shape of it ─── */}

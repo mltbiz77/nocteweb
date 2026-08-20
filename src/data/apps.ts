@@ -37,11 +37,6 @@ export type AppData = {
   meta: { label: string; value: string }[];
   /** Overrides the default "Built around one idea" features heading. */
   featuresTitle?: string;
-  /**
-   * Two or three short, checkable proof points shown on the showcase band.
-   * Facts only — no download or revenue claims we cannot stand behind.
-   */
-  highlights: string[];
   /** Omitted for unreleased apps: the page hides its "Screens" section. */
   screenshots?: { src: string; alt: string }[];
   features: AppFeature[];
@@ -96,7 +91,6 @@ export const JOTT: AppData = {
       description: 'A full record of everything you have finished.',
     },
   ],
-  highlights: ['Free, no subscription', 'Six handcrafted themes', 'Nothing leaves the device'],
   privacy: 'No account, no ads, no tracking. Your list stays on your device.',
 };
 
@@ -147,7 +141,6 @@ export const TRACK_MY_SUBS: AppData = {
       description: 'Your monthly total, always in view.',
     },
   ],
-  highlights: ['Live in 44 languages', '50+ currencies, auto-detected', 'Home Screen widget'],
   privacy:
     'Stored on your device. No account, no sign-up, and we never collect what you track.',
 };
@@ -201,7 +194,6 @@ export const FRIDGEFOX: AppData = {
         'Pantry, shopping list and weekly plan belong to the whole household — flatshare, family or couple.',
     },
   ],
-  highlights: ['Reads a receipt in one photo', 'Hosted in Frankfurt', 'Shared household pantry'],
   privacy:
     'No ads, no tracking, no data selling. Everything is stored in Frankfurt, Germany. Receipt photos are read and never kept, and your contacts never leave the device.',
 };
@@ -254,7 +246,6 @@ export const CALLBACK: AppData = {
         'A daily markets snapshot to walk in current — cached, with an honest "as of" date.',
     },
   ],
-  highlights: ['On-device Apple Intelligence', 'Hundreds of real questions', 'Works fully offline'],
   privacy:
     'The tutor runs on-device with Apple Intelligence — your answers never leave your phone. The study product works fully offline. No account, no tracking.',
 };

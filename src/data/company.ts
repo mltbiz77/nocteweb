@@ -11,8 +11,8 @@ export const SITE_URL = 'https://www.nocteventures.com';
 export const COMPANY = {
   name: 'Nocte Ventures',
   legalName: 'Nocte Ventures Ltd',
-  /** Sits under the H1 on the home page and in the meta description. */
-  subline: 'A company that builds, owns, and advises digital businesses.',
+  /** One line under the wordmark in the footer. Kept deliberately short. */
+  subline: 'A parent company for digital products.',
   /** Kept as a motif, never as the primary explanation of what we do. */
   tagline: 'Digital Craftsmanship After Dark.',
   /**

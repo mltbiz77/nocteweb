@@ -1,7 +1,6 @@
 import { ContactForm } from './ContactForm';
 import {
   Container,
-  FactTable,
   Label,
   NightBand,
   PageMasthead,
@@ -61,14 +60,6 @@ export default function Contact() {
               {CONTACT_EMAIL}
             </a>
 
-            <div className="mt-8">
-              <FactTable
-                rows={[
-                  { label: 'Reply within', value: '2 working days' },
-                  { label: 'Language', value: 'English · Deutsch' },
-                ]}
-              />
-            </div>
 
             {BOOKING_URL ? (
               <a

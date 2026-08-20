@@ -70,6 +70,7 @@ const Shots = ({ app, flipped }: { app: AppData; flipped: boolean }) => {
 
 const Band = ({ app, index }: { app: AppData; index: number }) => {
   const flipped = index % 2 === 1;
+  const hasShots = (app.screenshots ?? []).length > 0;
 
   return (
     <article className="relative overflow-hidden border-t border-rule">
@@ -87,17 +88,21 @@ const Band = ({ app, index }: { app: AppData; index: number }) => {
             className={`lg:col-span-5 ${flipped ? 'lg:col-start-8 lg:order-2' : 'lg:col-start-1'}`}
           >
             <Reveal>
+              {/* Products with no screenshots yet carry their icon in the
+                  artwork column, so it is never shown twice on one band. */}
               <div className="flex items-center gap-4">
-                <img
-                  src={app.icon}
-                  alt=""
-                  aria-hidden="true"
-                  width={512}
-                  height={512}
-                  loading="lazy"
-                  className="icon-mask plate h-14 w-14 shrink-0"
-                  draggable={false}
-                />
+                {hasShots ? (
+                  <img
+                    src={app.icon}
+                    alt=""
+                    aria-hidden="true"
+                    width={512}
+                    height={512}
+                    loading="lazy"
+                    className="icon-mask plate h-14 w-14 shrink-0"
+                    draggable={false}
+                  />
+                ) : null}
                 <div>
                   <Display as="h3" size="lg" weight={600}>
                     {app.name}
@@ -119,19 +124,6 @@ const Band = ({ app, index }: { app: AppData; index: number }) => {
                 <p>{app.brief}</p>
               </Prose>
 
-              <ul className="mt-7 space-y-2.5">
-                {app.highlights.map((point) => (
-                  <li key={point} className="flex items-baseline gap-3">
-                    <span
-                      className="mt-[0.45em] h-[5px] w-[5px] shrink-0 rounded-full"
-                      style={{ background: app.accent }}
-                      aria-hidden="true"
-                    />
-                    <span className="font-sans text-[0.95rem] text-ink-muted">{point}</span>
-                  </li>
-                ))}
-              </ul>
-
               <div className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4">
                 <ArrowLink href={productPath(app)}>View {app.name}</ArrowLink>
                 {app.appStoreUrl ? (
@@ -139,7 +131,7 @@ const Band = ({ app, index }: { app: AppData; index: number }) => {
                     href={app.appStoreUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="link-quiet inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label text-ink-muted hover:text-ink"
+                    className="link-quiet inline-flex items-center gap-2 font-sans text-[11px] font-medium uppercase tracking-label text-ink-muted hover:text-ink"
                   >
                     <AppleGlyph className="h-3.5 w-3.5" />
                     App Store

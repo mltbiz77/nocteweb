@@ -5,7 +5,6 @@ import {
   Container,
   Display,
   Entry,
-  FactTable,
   Label,
   NightBand,
   PageShell,
@@ -122,23 +121,6 @@ export default function AppPage({ app }: { app: AppData }) {
           </div>
         </Container>
       </section>
-
-      {/* ─── Specification ─── */}
-      <Container className="py-14 sm:py-16">
-        <div className="grid gap-x-12 gap-y-8 lg:grid-cols-12">
-          <div className="lg:col-span-3">
-            <Label className="text-ink-faint">{t.specification}</Label>
-          </div>
-          <div className="lg:col-span-5 lg:col-start-5">
-            <FactTable
-              rows={[
-                ...app.meta.map((item) => ({ label: item.label, value: item.value })),
-                { label: 'Owner', value: 'Nocte Ventures' },
-              ]}
-            />
-          </div>
-        </div>
-      </Container>
 
       {/* ─── Screens ─── */}
       {rest.length > 0 ? (

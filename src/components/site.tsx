@@ -104,7 +104,7 @@ export const Label = ({
   children: ReactNode;
   className?: string;
 }) => (
-  <span className={`font-mono text-[10px] uppercase tracking-label ${className}`}>{children}</span>
+  <span className={`font-sans text-[10.5px] font-medium uppercase tracking-label ${className}`}>{children}</span>
 );
 
 /** The one heading scale. `size` picks the scale, not the tag. */
@@ -192,77 +192,6 @@ export const SectionHead = ({
   </div>
 );
 
-/** Facts on one line, divided by rules. Used under the hero. */
-export const FactStrip = ({
-  items,
-  tone = 'night',
-}: {
-  items: { label: string; value: string }[];
-  tone?: Tone;
-}) => (
-  <dl
-    className={`grid grid-cols-2 border-t sm:grid-cols-4 ${
-      tone === 'night' ? 'border-night-rule' : 'border-rule'
-    }`}
-  >
-    {items.map((item, i) => (
-      <div
-        key={item.label}
-        className={`py-5 sm:py-6 ${
-          tone === 'night' ? 'sm:border-l sm:border-night-rule' : 'sm:border-l sm:border-rule'
-        } ${i === 0 ? 'sm:border-l-0 sm:pl-0' : 'sm:pl-6'} ${i % 2 === 1 ? 'pl-5 sm:pl-6' : ''}`}
-      >
-        <dd
-          className={`tabular font-sans text-[clamp(1.5rem,2.6vw,2.1rem)] leading-none tracking-[-0.03em] ${
-            tone === 'night' ? 'text-night-ink' : 'text-ink'
-          }`}
-          style={{ fontWeight: 500 }}
-        >
-          {item.value}
-        </dd>
-        <dt className="mt-2.5">
-          <Label className={tone === 'night' ? 'text-night-muted' : 'text-ink-faint'}>
-            {item.label}
-          </Label>
-        </dt>
-      </div>
-    ))}
-  </dl>
-);
-
-/** Key/value rows. A product's specification, a page's metadata. */
-export const FactTable = ({
-  rows,
-  tone = 'paper',
-}: {
-  rows: { label: string; value: ReactNode }[];
-  tone?: Tone;
-}) => (
-  <dl className="w-full">
-    {rows.map((row) => (
-      <div
-        key={row.label}
-        className={`flex items-baseline justify-between gap-6 border-b py-2.5 ${
-          tone === 'night' ? 'border-night-rule' : 'border-rule-soft'
-        }`}
-      >
-        <dt>
-          <Label className={tone === 'night' ? 'text-night-muted' : 'text-ink-faint'}>
-            {row.label}
-          </Label>
-        </dt>
-        <dd
-          className={`tabular text-right font-mono text-[12px] ${
-            tone === 'night' ? 'text-night-ink' : 'text-ink'
-          }`}
-        >
-          {row.value}
-        </dd>
-      </div>
-    ))}
-  </dl>
-);
-
 /**
  * A numbered ruled entry. Advisory offerings, principles, product features
  * and legal clauses are all the same object: an index, a title, a body.
@@ -304,7 +233,7 @@ export const Entry = ({
 
 export const Tag = ({ children, tone = 'paper' }: { children: ReactNode; tone?: Tone }) => (
   <span
-    className={`rounded-full border px-3 py-1 font-mono text-[10px] uppercase tracking-label ${
+    className={`rounded-full border px-3 py-1 font-sans text-[10.5px] font-medium uppercase tracking-label ${
       tone === 'night' ? 'border-night-rule text-night-muted' : 'border-rule text-ink-faint'
     }`}
   >
@@ -335,7 +264,7 @@ export const Button = ({
   return (
     <a
       href={href}
-      className={`group inline-flex items-center gap-3 px-7 py-3.5 font-mono text-[11px] uppercase tracking-label transition-colors ${skin} ${className}`}
+      className={`group inline-flex items-center gap-3 px-7 py-3.5 font-sans text-[11px] font-medium uppercase tracking-label transition-colors ${skin} ${className}`}
       {...rest}
     >
       {children}
@@ -361,7 +290,7 @@ export const ArrowLink = ({
 } & Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href' | 'className'>) => (
   <a
     href={href}
-    className={`link-quiet inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label transition-colors ${
+    className={`link-quiet inline-flex items-center gap-2 font-sans text-[11px] font-medium uppercase tracking-label transition-colors ${
       tone === 'night' ? 'text-night-accent hover:text-night-ink' : 'text-accent hover:text-accent-deep'
     } ${className}`}
     {...rest}
@@ -382,7 +311,7 @@ export const StatusMark = ({
   tone?: Tone;
 }) => (
   <span
-    className={`inline-flex items-center gap-2 whitespace-nowrap font-mono text-[10px] uppercase tracking-label ${
+    className={`inline-flex items-center gap-2 whitespace-nowrap font-sans text-[10.5px] font-medium uppercase tracking-label ${
       tone === 'night' ? 'text-night-muted' : 'text-ink-muted'
     }`}
   >
@@ -515,7 +444,7 @@ export const AppStoreButton = ({
   if (!href) {
     return (
       <span
-        className={`inline-flex items-center gap-2.5 border px-7 py-3.5 font-mono text-[11px] uppercase tracking-label ${
+        className={`inline-flex items-center gap-2.5 border px-7 py-3.5 font-sans text-[11px] font-medium uppercase tracking-label ${
           tone === 'night' ? 'border-night-rule text-night-muted' : 'border-rule text-ink-faint'
         }`}
       >
@@ -530,7 +459,7 @@ export const AppStoreButton = ({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-flex items-center gap-2.5 px-7 py-3.5 font-mono text-[11px] uppercase tracking-label transition-colors ${
+      className={`inline-flex items-center gap-2.5 px-7 py-3.5 font-sans text-[11px] font-medium uppercase tracking-label transition-colors ${
         tone === 'night'
           ? 'bg-night-ink text-night hover:bg-night-accent'
           : 'bg-ink text-paper hover:bg-accent'
@@ -563,9 +492,8 @@ export const SiteNav = ({ current, tone = 'paper' }: { current?: string; tone?: 
     >
       <Container>
         <div className="flex items-center justify-between py-5">
-          <a href="/" aria-label="Nocte Ventures — Home" className="flex items-center gap-3">
-            <LogoMark className="h-[17px] sm:h-[19px]" />
-            <Label className={night ? 'text-night-muted' : 'text-ink-faint'}>Ventures</Label>
+          <a href="/" aria-label="Nocte Ventures — Home" className="flex items-center">
+            <LogoMark className="h-[18px] sm:h-[21px]" />
           </a>
 
           <nav aria-label="Primary" className="hidden items-center gap-9 md:flex">
@@ -576,7 +504,7 @@ export const SiteNav = ({ current, tone = 'paper' }: { current?: string; tone?: 
                   key={link.href}
                   href={link.href}
                   aria-current={active ? 'page' : undefined}
-                  className={`font-mono text-[11px] uppercase tracking-label transition-colors ${
+                  className={`font-sans text-[11px] font-medium uppercase tracking-label transition-colors ${
                     night
                       ? active
                         ? 'text-night-ink'
@@ -600,7 +528,7 @@ export const SiteNav = ({ current, tone = 'paper' }: { current?: string; tone?: 
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-controls="site-menu"
-            className="-mr-1 p-1 font-mono text-[11px] uppercase tracking-label md:hidden"
+            className="-mr-1 p-1 font-sans text-[11px] font-medium uppercase tracking-label md:hidden"
           >
             {open ? 'Close' : 'Menu'}
           </button>
@@ -620,7 +548,7 @@ export const SiteNav = ({ current, tone = 'paper' }: { current?: string; tone?: 
               key={link.href}
               href={link.href}
               aria-current={current === link.href ? 'page' : undefined}
-              className={`block border-b py-3.5 font-mono text-[11px] uppercase tracking-label last:border-0 ${
+              className={`block border-b py-3.5 font-sans text-[11px] font-medium uppercase tracking-label last:border-0 ${
                 night ? 'border-night-rule/50' : 'border-rule-soft'
               } ${
                 current === link.href
@@ -763,40 +691,31 @@ export const PageMasthead = ({
   eyebrow,
   title,
   lead,
-  facts,
   children,
 }: {
   eyebrow: string;
   title: ReactNode;
   lead?: ReactNode;
-  facts?: { label: string; value: ReactNode }[];
   children?: ReactNode;
 }) => (
   <section className="bg-night text-night-ink">
-    <Container className="pt-16 pb-16 sm:pt-24 sm:pb-20">
+    <Container className="pt-16 pb-20 sm:pt-24 sm:pb-28">
       <Label className="rise text-night-muted">{eyebrow}</Label>
-      <div className="mt-6 grid gap-x-10 gap-y-10 lg:grid-cols-12">
-        <Display
-          as="h1"
-          size="xl"
-          weight={600}
-          className="rise text-night-ink lg:col-span-8"
-          style={{ animationDelay: '60ms' }}
-        >
-          {title}
-        </Display>
-        {lead ? (
-          <div className="rise lg:col-span-5" style={{ animationDelay: '120ms' }}>
-            <Prose className="text-night-muted">{lead}</Prose>
-            {children ? <div className="mt-8">{children}</div> : null}
-          </div>
-        ) : null}
-        {facts?.length ? (
-          <div className="rise lg:col-span-4 lg:col-start-9" style={{ animationDelay: '180ms' }}>
-            <FactTable tone="night" rows={facts} />
-          </div>
-        ) : null}
-      </div>
+      <Display
+        as="h1"
+        size="xl"
+        weight={600}
+        className="rise mt-7 max-w-[22ch] text-night-ink"
+        style={{ animationDelay: '60ms' }}
+      >
+        {title}
+      </Display>
+      {lead ? (
+        <div className="rise mt-10 max-w-[52ch]" style={{ animationDelay: '130ms' }}>
+          <Prose className="text-night-muted">{lead}</Prose>
+          {children ? <div className="mt-9">{children}</div> : null}
+        </div>
+      ) : null}
     </Container>
   </section>
 );

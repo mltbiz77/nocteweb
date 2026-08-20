@@ -21,32 +21,19 @@ export default function Advisory() {
   return (
     <PageShell current="/advisory/">
       <PageMasthead
-        eyebrow="Advisory & Solutions"
+        eyebrow="Advisory"
         title={
           <>
             We work with companies the way we work on our own.
           </>
         }
         lead={
-          <>
-            <p>
-              Nocte Ventures works with companies and founders on strategy, product, and technical
-              execution. We help design, build, and scale digital products and AI-enabled
-              solutions.
-            </p>
-            <p>
-              What we bring is operator experience rather than a deck about it: we run our own
-              products, so the positions we take on pricing, retention, architecture, and launch
-              timing have been tested somewhere real before they reach you.
-            </p>
-          </>
+          <p>
+            We work with founders and companies on strategy, product, and technical execution.
+            What we bring is operator experience rather than a deck about it — we run our own
+            products, so the positions we take have been tested somewhere real first.
+          </p>
         }
-        facts={[
-          { label: 'Engagements', value: 'Fixed scope' },
-          { label: 'Team', value: 'Senior, small' },
-          { label: 'Sectors', value: 'SaaS · Mobile · AI' },
-          { label: 'Starts with', value: 'A paragraph by email' },
-        ]}
       />
 
       {/* ─── §01 What we offer ─── */}
@@ -69,15 +56,6 @@ export default function Advisory() {
               key={offering.numeral}
               index={offering.numeral}
               title={offering.title}
-              aside={
-                offering.tags?.length ? (
-                  <div className="flex flex-wrap gap-x-5 gap-y-2">
-                    {offering.tags.map((tag) => (
-                      <Label key={tag}>{tag}</Label>
-                    ))}
-                  </div>
-                ) : null
-              }
             >
               <p>{offering.description}</p>
             </Entry>

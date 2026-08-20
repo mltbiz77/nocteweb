@@ -10,7 +10,6 @@ import {
   Reveal,
   SectionHead,
 } from './site';
-import { APPS } from '@/data/apps';
 
 /**
  * The full portfolio. Everything here comes from `data/apps.ts` — adding a
@@ -18,9 +17,6 @@ import { APPS } from '@/data/apps';
  * file or to `Showcase`.
  */
 export default function Portfolio() {
-  const live = APPS.filter((app) => app.status === 'live').length;
-  const platforms = Array.from(new Set(APPS.flatMap((app) => app.platforms)));
-
   return (
     <PageShell current="/portfolio/" navTone="night">
       <PageMasthead
@@ -28,17 +24,10 @@ export default function Portfolio() {
         title="The products we own."
         lead={
           <p>
-            We build and operate our own mobile and web products, primarily SaaS and digital
-            tools. These are companies we create, grow, and sometimes sell or spin out — designed
-            and developed in-house rather than commissioned.
+            Designed and built in-house, then run for the long term. These are companies we
+            create and grow — and sometimes sell.
           </p>
         }
-        facts={[
-          { label: 'Products', value: String(APPS.length) },
-          { label: 'Live', value: String(live) },
-          { label: 'In build', value: String(APPS.length - live) },
-          { label: 'Platforms', value: platforms.join(' · ') },
-        ]}
       />
 
       <Showcase />

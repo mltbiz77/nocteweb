@@ -29,20 +29,12 @@ module.exports = {
         sans: ['Switzer', 'Helvetica Neue', 'Arial', 'sans-serif'],
         // Reading text — paragraphs, legal, long prose.
         text: ['Erode', 'Iowan Old Style', 'Georgia', 'serif'],
-        // Every number, status, label and index numeral.
-        mono: [
-          'ui-monospace',
-          'SFMono-Regular',
-          'SF Mono',
-          'Menlo',
-          'Consolas',
-          'Liberation Mono',
-          'monospace',
-        ],
       },
       letterSpacing: {
         masthead: '-0.035em',
-        label: '0.14em',
+        // Small caps labels and buttons. Wide enough to read as considered
+        // rather than shouted.
+        label: '0.16em',
       },
       maxWidth: {
         measure: '62ch',

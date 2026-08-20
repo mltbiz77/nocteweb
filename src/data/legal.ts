@@ -39,13 +39,12 @@ export const PRIVACY: LegalDoc = {
     {
       heading: 'What we collect',
       body: [
-        'This is a static website. We do not use advertising cookies, we do not run analytics or tracking scripts, and we do not build a profile of you.',
+        'This is a static website. We do not use advertising cookies, we do not run analytics or tracking scripts, and we do not build a profile of you. Every asset — including the typefaces — is served from this domain, so loading a page does not disclose your visit to any third party.',
         'Two things do involve your data:',
       ],
       bullets: [
         'Server logs. Our hosting provider (Vercel Inc.) records standard request data — IP address, browser user agent, the page requested, and a timestamp — to serve the site and protect it from abuse.',
         'Contact requests. If you email us or send the form on the contact page, we receive the name, email address, company, and message you provide, so that we can reply.',
-        'Web fonts. Typefaces are loaded from Fontshare (Indian Type Foundry). Your browser requests them directly, which discloses your IP address to that provider.',
       ],
     },
     {
@@ -63,7 +62,6 @@ export const PRIVACY: LegalDoc = {
       bullets: [
         'Vercel Inc. — website hosting and delivery.',
         'Our email provider — receiving and storing correspondence.',
-        'Indian Type Foundry (Fontshare) — web font delivery.',
       ],
     },
     {

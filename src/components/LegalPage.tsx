@@ -27,12 +27,12 @@ export default function LegalPage({ doc, path }: { doc: LegalDoc; path: string }
       <PageMasthead
         eyebrow={doc.title}
         title={doc.title}
-        lead={<p>{doc.intro}</p>}
-        facts={[
-          { label: 'Last updated', value: formatDate(doc.updated) },
-          { label: 'Applies to', value: 'nocteventures.com' },
-          { label: 'Clauses', value: String(doc.sections.length) },
-        ]}
+        lead={
+          <>
+            <p>{doc.intro}</p>
+            <p className="text-[0.95rem]">Last updated {formatDate(doc.updated)}.</p>
+          </>
+        }
       />
 
       <Container className="pt-16 pb-24 sm:pt-24 sm:pb-32">
