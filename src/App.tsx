@@ -28,7 +28,7 @@ export default function App() {
       <section className="bg-night text-night-ink">
         <Container className="pt-24 pb-20 sm:pt-32 sm:pb-28">
           <Display as="h1" size="xxl" className="rise max-w-[20ch] text-night-ink">
-            We build software worth owning.
+            we build software worth owning.
           </Display>
 
           <div className="mt-11 grid gap-x-12 gap-y-9 lg:grid-cols-12">
@@ -61,6 +61,12 @@ export default function App() {
           <div className="grid lg:grid-cols-2">
             {/* Left — for companies who need something built or advised on. */}
             <Reveal className="border-t border-ink pt-8 lg:border-r lg:pr-14">
+              <span
+                aria-hidden="true"
+                className="figures mb-4 block font-display text-[2.75rem] leading-[0.8] text-ink/20"
+              >
+                01
+              </span>
               <Label className="text-accent">For companies</Label>
               <Display as="h2" size="lg" className="mt-5 max-w-[20ch]">
                 AI and digital solutions, built properly.
@@ -90,9 +96,15 @@ export default function App() {
               delay={80}
               className="mt-14 border-t border-ink pt-8 lg:mt-0 lg:pl-14"
             >
+              <span
+                aria-hidden="true"
+                className="figures mb-4 block font-display text-[2.75rem] leading-[0.8] text-ink/20"
+              >
+                02
+              </span>
               <Label className="text-ink-faint">Our own products</Label>
               <Display as="h2" size="lg" className="mt-5 max-w-[20ch]">
-                Software we build, own, and run.
+                software we build, own, and run.
               </Display>
               <Prose className="mt-5 max-w-[42ch]">
                 <p>
@@ -146,8 +158,9 @@ export default function App() {
         <Container className="py-20 sm:py-28">
           <Reveal>
             <SectionHead
+              index="03"
               eyebrow="Advisory & Solutions"
-              title="Bring us the problem, not the spec."
+              title="bring us the problem, not the spec."
               lead={
                 <p>
                   We work with a small number of companies at a time on strategy, product, and
@@ -184,7 +197,7 @@ export default function App() {
             <div className="lg:col-span-5">
               <Label className="text-night-muted">Contact</Label>
               <Display as="h2" size="xl" className="mt-5 max-w-[18ch] text-night-ink">
-                Tell us what you need built.
+                tell us what you need built.
               </Display>
               <Prose className="mt-6 max-w-[40ch] text-night-muted">
                 <p>

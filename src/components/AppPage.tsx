@@ -129,7 +129,7 @@ export default function AppPage({ app }: { app: AppData }) {
         <section className="bg-paper-sunk">
           <Container className="py-16 sm:py-20">
             <Reveal>
-              <SectionHead eyebrow={t.screens} title={`${app.name}, on screen.`} />
+              <SectionHead index="01" eyebrow={t.screens} title={`${app.name}, on screen.`} />
             </Reveal>
             <Reveal delay={80}>
               <div
@@ -162,7 +162,7 @@ export default function AppPage({ app }: { app: AppData }) {
       {/* ─── What it does ─── */}
       <Container className="py-20 sm:py-28">
         <Reveal>
-          <SectionHead eyebrow={t.whatItDoes} title={app.featuresTitle ?? t.builtAround} />
+          <SectionHead index="02" eyebrow={t.whatItDoes} title={app.featuresTitle ?? t.builtAround} />
         </Reveal>
         <div className="mt-14 border-t border-rule">
           {app.features.map((feature, i) => (
@@ -183,7 +183,7 @@ export default function AppPage({ app }: { app: AppData }) {
               <div className="lg:col-span-5">
                 <Label className="text-ink-faint">{t.privacy}</Label>
                 <Display as="h2" size="lg" className="mt-5">
-                  Your data stays yours.
+                  your data stays yours.
                 </Display>
               </div>
               <div className="lg:col-span-6 lg:col-start-7">

@@ -28,7 +28,7 @@ export default function About() {
         eyebrow="About"
         title={
           <>
-            We build companies, and then we run them.
+            we build companies, and then we run them.
           </>
         }
         lead={
@@ -45,14 +45,15 @@ export default function About() {
       <Container className="pt-16 sm:pt-24">
         <Reveal>
           <SectionHead
+            index="01"
             eyebrow="The shape of it"
-            title="One team across strategy, design, and engineering."
+            title="one team across strategy, design, and engineering."
           />
         </Reveal>
         <div className="mt-14 grid gap-x-12 gap-y-10 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <Display as="p" size="md">
-              No hand-offs between people who never speak.
+              no hand-offs between people who never speak.
             </Display>
           </div>
           <div className="lg:col-span-6 lg:col-start-7">
@@ -75,7 +76,7 @@ export default function About() {
       {/* ─── §02 How we think ─── */}
       <Container className="pt-20 sm:pt-28">
         <Reveal>
-          <SectionHead eyebrow="How we think" title="Three things we hold to." />
+          <SectionHead index="02" eyebrow="How we think" title="three things we hold to." />
         </Reveal>
         <div className="mt-14 border-t border-rule">
           {PRINCIPLES.map((principle, index) => (
@@ -94,7 +95,7 @@ export default function About() {
       {TEAM.length > 0 ? (
         <Container className="pt-20 sm:pt-28">
           <Reveal>
-            <SectionHead eyebrow="The team" title="Who you'd work with." />
+            <SectionHead index="03" eyebrow="The team" title="who you'd work with." />
           </Reveal>
           <div className="mt-14 border-t border-rule">
             {TEAM.map((member, index) => (

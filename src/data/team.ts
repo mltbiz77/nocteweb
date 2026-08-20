@@ -20,17 +20,17 @@ export const TEAM: TeamMember[] = [];
 /** Principles shown on /about/ as a short ruled list. */
 export const PRINCIPLES: { title: string; description: string }[] = [
   {
-    title: 'Quality over quantity',
+    title: 'quality over quantity',
     description:
       'A small number of products, each one finished. We would rather run four things properly than twelve badly.',
   },
   {
-    title: 'Operator-led, not advisory-led',
+    title: 'operator-led, not advisory-led',
     description:
       'We ship our own products. The advice we sell is the same set of decisions we make with our own money on the line.',
   },
   {
-    title: 'A long-term ownership mindset',
+    title: 'a long-term ownership mindset',
     description:
       'We build to hold. A sale happens when it is the right outcome for the business, not because it was the plan from day one.',
   },

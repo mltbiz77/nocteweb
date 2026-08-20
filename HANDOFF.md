@@ -74,12 +74,32 @@ Cormorant has a small x-height and is **display-only** — never set it below ab
 `Display` is the only component that uses it, which is the guardrail. There is no monospace
 anywhere; it read as a techier register and clashed with the geometric logotype.
 
+### Three things make this ours rather than generic
+
+An elegant serif on navy is the house style of every VC and holding-company site. These are
+the decisions that stop it being one of them, and they are derived from the brand rather
+than from a trend:
+
+1. **Headlines are lowercase.** The logotype is a lowercase `nocte`, so the voice is
+   lowercase too — "we build software worth owning.", "the products we own." Almost nobody in
+   this market does it, and it costs nothing. Write headline copy lowercase **in the source**;
+   there is no `text-transform`, because that would wreck genuine proper nouns. **Keep AI,
+   Nocte and product names capitalised.**
+2. **The accent is warm amber, not another blue.** `--accent` (`#8a5a0f` on light,
+   `--night-accent` `#e3b171` on navy) is the lamplight in "after dark". A blue accent on a
+   blue site is invisible and generic; amber against the navy is the thing people remember.
+   Two values because a readable amber on warm white has to be far darker than one on navy.
+3. **Oversized serif numerals mark structure.** `SectionHead` takes an `index`, and the home
+   page's two halves carry `01` / `02` — set in the display serif at low contrast, like a
+   printed book's chapter numbers. They need the `.figures` class: Cormorant defaults to
+   oldstyle figures, which renders "01" as something that reads as "OI".
+
 **Say less.** There are no specification tables, no counts of platforms or languages, no
 "hosted in X" bullet lists. The products and the copy carry the argument; a visitor should
 leave knowing what the company does and not much else. If you are tempted to add a metadata
 table, that is the instinct this pass removed.
 
-**Colour discipline.** One blue, one accent, two rule weights. Each product's own colour
+**Colour discipline.** One blue, one warm accent, two rule weights. Each product's own colour
 appears in three places and nowhere else: its band field, its tagline, and its status dot —
 and the status dot is only filled when the product is **live**, so colour means shipping.
 

@@ -25,7 +25,7 @@ export type LegalDoc = {
 };
 
 export const PRIVACY: LegalDoc = {
-  title: 'Privacy Policy',
+  title: 'privacy policy',
   updated: '2026-08-20',
   intro:
     'This policy explains what happens to your information when you use nocteventures.com. It covers this website only — each of our apps ships its own privacy policy, which you will find inside the app and on its App Store listing.',
@@ -93,7 +93,7 @@ export const PRIVACY: LegalDoc = {
 };
 
 export const TERMS: LegalDoc = {
-  title: 'Terms of Use',
+  title: 'terms of use',
   updated: '2026-08-20',
   intro:
     'These terms govern your use of nocteventures.com. Our apps are licensed separately under their own terms and the App Store’s standard licence agreement; nothing here replaces those.',

@@ -156,14 +156,24 @@ export const Prose = ({
   </div>
 );
 
-/** A section's opening: eyebrow, heading, optional lead and right-side link. */
+/**
+ * A section's opening.
+ *
+ * The oversized serif numeral in the left margin is the site's structural
+ * signature — a printed-book chapter number rather than a tidy little label.
+ * It is the same face as the headlines, held back to a quiet weight so it
+ * marks the page without competing with it.
+ */
 export const SectionHead = ({
+  index,
   eyebrow,
   title,
   lead,
   aside,
   tone = 'paper',
 }: {
+  /** Two digits. Omit and the numeral column collapses. */
+  index?: string;
   eyebrow: string;
   title: ReactNode;
   lead?: ReactNode;
@@ -175,14 +185,29 @@ export const SectionHead = ({
       <Label className={tone === 'night' ? 'text-night-muted' : 'text-ink-faint'}>{eyebrow}</Label>
       {aside}
     </div>
-    <div className="mt-7 grid gap-x-10 gap-y-6 lg:grid-cols-12">
+
+    <div className="mt-7 grid gap-x-8 gap-y-6 lg:grid-cols-12">
+      {index ? (
+        <span
+          aria-hidden="true"
+          className={`figures hidden font-display text-[clamp(2.5rem,4vw,3.5rem)] leading-[0.8] lg:col-span-1 lg:block ${
+            tone === 'night' ? 'text-night-ink/25' : 'text-ink/20'
+          }`}
+        >
+          {index}
+        </span>
+      ) : null}
+
       <Display
         as="h2"
         size="xl"
-        className={`lg:col-span-7 ${tone === 'night' ? 'text-night-ink' : 'text-ink'}`}
+        className={`lg:col-span-7 ${index ? 'lg:col-start-2' : 'lg:col-start-1'} ${
+          tone === 'night' ? 'text-night-ink' : 'text-ink'
+        }`}
       >
         {title}
       </Display>
+
       {lead ? (
         <div className="lg:col-span-4 lg:col-start-9 lg:pt-2">
           <Prose className={tone === 'night' ? 'text-night-muted' : ''}>{lead}</Prose>

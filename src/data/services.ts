@@ -15,25 +15,25 @@ export type Offering = {
 export const OFFERINGS: Offering[] = [
   {
     numeral: '01',
-    title: 'Product & Growth Strategy',
+    title: 'product & growth strategy',
     description:
       'Positioning, roadmap, pricing, and go-to-market. We look hard at retention before anyone suggests spending more on acquisition.',
   },
   {
     numeral: '02',
-    title: 'Architecture & AI',
+    title: 'architecture & AI',
     description:
       'System design, AI integration, and automation built for a business rather than a demo — scoped to what you can run once we leave.',
   },
   {
     numeral: '03',
-    title: 'Build & Co-Build',
+    title: 'build & co-build',
     description:
       'End-to-end product development, or a build alongside your own team, shipping on a schedule you can hold us to.',
   },
   {
     numeral: '04',
-    title: 'Investment & Acquisition',
+    title: 'investment & acquisition',
     description:
       'Capital plus the operating work that follows it, and a path to a sale when the timing is right.',
   },
@@ -42,21 +42,21 @@ export const OFFERINGS: Offering[] = [
 /** Kept deliberately short — five would already be too many. */
 export const HOW_WE_WORK: { title: string; description: string }[] = [
   {
-    title: 'A small, senior team',
+    title: 'a small, senior team',
     description:
       'The people who set the direction are the ones who ship it. No hand-offs and no translation layer.',
   },
   {
-    title: 'An operator’s mindset',
+    title: 'an operator’s mindset',
     description:
       'We run our own products, so the positions we take have been tested under our own name first.',
   },
   {
-    title: 'Focused engagements',
+    title: 'focused engagements',
     description: 'A defined outcome and a date, not an open-ended retainer.',
   },
   {
-    title: 'Evidence over opinion',
+    title: 'evidence over opinion',
     description: 'Roadmap and messaging follow what usage and revenue show. We change our minds when the numbers say to.',
   },
 ];
@@ -73,19 +73,19 @@ export const MODES: {
 }[] = [
   {
     index: '01',
-    title: 'Build',
+    title: 'build',
     body: 'We start and run our own products, and keep them. Everything we recommend to a client has been tested on our own P&L first.',
     link: { label: 'Our work', href: '/portfolio/' },
   },
   {
     index: '02',
-    title: 'Acquire',
+    title: 'acquire',
     body: 'We buy digital products worth owning and back a small number of ventures with capital and hands-on work.',
     link: { label: 'Talk to us', href: '/contact/' },
   },
   {
     index: '03',
-    title: 'Advise',
+    title: 'advise',
     body: 'We work with a small number of companies on strategy, product, and technical execution.',
     link: { label: 'Advisory', href: '/advisory/' },
   },

@@ -68,7 +68,7 @@ export function ContactForm({ tone = 'paper' }: { tone?: Tone }) {
             night ? 'text-night-ink' : 'text-ink'
           }`}
         >
-          Thank you — your message is with us.
+          thank you — your message is with us.
         </p>
         <p
           className={`mt-4 max-w-[44ch] font-sans text-[1rem] leading-[1.65] ${

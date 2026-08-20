@@ -75,8 +75,12 @@
   --ink-muted: #4a5674;
   --ink-faint: #6a7590;
 
-  --accent: #1b4ae0;
-  --accent-deep: #1339b4;
+  /* Warm amber against the blue, not another tech-blue on blue. It is the
+     lamplight in "after dark", and it is what keeps the palette from reading
+     as a stock navy-and-white corporate site. Two values, because a readable
+     amber on warm white has to be far darker than one on navy. */
+  --accent: #8a5a0f;
+  --accent-deep: #6e4708;
 
   --rule: rgba(14, 24, 51, 0.16);
   --rule-soft: rgba(14, 24, 51, 0.08);
@@ -87,7 +91,7 @@
   --night-ink: #f2f4fa;
   --night-muted: #9aa7c8;
   --night-rule: rgba(242, 244, 250, 0.18);
-  --night-accent: #7fa0ff;
+  --night-accent: #e3b171;
 }
 
 * {
@@ -112,6 +116,13 @@ a {
 
 button {
   @apply font-sans;
+}
+
+/* Cormorant defaults to oldstyle figures, which turns "01" into something
+   that reads as "OI". Section numerals ask for lining figures explicitly. */
+.figures {
+  font-variant-numeric: lining-nums;
+  font-feature-settings: 'lnum' 1;
 }
 
 /* Numerals in tables and spec lists must line up in a column. */

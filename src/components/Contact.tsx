@@ -32,7 +32,7 @@ export default function Contact() {
     <PageShell current="/contact/">
       <PageMasthead
         eyebrow="Contact"
-        title="Tell us what you’re building."
+        title="tell us what you’re building."
         lead={
           <p>
             Whether you are a founder, a company looking for advisory or AI solutions, or just
@@ -88,7 +88,7 @@ export default function Contact() {
       </Container>
 
       <NightBand
-        heading="Who writes to us."
+        heading="who writes to us."
         aside={
           <div className="border-t border-night-rule">
             {REASONS.map((reason) => (

@@ -21,7 +21,7 @@ export default function Portfolio() {
     <PageShell current="/portfolio/" navTone="night">
       <PageMasthead
         eyebrow="Portfolio"
-        title="The products we own."
+        title="the products we own."
         lead={
           <p>
             Designed and built in-house, then run for the long term. These are companies we
@@ -35,8 +35,9 @@ export default function Portfolio() {
       <Container className="py-20 sm:py-28">
         <Reveal>
           <SectionHead
+            index="01"
             eyebrow="How we run them"
-            title="Small products, run properly, for a long time."
+            title="small products, run properly, for a long time."
             lead={
               <>
                 <p>
@@ -56,9 +57,9 @@ export default function Portfolio() {
         <Reveal delay={80}>
           <div className="mt-14 grid gap-x-12 gap-y-8 sm:grid-cols-3">
             {[
-              ['Owned, not shipped', 'We keep what we build and answer for how it performs.'],
-              ['No ads, no data sold', 'Every product earns from the person using it.'],
-              ['Built in-house', 'The same people design, build and support each one.'],
+              ['owned, not shipped', 'We keep what we build and answer for how it performs.'],
+              ['no ads, no data sold', 'Every product earns from the person using it.'],
+              ['built in-house', 'The same people design, build and support each one.'],
             ].map(([title, body]) => (
               <div key={title} className="border-t border-rule pt-6">
                 <Display as="h3" size="sm">

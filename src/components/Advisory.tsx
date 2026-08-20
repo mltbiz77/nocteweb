@@ -24,7 +24,7 @@ export default function Advisory() {
         eyebrow="Advisory"
         title={
           <>
-            We work with companies the way we work on our own.
+            we work with companies the way we work on our own.
           </>
         }
         lead={
@@ -40,8 +40,9 @@ export default function Advisory() {
       <Container className="pt-16 sm:pt-24">
         <Reveal>
           <SectionHead
+            index="01"
             eyebrow="What we offer"
-            title="Four ways we get involved."
+            title="four ways we get involved."
             lead={
               <p>
                 Pick the one that matches where you are. Most engagements start with the first and
@@ -67,8 +68,9 @@ export default function Advisory() {
       <Container className="pt-20 sm:pt-28">
         <Reveal>
           <SectionHead
+            index="02"
             eyebrow="How we work"
-            title="Fewer decisions, made earlier."
+            title="fewer decisions, made earlier."
             lead={
               <p>
                 Four habits that decide more about the outcome than any roadmap does.
@@ -89,7 +91,7 @@ export default function Advisory() {
       {CASE_STUDIES.length > 0 ? (
         <Container className="pt-20 sm:pt-28">
           <Reveal>
-            <SectionHead eyebrow="Selected engagements" title="What that looked like." />
+            <SectionHead index="03" eyebrow="Selected engagements" title="what that looked like." />
           </Reveal>
           <div className="mt-14 border-t border-rule">
             {CASE_STUDIES.map((study, index) => (
