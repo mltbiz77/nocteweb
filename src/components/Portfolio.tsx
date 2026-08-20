@@ -3,7 +3,7 @@ import {
   Button,
   Container,
   Display,
-  NightBand,
+  ClosingBand,
   PageMasthead,
   PageShell,
   Prose,
@@ -18,10 +18,10 @@ import {
  */
 export default function Portfolio() {
   return (
-    <PageShell current="/portfolio/" navTone="night">
+    <PageShell current="/portfolio/">
       <PageMasthead
         eyebrow="Portfolio"
-        title="the products we own."
+        title={['the products', 'we own.']}
         lead={
           <p>
             Designed and built in-house, then run for the long term. These are companies we
@@ -35,7 +35,6 @@ export default function Portfolio() {
       <Container className="py-20 sm:py-28">
         <Reveal>
           <SectionHead
-            index="01"
             eyebrow="How we run them"
             title="small products, run properly, for a long time."
             lead={
@@ -74,22 +73,22 @@ export default function Portfolio() {
         </Reveal>
       </Container>
 
-      <NightBand heading="Building something of your own?">
-        <Prose className="max-w-[46ch] text-night-muted">
+      <ClosingBand heading={["Building something of your own?"]}>
+        <Prose className="max-w-[46ch] text-ink-dim">
           <p>
             If you have a product worth owning, or want help building one, we would like to hear
             about it.
           </p>
         </Prose>
         <div className="mt-9 flex flex-wrap gap-4">
-          <Button href="/contact/" variant="night-solid">
+          <Button href="/contact/" variant="solid">
             Get in touch
           </Button>
-          <Button href="/advisory/" variant="night-outline">
+          <Button href="/advisory/" variant="outline">
             Work with us
           </Button>
         </div>
-      </NightBand>
+      </ClosingBand>
     </PageShell>
   );
 }

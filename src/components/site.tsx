@@ -11,8 +11,6 @@ import { APPS, productPath } from '@/data/apps';
 
 export { CONTACT_EMAIL, CONTACT_MAILTO, INSTAGRAM_URL };
 
-export type Tone = 'paper' | 'night';
-
 /* ────────────────────────────────────────────────────────────────
    Layout
    ──────────────────────────────────────────────────────────────── */
@@ -28,24 +26,27 @@ export const Container = ({
 }) => (
   <div
     id={id}
-    className={`mx-auto w-full max-w-[1340px] scroll-mt-24 px-6 sm:px-10 lg:px-14 ${className}`}
+    className={`mx-auto w-full max-w-[1400px] scroll-mt-24 px-6 sm:px-10 lg:px-16 ${className}`}
   >
     {children}
   </div>
 );
 
-/**
- * Fades content up as it enters view. Short and small on purpose — enough to
- * feel alive, not enough to feel like a template. Skipped entirely when the
- * visitor asks for reduced motion.
- */
+/* ────────────────────────────────────────────────────────────────
+   Motion
+   ──────────────────────────────────────────────────────────────── */
+
+const prefersStill = () =>
+  typeof window !== 'undefined' &&
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/** Fades a block up as it enters view. Short, and skipped for reduced motion. */
 export function Reveal({
   children,
   delay = 0,
   className = '',
 }: {
   children: ReactNode;
-  /** Milliseconds. */
   delay?: number;
   className?: string;
 }) {
@@ -55,15 +56,10 @@ export function Reveal({
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
-
-    const still =
-      typeof IntersectionObserver === 'undefined' ||
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (still) {
+    if (typeof IntersectionObserver === 'undefined' || prefersStill()) {
       setShown(true);
       return;
     }
-
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -73,7 +69,7 @@ export function Reveal({
           }
         }
       },
-      { rootMargin: '0px 0px -6% 0px', threshold: 0.02 },
+      { rootMargin: '0px 0px -8% 0px', threshold: 0.02 },
     );
     observer.observe(node);
     return () => observer.disconnect();
@@ -83,8 +79,8 @@ export function Reveal({
     <div
       ref={ref}
       style={{ transitionDelay: shown ? `${delay}ms` : '0ms' }}
-      className={`transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
-        shown ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0'
+      className={`transition-[opacity,transform] duration-[650ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
+        shown ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'
       } ${className}`}
     >
       {children}
@@ -92,11 +88,46 @@ export function Reveal({
   );
 }
 
+/**
+ * Pulls an element gently toward the cursor while it is over it.
+ *
+ * Only on devices that actually hover — a magnetic offset on a touch screen
+ * is just a jump. Written with direct style writes rather than React state
+ * so it never re-renders on mousemove.
+ */
+function useMagnet<T extends HTMLElement>(strength = 0.22) {
+  const ref = useRef<T>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (prefersStill() || !window.matchMedia('(hover: hover)').matches) return;
+
+    const onMove = (event: MouseEvent) => {
+      const box = el.getBoundingClientRect();
+      const dx = event.clientX - (box.left + box.width / 2);
+      const dy = event.clientY - (box.top + box.height / 2);
+      el.style.transform = `translate(${dx * strength}px, ${dy * strength}px)`;
+    };
+    const reset = () => {
+      el.style.transform = '';
+    };
+
+    el.addEventListener('mousemove', onMove);
+    el.addEventListener('mouseleave', reset);
+    return () => {
+      el.removeEventListener('mousemove', onMove);
+      el.removeEventListener('mouseleave', reset);
+    };
+  }, [strength]);
+
+  return ref;
+}
+
 /* ────────────────────────────────────────────────────────────────
    Type
    ──────────────────────────────────────────────────────────────── */
 
-/** Small monospace label. Eyebrows, table headers, field labels. */
 export const Label = ({
   children,
   className = '',
@@ -104,10 +135,20 @@ export const Label = ({
   children: ReactNode;
   className?: string;
 }) => (
-  <span className={`font-sans text-[10.5px] font-medium uppercase tracking-label ${className}`}>{children}</span>
+  <span className={`font-sans text-[10.5px] font-medium uppercase tracking-label ${className}`}>
+    {children}
+  </span>
 );
 
-/** The one heading scale. `size` picks the scale, not the tag. */
+const SCALE = {
+  xxl: 'text-[clamp(3rem,9vw,8rem)] leading-[0.9] tracking-[-0.04em]',
+  xl: 'text-[clamp(2.2rem,5.4vw,4.4rem)] leading-[0.95] tracking-[-0.035em]',
+  lg: 'text-[clamp(1.75rem,3.4vw,2.6rem)] leading-[1.02] tracking-[-0.03em]',
+  md: 'text-[clamp(1.4rem,2.1vw,1.75rem)] leading-[1.12] tracking-[-0.022em]',
+  sm: 'text-[clamp(1.1rem,1.5vw,1.25rem)] leading-[1.22] tracking-[-0.015em]',
+} as const;
+
+/** The one heading scale. Lowercase copy, set tight. */
 export const Display = ({
   as: Tag = 'h2',
   size = 'md',
@@ -117,31 +158,54 @@ export const Display = ({
   children,
 }: {
   as?: 'h1' | 'h2' | 'h3' | 'p' | 'span';
-  size?: 'xxl' | 'xl' | 'lg' | 'md' | 'sm';
-  weight?: 500 | 600;
+  size?: keyof typeof SCALE;
+  weight?: 500 | 800;
   className?: string;
   style?: React.CSSProperties;
   children: ReactNode;
-}) => {
-  const scale = {
-    xxl: 'text-[clamp(2.9rem,7.4vw,6.5rem)] leading-[1.02] tracking-[-0.018em]',
-    xl: 'text-[clamp(2.3rem,5vw,4.1rem)] leading-[1.06] tracking-[-0.015em]',
-    lg: 'text-[clamp(1.95rem,3.6vw,3rem)] leading-[1.1] tracking-[-0.012em]',
-    md: 'text-[clamp(1.5rem,2.3vw,2.05rem)] leading-[1.18] tracking-[-0.01em]',
-    sm: 'text-[clamp(1.3rem,1.7vw,1.5rem)] leading-[1.25] tracking-[-0.005em]',
-  }[size];
+}) => (
+  <Tag
+    className={`font-display [text-wrap:balance] ${SCALE[size]} ${className}`}
+    style={{ fontWeight: weight, ...style }}
+  >
+    {children}
+  </Tag>
+);
 
-  return (
-    <Tag
-      className={`font-display [text-wrap:balance] ${scale} ${className}`}
-      style={{ fontWeight: weight, ...style }}
-    >
-      {children}
-    </Tag>
-  );
-};
+/**
+ * A headline whose lines wipe up from behind their own edge.
+ *
+ * Pass the lines explicitly — the clip has to be per line, so the component
+ * cannot guess where the text breaks. Pure CSS with a staggered delay, so it
+ * plays on first paint without waiting for JavaScript.
+ */
+export const MaskHeading = ({
+  lines,
+  as: Tag = 'h2',
+  size = 'xl',
+  weight = 800,
+  delay = 0,
+  className = '',
+}: {
+  lines: string[];
+  as?: 'h1' | 'h2' | 'p';
+  size?: keyof typeof SCALE;
+  weight?: 500 | 800;
+  /** Milliseconds before the first line moves. */
+  delay?: number;
+  className?: string;
+}) => (
+  <Tag className={`font-display ${SCALE[size]} ${className}`} style={{ fontWeight: weight }}>
+    {lines.map((line, i) => (
+      <span key={i} className="mask-line">
+        <span className="mask-rise" style={{ animationDelay: `${delay + i * 90}ms` }}>
+          {line}
+        </span>
+      </span>
+    ))}
+  </Tag>
+);
 
-/** Body prose. The serif is what keeps long copy readable and warm. */
 export const Prose = ({
   className = '',
   children,
@@ -149,68 +213,35 @@ export const Prose = ({
   className?: string;
   children: ReactNode;
 }) => (
-  <div
-    className={`font-sans text-[1.0rem] leading-[1.65] text-ink-muted [&_p+p]:mt-5 ${className}`}
-  >
+  <div className={`font-sans text-[1rem] leading-[1.68] text-ink-dim [&_p+p]:mt-5 ${className}`}>
     {children}
   </div>
 );
 
-/**
- * A section's opening.
- *
- * The oversized serif numeral in the left margin is the site's structural
- * signature — a printed-book chapter number rather than a tidy little label.
- * It is the same face as the headlines, held back to a quiet weight so it
- * marks the page without competing with it.
- */
+/** A section's opening. No index numerals — those belong to a sibling site. */
 export const SectionHead = ({
-  index,
   eyebrow,
   title,
   lead,
   aside,
-  tone = 'paper',
 }: {
-  /** Two digits. Omit and the numeral column collapses. */
-  index?: string;
   eyebrow: string;
   title: ReactNode;
   lead?: ReactNode;
   aside?: ReactNode;
-  tone?: Tone;
 }) => (
-  <div className={`border-t pt-5 ${tone === 'night' ? 'border-night-rule' : 'border-rule'}`}>
+  <div className="border-t border-rule pt-6">
     <div className="flex items-baseline justify-between gap-6">
-      <Label className={tone === 'night' ? 'text-night-muted' : 'text-ink-faint'}>{eyebrow}</Label>
+      <Label className="text-accent-hi">{eyebrow}</Label>
       {aside}
     </div>
-
-    <div className="mt-7 grid gap-x-8 gap-y-6 lg:grid-cols-12">
-      {index ? (
-        <span
-          aria-hidden="true"
-          className={`figures hidden font-display text-[clamp(2.5rem,4vw,3.5rem)] leading-[0.8] lg:col-span-1 lg:block ${
-            tone === 'night' ? 'text-night-ink/25' : 'text-ink/20'
-          }`}
-        >
-          {index}
-        </span>
-      ) : null}
-
-      <Display
-        as="h2"
-        size="xl"
-        className={`lg:col-span-7 ${index ? 'lg:col-start-2' : 'lg:col-start-1'} ${
-          tone === 'night' ? 'text-night-ink' : 'text-ink'
-        }`}
-      >
+    <div className="mt-8 grid gap-x-12 gap-y-6 lg:grid-cols-12">
+      <Display as="h2" size="xl" weight={800} className="lg:col-span-7">
         {title}
       </Display>
-
       {lead ? (
         <div className="lg:col-span-4 lg:col-start-9 lg:pt-2">
-          <Prose className={tone === 'night' ? 'text-night-muted' : ''}>{lead}</Prose>
+          <Prose>{lead}</Prose>
         </div>
       ) : null}
     </div>
@@ -218,55 +249,83 @@ export const SectionHead = ({
 );
 
 /**
- * A numbered ruled entry. Advisory offerings, principles, product features
- * and legal clauses are all the same object: an index, a title, a body.
+ * A ruled row: title on the left, body on the right. Offerings, principles,
+ * product features and legal clauses are all this shape.
+ *
+ * Deliberately unnumbered — index numerals down the side are the 4 More
+ * Capital site's device, and this site should not borrow it.
  */
 export const Entry = ({
-  index,
   title,
   children,
   aside,
-  href,
 }: {
-  index: string;
   title: string;
   children?: ReactNode;
   aside?: ReactNode;
-  href?: string;
-}) => {
-  const inner = (
-    <div className="grid grid-cols-[2.5rem_1fr] gap-x-4 gap-y-3 border-b border-rule py-7 sm:grid-cols-[4rem_minmax(0,15rem)_minmax(0,1fr)] sm:gap-x-8">
-      <Label className="tabular pt-1.5 text-accent">{index}</Label>
-      <Display as="h3" size="sm" className="text-ink">
-        {title}
-      </Display>
-      <div className="col-start-2 sm:col-start-3">
-        {children ? <Prose className="text-[1rem]">{children}</Prose> : null}
-        {aside ? <div className="mt-4">{aside}</div> : null}
-      </div>
+}) => (
+  <div className="group grid grid-cols-1 gap-x-12 gap-y-3 border-b border-rule py-8 transition-colors sm:grid-cols-[minmax(0,17rem)_minmax(0,1fr)] hover:border-rule-soft">
+    <Display as="h3" size="md" weight={800} className="text-ink">
+      {title}
+    </Display>
+    <div>
+      {children ? <Prose className="text-[0.98rem]">{children}</Prose> : null}
+      {aside ? <div className="mt-5">{aside}</div> : null}
     </div>
-  );
-
-  return href ? (
-    <a href={href} className="group block transition-colors hover:bg-paper-sunk/70">
-      {inner}
-    </a>
-  ) : (
-    inner
-  );
-};
-
-export const Tag = ({ children, tone = 'paper' }: { children: ReactNode; tone?: Tone }) => (
-  <span
-    className={`rounded-full border px-3 py-1 font-sans text-[10.5px] font-medium uppercase tracking-label ${
-      tone === 'night' ? 'border-night-rule text-night-muted' : 'border-rule text-ink-faint'
-    }`}
-  >
-    {children}
-  </span>
+  </div>
 );
 
-/** The one button. `variant` picks the weight, never a new shape. */
+/** The closing call to action at the foot of every page. */
+export const ClosingBand = ({
+  heading,
+  children,
+  aside,
+}: {
+  /** Lines are clipped individually. */
+  heading: string[];
+  children?: ReactNode;
+  aside?: ReactNode;
+}) => (
+  <section className="border-t border-rule">
+    <Container className="py-20 sm:py-28">
+      <div className="grid gap-x-14 gap-y-12 lg:grid-cols-12">
+        <div className="lg:col-span-7">
+          <Reveal>
+            <Label className="text-accent-hi">{COMPANY.tagline.replace(/\.$/, '')}</Label>
+            <Display as="h2" size="xl" weight={800} className="mt-6 max-w-[20ch]">
+              {heading.join(' ')}
+            </Display>
+            {children ? <div className="mt-8">{children}</div> : null}
+          </Reveal>
+        </div>
+        <div className="lg:col-span-4 lg:col-start-9">
+          <Reveal delay={90}>
+            {aside ?? (
+              <>
+                <Label className="text-ink-faint">Write to us</Label>
+                <a
+                  href={CONTACT_MAILTO}
+                  className="link mt-4 block break-words font-sans text-[clamp(1.05rem,1.8vw,1.3rem)] text-ink"
+                >
+                  {CONTACT_EMAIL}
+                </a>
+                <Label className="mt-5 block text-ink-faint">
+                  We reply within two working days
+                </Label>
+              </>
+            )}
+          </Reveal>
+        </div>
+      </div>
+    </Container>
+  </section>
+);
+
+/* ────────────────────────────────────────────────────────────────
+   Controls
+   ──────────────────────────────────────────────────────────────── */
+
+/** The one button. Magnetic on hover. */
 export const Button = ({
   href,
   children,
@@ -276,82 +335,60 @@ export const Button = ({
 }: {
   href: string;
   children: ReactNode;
-  variant?: 'solid' | 'outline' | 'night-solid' | 'night-outline';
+  variant?: 'solid' | 'outline';
   className?: string;
 } & Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href' | 'className'>) => {
-  const skin = {
-    solid: 'bg-ink text-paper hover:bg-accent',
-    outline: 'border border-rule text-ink hover:border-ink',
-    'night-solid': 'bg-night-ink text-night hover:bg-night-accent hover:text-night',
-    'night-outline': 'border border-night-rule text-night-ink hover:border-night-ink',
-  }[variant];
+  const ref = useMagnet<HTMLAnchorElement>(0.18);
+  const skin =
+    variant === 'solid'
+      ? 'bg-ink text-bg hover:bg-accent hover:text-white'
+      : 'border border-rule text-ink hover:border-accent-hi hover:text-accent-hi';
 
   return (
     <a
+      ref={ref}
       href={href}
-      className={`group inline-flex items-center gap-3 px-7 py-3.5 font-sans text-[11px] font-medium uppercase tracking-label transition-colors ${skin} ${className}`}
+      className={`group inline-flex items-center gap-3 px-8 py-4 font-sans text-[11px] font-medium uppercase tracking-label transition-[background-color,color,border-color,transform] duration-300 ease-out ${skin} ${className}`}
       {...rest}
     >
       {children}
-      <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">
+      <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">
         &rarr;
       </span>
     </a>
   );
 };
 
-/** A quiet standing link whose rule draws in on hover. */
 export const ArrowLink = ({
   href,
   children,
-  tone = 'paper',
   className = '',
   ...rest
 }: {
   href: string;
   children: ReactNode;
-  tone?: Tone;
   className?: string;
 } & Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href' | 'className'>) => (
   <a
     href={href}
-    className={`link-quiet inline-flex items-center gap-2 font-sans text-[11px] font-medium uppercase tracking-label transition-colors ${
-      tone === 'night' ? 'text-night-accent hover:text-night-ink' : 'text-accent hover:text-accent-deep'
-    } ${className}`}
+    className={`link-quiet group inline-flex items-center gap-2 font-sans text-[11px] font-medium uppercase tracking-label text-accent-hi transition-colors hover:text-ink ${className}`}
     {...rest}
   >
     {children}
-    <span aria-hidden="true">&rarr;</span>
+    <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">
+      &rarr;
+    </span>
   </a>
 );
 
-/** Live / in-build marker. Colour only appears once something is shipping. */
-export const StatusMark = ({
-  status,
-  accent,
-  tone = 'paper',
-}: {
-  status: 'live' | 'soon';
-  accent: string;
-  tone?: Tone;
-}) => (
-  <span
-    className={`inline-flex items-center gap-2 whitespace-nowrap font-sans text-[10.5px] font-medium uppercase tracking-label ${
-      tone === 'night' ? 'text-night-muted' : 'text-ink-muted'
-    }`}
-  >
+export const StatusMark = ({ status, accent }: { status: 'live' | 'soon'; accent: string }) => (
+  <span className="inline-flex items-center gap-2 whitespace-nowrap font-sans text-[10.5px] font-medium uppercase tracking-label text-ink-faint">
     <span
-      className="h-[7px] w-[7px] shrink-0 rounded-full"
-      style={
-        status === 'live'
-          ? { background: accent }
-          : {
-              border: `1px solid ${tone === 'night' ? 'var(--night-muted)' : 'var(--ink-faint)'}`,
-            }
-      }
+      className="h-[6px] w-[6px] shrink-0 rounded-full"
+      style={status === 'live' ? { background: accent } : { border: '1px solid var(--ink-faint)' }}
       aria-hidden="true"
     />
-    {status === 'live' ? 'Live on the App Store' : 'In build'}
+    {status === 'live' ? 'Live' : 'In build'}
   </span>
 );
 
@@ -360,15 +397,8 @@ export const StatusMark = ({
    ──────────────────────────────────────────────────────────────── */
 
 /**
- * The wordmark, painted rather than drawn.
- *
- * `nocte-wordmark.png` is the supplied logo re-cut for this site: the flat
- * #F4F4F4 field turned into real transparency and the canvas trimmed to the
- * artwork, so a height class sizes the wordmark and not its padding.
- *
- * It is used as a CSS mask over `currentColor` instead of as an image, which
- * means one asset renders in ink on paper and near-white on the blue without
- * a second file, an invert filter, or a blend mode.
+ * The wordmark as a CSS mask over `currentColor`, so one black-artwork asset
+ * renders in any ink without a second file or a filter.
  */
 export const LogoMark = ({ className = 'h-5' }: { className?: string }) => (
   <span
@@ -414,18 +444,14 @@ export const AppleGlyph = ({ className = 'w-4 h-4' }: { className?: string }) =>
 
 export type Locale = 'en' | 'de';
 
-/** UI chrome for a product page, so a German page is German throughout. */
 export const STRINGS = {
   en: {
     portfolio: 'Portfolio',
     contact: 'Contact',
-    getTheApp: 'Get the app',
     comingSoon: 'Not yet released',
     allProducts: 'All products',
     downloadOn: 'Download on the App Store',
     preorderOn: 'Pre-order on the App Store',
-    preorder: 'Pre-order',
-    specification: 'Specification',
     whatItDoes: 'What it does',
     builtAround: 'Built around one idea',
     screens: 'A look inside',
@@ -436,13 +462,10 @@ export const STRINGS = {
   de: {
     portfolio: 'Portfolio',
     contact: 'Kontakt',
-    getTheApp: 'Zur App',
     comingSoon: 'Noch nicht erschienen',
     allProducts: 'Alle Produkte',
     downloadOn: 'Laden im App Store',
     preorderOn: 'Vorbestellen im App Store',
-    preorder: 'Vorbestellen',
-    specification: 'Daten',
     whatItDoes: 'Was die App kann',
     builtAround: 'Ein geschlossener Kreislauf',
     screens: 'Ein Blick hinein',
@@ -452,27 +475,20 @@ export const STRINGS = {
   },
 } as const;
 
-/** With no href the app is not on sale yet, so it states that instead. */
 export const AppStoreButton = ({
   href,
   locale = 'en',
   preorder = false,
-  tone = 'paper',
 }: {
   href: string | null;
   locale?: Locale;
   preorder?: boolean;
-  tone?: Tone;
 }) => {
   const t = STRINGS[locale];
 
   if (!href) {
     return (
-      <span
-        className={`inline-flex items-center gap-2.5 border px-7 py-3.5 font-sans text-[11px] font-medium uppercase tracking-label ${
-          tone === 'night' ? 'border-night-rule text-night-muted' : 'border-rule text-ink-faint'
-        }`}
-      >
+      <span className="inline-flex items-center gap-2.5 border border-rule px-8 py-4 font-sans text-[11px] font-medium uppercase tracking-label text-ink-faint">
         <AppleGlyph className="h-3.5 w-3.5" />
         {t.comingSoon}
       </span>
@@ -484,11 +500,7 @@ export const AppStoreButton = ({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-flex items-center gap-2.5 px-7 py-3.5 font-sans text-[11px] font-medium uppercase tracking-label transition-colors ${
-        tone === 'night'
-          ? 'bg-night-ink text-night hover:bg-night-accent'
-          : 'bg-ink text-paper hover:bg-accent'
-      }`}
+      className="inline-flex items-center gap-2.5 bg-ink px-8 py-4 font-sans text-[11px] font-medium uppercase tracking-label text-bg transition-colors hover:bg-accent hover:text-white"
     >
       <AppleGlyph className="h-3.5 w-3.5" />
       {preorder ? t.preorderOn : t.downloadOn}
@@ -500,21 +512,11 @@ export const AppStoreButton = ({
    Chrome
    ──────────────────────────────────────────────────────────────── */
 
-/**
- * The navigation takes the tone of the section it sits on, so the home page
- * reads as one continuous blue field from the top of the window down. No
- * scroll listener is involved — the page just says which tone it opens with.
- */
-export const SiteNav = ({ current, tone = 'paper' }: { current?: string; tone?: Tone }) => {
+export const SiteNav = ({ current }: { current?: string }) => {
   const [open, setOpen] = useState(false);
-  const night = tone === 'night';
 
   return (
-    <header
-      className={`relative z-50 border-b ${
-        night ? 'border-night-rule/60 bg-night text-night-ink' : 'border-rule bg-paper text-ink'
-      }`}
-    >
+    <header className="sticky top-0 z-50 border-b border-rule bg-bg/85 backdrop-blur-md">
       <Container>
         <div className="flex items-center justify-between py-5">
           <a href="/" aria-label="Nocte Ventures — Home" className="flex items-center">
@@ -530,20 +532,14 @@ export const SiteNav = ({ current, tone = 'paper' }: { current?: string; tone?: 
                   href={link.href}
                   aria-current={active ? 'page' : undefined}
                   className={`font-sans text-[11px] font-medium uppercase tracking-label transition-colors ${
-                    night
-                      ? active
-                        ? 'text-night-ink'
-                        : 'text-night-muted hover:text-night-ink'
-                      : active
-                        ? 'text-ink'
-                        : 'text-ink-muted hover:text-ink'
+                    active ? 'text-ink' : 'text-ink-dim hover:text-ink'
                   }`}
                 >
                   <span className={active ? 'link' : 'link-quiet'}>{link.label}</span>
                 </a>
               );
             })}
-            <Button href="/contact/" variant={night ? 'night-solid' : 'solid'} className="!py-2.5">
+            <Button href="/contact/" className="!px-6 !py-3">
               Get in touch
             </Button>
           </nav>
@@ -560,29 +556,15 @@ export const SiteNav = ({ current, tone = 'paper' }: { current?: string; tone?: 
         </div>
       </Container>
 
-      <div
-        id="site-menu"
-        hidden={!open}
-        className={`border-t md:hidden ${
-          night ? 'border-night-rule/60 bg-night' : 'border-rule bg-paper'
-        }`}
-      >
+      <div id="site-menu" hidden={!open} className="border-t border-rule bg-bg md:hidden">
         <Container>
           {[...NAV_LINKS, { label: 'Contact', href: '/contact/' }].map((link) => (
             <a
               key={link.href}
               href={link.href}
               aria-current={current === link.href ? 'page' : undefined}
-              className={`block border-b py-3.5 font-sans text-[11px] font-medium uppercase tracking-label last:border-0 ${
-                night ? 'border-night-rule/50' : 'border-rule-soft'
-              } ${
-                current === link.href
-                  ? night
-                    ? 'text-night-ink'
-                    : 'text-ink'
-                  : night
-                    ? 'text-night-muted'
-                    : 'text-ink-muted'
+              className={`block border-b border-rule-soft py-4 font-sans text-[11px] font-medium uppercase tracking-label last:border-0 ${
+                current === link.href ? 'text-ink' : 'text-ink-dim'
               }`}
             >
               {link.label}
@@ -594,65 +576,29 @@ export const SiteNav = ({ current, tone = 'paper' }: { current?: string; tone?: 
   );
 };
 
-/** The blue field that closes every page. */
-export const NightBand = ({
-  heading,
-  children,
-  aside,
-}: {
-  heading: string;
-  children?: ReactNode;
-  aside?: ReactNode;
-}) => (
-  <section className="bg-night text-night-ink">
-    <Container className="py-20 sm:py-28">
-      <div className="grid gap-x-10 gap-y-12 lg:grid-cols-12">
-        <div className="lg:col-span-7">
-          <Label className="text-night-muted">{COMPANY.tagline.replace(/\.$/, '')}</Label>
-          <Display as="h2" size="xl" weight={600} className="mt-6 text-night-ink">
-            {heading}
-          </Display>
-          {children ? <div className="mt-8">{children}</div> : null}
-        </div>
-
-        <div className="lg:col-span-4 lg:col-start-9">
-          {aside ?? (
-            <>
-              <Label className="text-night-muted">Write to us</Label>
-              <a
-                href={CONTACT_MAILTO}
-                className="link mt-4 block break-words font-sans text-[clamp(1.1rem,1.9vw,1.4rem)] tracking-[-0.02em] text-night-ink"
-              >
-                {CONTACT_EMAIL}
-              </a>
-              <Label className="mt-5 block text-night-muted">
-                We reply within two working days
-              </Label>
-            </>
-          )}
-        </div>
-      </div>
-    </Container>
-  </section>
-);
-
 export const SiteFooter = () => (
-  <footer className="border-t border-rule bg-paper">
-    <Container className="py-14">
-      <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-12">
-        <div className="lg:col-span-4">
-          <LogoMark className="h-[17px]" />
-          <p className="mt-4 max-w-[30ch] font-sans text-[0.95rem] leading-[1.6] text-ink-muted">
+  <footer className="border-t border-rule">
+    <Container className="py-16">
+      <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-12">
+        <div className="lg:col-span-5">
+          <LogoMark className="h-[18px]" />
+          <p className="mt-5 max-w-[28ch] font-sans text-[0.95rem] leading-[1.6] text-ink-dim">
             {COMPANY.subline}
           </p>
+          <a
+            href={CONTACT_MAILTO}
+            className="link mt-6 inline-block font-sans text-[1rem] text-ink"
+          >
+            {CONTACT_EMAIL}
+          </a>
         </div>
 
-        <nav aria-label="Company" className="lg:col-span-2 lg:col-start-6">
+        <nav aria-label="Company" className="lg:col-span-2 lg:col-start-7">
           <Label className="text-ink-faint">Company</Label>
-          <ul className="mt-4 space-y-2.5">
+          <ul className="mt-5 space-y-3">
             {[...NAV_LINKS, { label: 'Contact', href: '/contact/' }].map((link) => (
               <li key={link.href}>
-                <a href={link.href} className="link-quiet text-sm text-ink-muted hover:text-ink">
+                <a href={link.href} className="link-quiet text-sm text-ink-dim hover:text-ink">
                   {link.label}
                 </a>
               </li>
@@ -662,12 +608,12 @@ export const SiteFooter = () => (
 
         <nav aria-label="Products" className="lg:col-span-2">
           <Label className="text-ink-faint">Products</Label>
-          <ul className="mt-4 space-y-2.5">
+          <ul className="mt-5 space-y-3">
             {APPS.map((app) => (
               <li key={app.slug}>
                 <a
                   href={productPath(app)}
-                  className="link-quiet text-sm text-ink-muted hover:text-ink"
+                  className="link-quiet text-sm text-ink-dim hover:text-ink"
                 >
                   {app.name}
                 </a>
@@ -678,10 +624,10 @@ export const SiteFooter = () => (
 
         <nav aria-label="Legal" className="lg:col-span-2">
           <Label className="text-ink-faint">Legal</Label>
-          <ul className="mt-4 space-y-2.5">
+          <ul className="mt-5 space-y-3">
             {LEGAL_LINKS.map((link) => (
               <li key={link.href}>
-                <a href={link.href} className="link-quiet text-sm text-ink-muted hover:text-ink">
+                <a href={link.href} className="link-quiet text-sm text-ink-dim hover:text-ink">
                   {link.label}
                 </a>
               </li>
@@ -691,7 +637,7 @@ export const SiteFooter = () => (
                 href={INSTAGRAM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="link-quiet inline-flex items-center gap-2 text-sm text-ink-muted hover:text-ink"
+                className="link-quiet inline-flex items-center gap-2 text-sm text-ink-dim hover:text-ink"
               >
                 <InstagramIcon className="h-3.5 w-3.5" />
                 Instagram
@@ -701,11 +647,10 @@ export const SiteFooter = () => (
         </nav>
       </div>
 
-      {/* The statutory trading disclosure, and the only place on the site
-          where incorporation details appear. */}
-      <div className="mt-14 flex flex-col gap-2 border-t border-rule pt-6 sm:flex-row sm:items-center sm:justify-between">
+      {/* The statutory trading disclosure — the only place incorporation
+          details appear on the site. */}
+      <div className="mt-16 border-t border-rule pt-7">
         <Label className="text-ink-faint">{COMPANY.legalLine}</Label>
-        <Label className="text-ink-faint">&copy; {new Date().getFullYear()}</Label>
       </div>
     </Container>
   </footer>
@@ -719,25 +664,20 @@ export const PageMasthead = ({
   children,
 }: {
   eyebrow: string;
-  title: ReactNode;
+  /** Lines are clipped individually, so pass them explicitly. */
+  title: string[];
   lead?: ReactNode;
   children?: ReactNode;
 }) => (
-  <section className="bg-night text-night-ink">
-    <Container className="pt-16 pb-20 sm:pt-24 sm:pb-28">
-      <Label className="rise text-night-muted">{eyebrow}</Label>
-      <Display
-        as="h1"
-        size="xl"
-        weight={600}
-        className="rise mt-7 max-w-[22ch] text-night-ink"
-        style={{ animationDelay: '60ms' }}
-      >
-        {title}
-      </Display>
+  <section className="border-b border-rule">
+    <Container className="pt-20 pb-20 sm:pt-28 sm:pb-28">
+      <div className="fade-rise">
+        <Label className="text-accent-hi">{eyebrow}</Label>
+      </div>
+      <MaskHeading as="h1" lines={title} size="xl" className="mt-7" delay={120} />
       {lead ? (
-        <div className="rise mt-10 max-w-[52ch]" style={{ animationDelay: '130ms' }}>
-          <Prose className="text-night-muted">{lead}</Prose>
+        <div className="fade-rise mt-10 max-w-[54ch]" style={{ animationDelay: '340ms' }}>
+          <Prose>{lead}</Prose>
           {children ? <div className="mt-9">{children}</div> : null}
         </div>
       ) : null}
@@ -745,19 +685,15 @@ export const PageMasthead = ({
   </section>
 );
 
-/** Every route renders inside this, so chrome cannot drift between pages. */
 export const PageShell = ({
   current,
-  navTone = 'night',
   children,
 }: {
   current?: string;
-  /** The tone of whatever sits directly under the nav. */
-  navTone?: Tone;
   children: ReactNode;
 }) => (
-  <div className="min-h-screen bg-paper text-ink">
-    <SiteNav current={current} tone={navTone} />
+  <div className="min-h-screen bg-bg text-ink">
+    <SiteNav current={current} />
     <main>{children}</main>
     <SiteFooter />
   </div>

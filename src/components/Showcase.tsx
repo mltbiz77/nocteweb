@@ -104,7 +104,7 @@ const Band = ({ app, index }: { app: AppData; index: number }) => {
                   />
                 ) : null}
                 <div>
-                  <Display as="h3" size="lg" weight={600}>
+                  <Display as="h3" size="lg" weight={800}>
                     {app.name}
                   </Display>
                   <div className="mt-1.5">
@@ -128,7 +128,7 @@ const Band = ({ app, index }: { app: AppData; index: number }) => {
                     href={app.appStoreUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="link-quiet inline-flex items-center gap-2 font-sans text-[11px] font-medium uppercase tracking-label text-ink-muted hover:text-ink"
+                    className="link-quiet inline-flex items-center gap-2 font-sans text-[11px] font-medium uppercase tracking-label text-ink-dim hover:text-ink"
                   >
                     <AppleGlyph className="h-3.5 w-3.5" />
                     App Store

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0B1E4D" />
+    <meta name="theme-color" content="#06080F" />
     <link rel="icon" type="image/png" href="/nocte-logo.png" />
     <link rel="apple-touch-icon" href="/nocte-logo.png" />
     <title>Nocte Ventures</title>
@@ -52,14 +52,14 @@
     </script>
     <link
       rel="preload"
-      href="/fonts/switzer-400.woff2"
+      href="/fonts/cabinet-800.woff2"
       as="font"
       type="font/woff2"
       crossorigin
     />
     <link
       rel="preload"
-      href="/fonts/cormorant-400.woff2"
+      href="/fonts/switzer-400.woff2"
       as="font"
       type="font/woff2"
       crossorigin
@@ -68,15 +68,39 @@
 <body>
   <div id="root">
       <style>
-        .njs{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.85rem;background:#0B1E4D;color:#F2F4FA;font-family:'Helvetica Neue',Arial,sans-serif;text-align:center;padding:2rem}
-        .njs h1{font-size:clamp(2rem,5vw,3.75rem);font-weight:600;letter-spacing:-0.045em;line-height:1.02;max-width:22ch}
-        .njs p{color:#9AA7C8;font-family:Georgia,serif;font-size:1.05rem;max-width:46ch;line-height:1.6}
+        .njs{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.9rem;background:#06080F;color:#EEF1F8;font-family:'Helvetica Neue',Arial,sans-serif;text-align:center;padding:2rem}
+        .njs h1{font-size:clamp(2rem,6vw,4.5rem);font-weight:800;letter-spacing:-0.04em;line-height:0.95;max-width:20ch}
+        .njs p{color:#8B94AA;font-size:1.05rem;max-width:46ch;line-height:1.6}
       </style>
       <div class="njs">
         <h1>We build software worth owning.</h1>
         <p>Nocte Ventures — a parent company for digital products.</p>
       </div>
     </div>
+    <!-- Opening sequence. Lives here, not in React, so it is present in the
+         very first painted frame; it removes itself once played, and only
+         plays once per browser session. -->
+    <div id="nv-curtain" class="curtain" aria-hidden="true">
+      <div class="curtain-stack">
+        <div class="curtain-mark"></div>
+        <div class="curtain-line"></div>
+      </div>
+    </div>
+    <script>
+      (function () {
+        var el = document.getElementById('nv-curtain');
+        if (!el) return;
+        var still =
+          window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var seen = false;
+        try { seen = !!sessionStorage.getItem('nv-intro'); } catch (e) {}
+        if (still || seen) { el.parentNode.removeChild(el); return; }
+        try { sessionStorage.setItem('nv-intro', '1'); } catch (e) {}
+        setTimeout(function () {
+          if (el.parentNode) el.parentNode.removeChild(el);
+        }, 2600);
+      })();
+    </script>
   <script type="module" src="/src/main.tsx"></script>
 </body>
 </html>

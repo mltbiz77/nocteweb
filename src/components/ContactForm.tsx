@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from 'react';
 import { CONTACT_EMAIL } from '@/data/company';
-import { Label, type Tone } from './site';
+import { Label } from './site';
 
 type Status = 'idle' | 'sending' | 'sent' | 'error';
 
@@ -15,17 +15,13 @@ type Status = 'idle' | 'sending' | 'sent' | 'error';
  * Delivery is handled by `api/contact.js`, which needs one environment
  * variable set on the Vercel project before it can actually send.
  */
-export function ContactForm({ tone = 'paper' }: { tone?: Tone }) {
+export function ContactForm() {
   const [form, setForm] = useState({ name: '', email: '', company: '', message: '', website: '' });
   const [status, setStatus] = useState<Status>('idle');
   const [copied, setCopied] = useState(false);
-  const night = tone === 'night';
 
-  const field = `w-full border-0 border-b bg-transparent px-0 py-2.5 font-sans text-[1rem] transition-colors focus:outline-none focus:ring-0 ${
-    night
-      ? 'border-night-rule text-night-ink placeholder:text-night-muted/70 focus:border-night-ink'
-      : 'border-rule text-ink placeholder:text-ink-faint/70 focus:border-ink'
-  }`;
+  const field =
+    'w-full border-0 border-b border-rule bg-transparent px-0 py-3 font-sans text-[1rem] text-ink placeholder:text-ink-faint transition-colors focus:border-accent-hi focus:outline-none focus:ring-0';
 
   const set = (key: keyof typeof form) => (event: { target: { value: string } }) =>
     setForm((current) => ({ ...current, [key]: event.target.value }));
@@ -61,18 +57,18 @@ export function ContactForm({ tone = 'paper' }: { tone?: Tone }) {
 
   if (status === 'sent') {
     return (
-      <div className={`border-t pt-8 ${night ? 'border-night-rule' : 'border-rule'}`}>
-        <Label className={night ? 'text-night-muted' : 'text-ink-faint'}>Received</Label>
+      <div className={`border-t pt-8 ${'border-rule'}`}>
+        <Label className={'text-ink-faint'}>Received</Label>
         <p
           className={`mt-4 font-display text-[clamp(1.6rem,3vw,2.2rem)] leading-[1.1] ${
-            night ? 'text-night-ink' : 'text-ink'
+            'text-ink'
           }`}
         >
           thank you — your message is with us.
         </p>
         <p
           className={`mt-4 max-w-[44ch] font-sans text-[1rem] leading-[1.65] ${
-            night ? 'text-night-muted' : 'text-ink-muted'
+            'text-ink-muted'
           }`}
         >
           We read everything that comes in and normally reply within two working days.
@@ -82,10 +78,10 @@ export function ContactForm({ tone = 'paper' }: { tone?: Tone }) {
   }
 
   return (
-    <form onSubmit={onSubmit} className={`border-t pt-8 ${night ? 'border-night-rule' : 'border-rule'}`}>
+    <form onSubmit={onSubmit} className={`border-t pt-8 ${'border-rule'}`}>
       <div className="grid gap-x-8 gap-y-7 sm:grid-cols-2">
         <div>
-          <Label className={night ? 'text-night-muted' : 'text-ink-faint'}>Name</Label>
+          <Label className={'text-ink-faint'}>Name</Label>
           <input
             id="cf-name"
             name="name"
@@ -100,7 +96,7 @@ export function ContactForm({ tone = 'paper' }: { tone?: Tone }) {
           />
         </div>
         <div>
-          <Label className={night ? 'text-night-muted' : 'text-ink-faint'}>Email</Label>
+          <Label className={'text-ink-faint'}>Email</Label>
           <input
             id="cf-email"
             name="email"
@@ -118,7 +114,7 @@ export function ContactForm({ tone = 'paper' }: { tone?: Tone }) {
       </div>
 
       <div className="mt-7">
-        <Label className={night ? 'text-night-muted' : 'text-ink-faint'}>Company (optional)</Label>
+        <Label className={'text-ink-faint'}>Company (optional)</Label>
         <input
           id="cf-company"
           name="company"
@@ -133,7 +129,7 @@ export function ContactForm({ tone = 'paper' }: { tone?: Tone }) {
       </div>
 
       <div className="mt-7">
-        <Label className={night ? 'text-night-muted' : 'text-ink-faint'}>Message</Label>
+        <Label className={'text-ink-faint'}>Message</Label>
         <textarea
           id="cf-message"
           name="message"
@@ -165,16 +161,12 @@ export function ContactForm({ tone = 'paper' }: { tone?: Tone }) {
         <button
           type="submit"
           disabled={status === 'sending'}
-          className={`inline-flex items-center gap-3 px-7 py-3.5 font-sans text-[11px] font-medium uppercase tracking-label transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${
-            night
-              ? 'bg-night-ink text-night hover:bg-night-accent'
-              : 'bg-ink text-paper hover:bg-accent'
-          }`}
+          className="inline-flex items-center gap-3 bg-ink px-8 py-4 font-sans text-[11px] font-medium uppercase tracking-label text-bg transition-colors hover:bg-accent hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
         >
           {status === 'sending' ? 'Sending' : 'Send message'}
           <span aria-hidden="true">&rarr;</span>
         </button>
-        <Label className={night ? 'text-night-muted' : 'text-ink-faint'}>
+        <Label className={'text-ink-faint'}>
           Used only to reply
         </Label>
       </div>
@@ -185,12 +177,12 @@ export function ContactForm({ tone = 'paper' }: { tone?: Tone }) {
 
       {status === 'error' ? (
         <div
-          className={`mt-7 border-t pt-6 ${night ? 'border-night-rule' : 'border-rule-soft'}`}
+          className={`mt-7 border-t pt-6 ${'border-rule-soft'}`}
           role="alert"
         >
           <p
             className={`max-w-[52ch] font-sans text-[0.95rem] leading-[1.6] ${
-              night ? 'text-night-muted' : 'text-ink-muted'
+              'text-ink-muted'
             }`}
           >
             That did not go through. Please email us directly and we will pick it up straight
@@ -199,7 +191,7 @@ export function ContactForm({ tone = 'paper' }: { tone?: Tone }) {
           <div className="mt-4 flex flex-wrap items-center gap-4">
             <span
               className={`select-all font-sans text-[1.05rem] ${
-                night ? 'text-night-ink' : 'text-ink'
+                'text-ink'
               }`}
             >
               {CONTACT_EMAIL}
@@ -207,11 +199,7 @@ export function ContactForm({ tone = 'paper' }: { tone?: Tone }) {
             <button
               type="button"
               onClick={copyAddress}
-              className={`border px-4 py-2 font-sans text-[10.5px] font-medium uppercase tracking-label transition-colors ${
-                night
-                  ? 'border-night-rule text-night-ink hover:border-night-ink'
-                  : 'border-rule text-ink hover:border-ink'
-              }`}
+              className="border border-rule px-4 py-2 font-sans text-[10.5px] font-medium uppercase tracking-label text-ink transition-colors hover:border-accent-hi hover:text-accent-hi"
             >
               {copied ? 'Copied' : 'Copy address'}
             </button>

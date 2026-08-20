@@ -6,7 +6,7 @@ import {
   Display,
   Entry,
   Label,
-  NightBand,
+  ClosingBand,
   PageShell,
   Prose,
   Reveal,
@@ -28,9 +28,9 @@ export default function AppPage({ app }: { app: AppData }) {
   const t = STRINGS[app.locale];
 
   return (
-    <PageShell current={productPath(app)} navTone="night">
+    <PageShell current={productPath(app)}>
       {/* ─── Hero ─── */}
-      <section className="relative overflow-hidden bg-night text-night-ink">
+      <section className="relative overflow-hidden bg-bg text-ink">
         {/* A trace of the product's colour, and a full-width rule of it at the
             foot of the hero. Overlaying a warm accent on navy at any real
             strength just greys the blue out. */}
@@ -48,7 +48,7 @@ export default function AppPage({ app }: { app: AppData }) {
         <Container className="relative pt-10 pb-14 sm:pt-14 sm:pb-18">
           <a
             href="/portfolio/"
-            className="link-quiet rise inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-label text-night-muted"
+            className="link-quiet rise inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-label text-ink-dim"
           >
             &larr; {t.allProducts}
           </a>
@@ -65,11 +65,11 @@ export default function AppPage({ app }: { app: AppData }) {
                   draggable={false}
                 />
                 <div>
-                  <Display as="h1" size="xl" weight={600} className="text-night-ink">
+                  <Display as="h1" size="xl" weight={800} className="text-ink">
                     {app.name}
                   </Display>
                   <div className="mt-2">
-                    <StatusMark status={app.status} accent={app.accent} tone="night" />
+                    <StatusMark status={app.status} accent={app.accent} />
                   </div>
                 </div>
               </div>
@@ -84,7 +84,7 @@ export default function AppPage({ app }: { app: AppData }) {
               </Display>
 
               <div className="rise" style={{ animationDelay: '180ms' }}>
-                <Prose className="mt-6 max-w-[48ch] text-night-muted">
+                <Prose className="mt-6 max-w-[48ch] text-ink-dim">
                   <p>{app.brief}</p>
                 </Prose>
 
@@ -93,7 +93,7 @@ export default function AppPage({ app }: { app: AppData }) {
                     href={app.appStoreUrl}
                     locale={app.locale}
                     preorder={app.status === 'soon'}
-                    tone="night"
+                   
                   />
                 </div>
               </div>
@@ -126,10 +126,10 @@ export default function AppPage({ app }: { app: AppData }) {
 
       {/* ─── Screens ─── */}
       {rest.length > 0 ? (
-        <section className="bg-paper-sunk">
+        <section className="bg-surface">
           <Container className="py-16 sm:py-20">
             <Reveal>
-              <SectionHead index="01" eyebrow={t.screens} title={`${app.name}, on screen.`} />
+              <SectionHead eyebrow={t.screens} title={`${app.name}, on screen.`} />
             </Reveal>
             <Reveal delay={80}>
               <div
@@ -162,12 +162,12 @@ export default function AppPage({ app }: { app: AppData }) {
       {/* ─── What it does ─── */}
       <Container className="py-20 sm:py-28">
         <Reveal>
-          <SectionHead index="02" eyebrow={t.whatItDoes} title={app.featuresTitle ?? t.builtAround} />
+          <SectionHead eyebrow={t.whatItDoes} title={app.featuresTitle ?? t.builtAround} />
         </Reveal>
         <div className="mt-14 border-t border-rule">
           {app.features.map((feature, i) => (
             <Reveal key={feature.number} delay={i * 50}>
-              <Entry index={feature.number} title={feature.title}>
+              <Entry title={feature.title}>
                 <p>{feature.description}</p>
               </Entry>
             </Reveal>
@@ -176,7 +176,7 @@ export default function AppPage({ app }: { app: AppData }) {
       </Container>
 
       {/* ─── Privacy ─── */}
-      <section className="bg-paper-sunk">
+      <section className="bg-surface">
         <Container className="py-16 sm:py-20">
           <Reveal>
             <div className="grid gap-x-12 gap-y-8 lg:grid-cols-12">
@@ -199,19 +199,19 @@ export default function AppPage({ app }: { app: AppData }) {
         </Container>
       </section>
 
-      <NightBand heading={t.oneOfOurs(app.name)}>
-        <Prose className="max-w-[46ch] text-night-muted">
+      <ClosingBand heading={[t.oneOfOurs(app.name)]}>
+        <Prose className="max-w-[46ch] text-ink-dim">
           <p>{t.builtBy}. Look at the rest of the portfolio, or tell us what you are building.</p>
         </Prose>
         <div className="mt-9 flex flex-wrap gap-4">
-          <Button href="/portfolio/" variant="night-solid">
+          <Button href="/portfolio/" variant="solid">
             {t.allProducts}
           </Button>
-          <Button href="/contact/" variant="night-outline">
+          <Button href="/contact/" variant="outline">
             {t.contact}
           </Button>
         </div>
-      </NightBand>
+      </ClosingBand>
     </PageShell>
   );
 }

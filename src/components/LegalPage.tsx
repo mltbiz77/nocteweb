@@ -26,7 +26,7 @@ export default function LegalPage({ doc, path }: { doc: LegalDoc; path: string }
     <PageShell current={path}>
       <PageMasthead
         eyebrow={doc.title}
-        title={doc.title}
+        title={[doc.title]}
         lead={
           <>
             <p>{doc.intro}</p>
@@ -46,7 +46,7 @@ export default function LegalPage({ doc, path }: { doc: LegalDoc; path: string }
                   <li key={section.heading} className="border-b border-rule-soft">
                     <a
                       href={`#${slug(section.heading)}`}
-                      className="flex items-baseline gap-3 py-2.5 text-[0.9rem] text-ink-muted transition-colors hover:text-ink"
+                      className="flex items-baseline gap-3 py-2.5 text-[0.9rem] text-ink-dim transition-colors hover:text-ink"
                     >
                       <span className="tabular font-mono text-[10px] tracking-label text-ink-faint">
                         {String(index + 1).padStart(2, '0')}
@@ -76,7 +76,7 @@ export default function LegalPage({ doc, path }: { doc: LegalDoc; path: string }
                   </h2>
                 </div>
 
-                <div className="mt-4 max-w-measure font-sans text-[1.0625rem] leading-[1.7] text-ink-muted [&_p+p]:mt-4">
+                <div className="mt-4 max-w-measure font-sans text-[1.0625rem] leading-[1.7] text-ink-dim [&_p+p]:mt-4">
                   {section.body.map((paragraph, i) => (
                     <p key={i}>{paragraph}</p>
                   ))}
@@ -87,7 +87,7 @@ export default function LegalPage({ doc, path }: { doc: LegalDoc; path: string }
                     {section.bullets.map((bullet, i) => (
                       <li
                         key={i}
-                        className="grid grid-cols-[2rem_1fr] gap-3 border-b border-rule-soft py-3 font-sans text-[1rem] leading-[1.6] text-ink-muted"
+                        className="grid grid-cols-[2rem_1fr] gap-3 border-b border-rule-soft py-3 font-sans text-[1rem] leading-[1.6] text-ink-dim"
                       >
                         <span className="tabular font-mono text-[10px] tracking-label text-ink-faint">
                           {String.fromCharCode(97 + i)}.

@@ -1,44 +1,28 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  // Every route's HTML entry point plus all of src.
   content: ['./index.html', './*/index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
-        paper: 'var(--paper)',
-        'paper-sunk': 'var(--paper-sunk)',
+        bg: 'var(--bg)',
+        surface: 'var(--surface)',
+        'surface-hi': 'var(--surface-hi)',
         ink: 'var(--ink)',
-        'ink-muted': 'var(--ink-muted)',
+        'ink-dim': 'var(--ink-dim)',
         'ink-faint': 'var(--ink-faint)',
         accent: 'var(--accent)',
-        'accent-deep': 'var(--accent-deep)',
+        'accent-hi': 'var(--accent-hi)',
         rule: 'var(--rule)',
         'rule-soft': 'var(--rule-soft)',
-        night: 'var(--night)',
-        'night-sunk': 'var(--night-sunk)',
-        'night-ink': 'var(--night-ink)',
-        'night-muted': 'var(--night-muted)',
-        'night-rule': 'var(--night-rule)',
-        'night-accent': 'var(--night-accent)',
       },
-      borderColor: {
-        DEFAULT: 'var(--rule)',
-      },
+      borderColor: { DEFAULT: 'var(--rule)' },
       fontFamily: {
-        // Body copy, labels, buttons, navigation.
+        // Display only — huge, tight, lowercase.
+        display: ['Cabinet Grotesk', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        // Everything else.
         sans: ['Switzer', 'Helvetica Neue', 'Arial', 'sans-serif'],
-        // Headlines only. Small x-height, so never below ~1.3rem.
-        display: ['Cormorant Garamond', 'Iowan Old Style', 'Georgia', 'serif'],
       },
-      letterSpacing: {
-        masthead: '-0.035em',
-        // Small caps labels and buttons. Wide enough to read as considered
-        // rather than shouted.
-        label: '0.16em',
-      },
-      maxWidth: {
-        measure: '62ch',
-      },
+      letterSpacing: { label: '0.16em' },
     },
   },
   plugins: [],

@@ -22,105 +22,57 @@ own HTML entry point mounting its own React tree, so each page loads only its ow
 
 ## The design, and why
 
-**The products are the argument.** Nocte owns real software that looks good, so the site's
-job is to show it at a size a visitor can judge — an investor or a client should be able to
-scroll the home page and see immediately that this company ships.
+**Nocte is night, so the site is night.** One continuous near-black field with a blue cast
+(`--bg: #06080f`), raised panels for structure, and electric blue (`--accent: #3f6dff`) as the
+only colour that isn't ink. No cream, no serif, no numbered sections.
 
-- **Deep blue opens and closes the site.** `--night` carries the hero, every interior
-  masthead and the closing band. The nav takes the tone of whatever sits under it
-  (`PageShell navTone`), so the home page reads as one continuous blue field from the top of
-  the window down. No scroll listener is involved.
-- **The work sits on a soft warm white in between**, so product artwork reads cleanly.
-- **Each product gets a full-width band** (`Showcase.tsx`): its own colour as a flat 5% field,
-  its real App Store screenshots at 280px, and the two links that matter. Bands alternate
-  sides so a long scroll has rhythm. Products without screenshots lead with their icon at
-  200px instead of a placeholder — and in that case the icon is **not** repeated beside the
-  name, which is what `hasShots` guards.
-- **The hero is deliberately spare**: headline, one paragraph, two buttons. No counts, no
-  captions, no product imagery.
-- **The landing page offers two doors, side by side, early.** A left half for companies who
-  need AI or digital work built, and a right half for the products we own — where the products
-  are *named*, not exhibited. This is on purpose: a business arriving with a problem should
-  not have to scroll past four app pitches to find us.
-- **The full product showcase lives only on `/portfolio/`.** Do not put it back on the home
-  page.
-- **Depth comes from real shadows and flat colour fields.** No gradient meshes, no glows, no
-  glassmorphism. The `.plate` / `.plate-lift` classes are the only shadows in the system.
-- **Motion is small and fast.** The hero animates itself in CSS (`.rise`, staggered) so it
-  never waits on JavaScript; below the fold `Reveal` fades content up 12px over 500ms on
-  intersection. Both are skipped under `prefers-reduced-motion`.
-- **The contact form is on the landing page as well as `/contact/`**, same `ContactForm`
-  component, which takes a `tone` prop so it renders on navy or paper.
-- **`ContactForm` has no `mailto:` fallback, deliberately.** Opening a mail client is a dead
-  end on a phone. If delivery fails it says so in place and shows the address as selectable
-  text with a copy button. Plain email links elsewhere on the site are fine — those are a
-  deliberate click.
-- **Contact appears once in the nav**, as the "Get in touch" button. `NAV_LINKS` does not
-  contain it; the mobile drawer and footer append it explicitly.
+### Why not the obvious thing
 
-**Two families, self-hosted.**
+The sibling **4 More Capital** site (`~/code/capital-website`) is warm cream `#F1ECE3` + a dark
+saturated hue + a Spectral-serif / IBM-Plex-Sans pair + `01 / 02 / 03` section numerals + a
+two-column "two disciplines" split. Earlier versions of this site drifted into all five of
+those and Malte rightly said it looked like the same company twice.
+
+**Do not reintroduce any of them here.** If a change starts to look like cream paper, a serif
+headline, or numbered sections, it is wrong for Nocte regardless of how good it looks.
+
+### Type
 
 | Family | Weights | Used for |
 |---|---|---|
-| `Cormorant Garamond` | 400, 500 | Headlines and product taglines only |
-| `Switzer` | 400, 500, 600 | Body copy, labels, buttons, navigation |
+| `Cabinet Grotesk` | 500, 800 | Display — huge, tight, lowercase |
+| `Switzer` | 400, 500, 600 | Body, labels, buttons, navigation |
 
-Malte asked for the typography of **a16z.com/portfolio**. That site sets its titles in
-**Orpheus Pro** (Adobe Typekit) on a deep navy, with a grotesque for everything small —
-Orpheus is licensed and cannot be self-hosted, so headlines use **Cormorant Garamond**, the
-closest licence-free relative: classical, high contrast, small delicate serifs.
+Headlines are **lowercase**, echoing the lowercase `nocte` logotype — written lowercase in the
+source, never via `text-transform`, so AI, Nocte and the product names keep their capitals.
 
-Cormorant has a small x-height and is **display-only** — never set it below about 1.3rem.
-`Display` is the only component that uses it, which is the guardrail. There is no monospace
-anywhere; it read as a techier register and clashed with the geometric logotype.
+### Motion — the thing that actually makes it feel like something
 
-### Three things make this ours rather than generic
+1. **The opening.** `#nv-curtain` in `index.html` covers the viewport, wipes the wordmark in
+   left to right with a blue hairline sweeping under it, then lifts. It lives in the **HTML,
+   not React**, so it is in the first painted frame rather than appearing a beat late, and an
+   inline script removes it from the DOM afterwards so it can never swallow a click. Once per
+   browser session (`sessionStorage`), and skipped entirely for `prefers-reduced-motion`.
+   Home page only — an intro on every navigation is a tax.
+2. **`MaskHeading`** wipes each line of a headline up from behind its own edge. A clip reveal,
+   not a fade, which is what makes it read as typeset rather than animated. Pass the lines
+   explicitly; the clip has to be per line. `.mask-line` pads inside the clip and pulls the box
+   back, because otherwise the clip cuts descenders off.
+3. **Magnetic buttons.** `useMagnet` pulls a button toward the cursor while it is over it —
+   direct style writes, so no re-render on mousemove. Hover-capable devices only.
+4. **`Reveal`** fades blocks up on intersection, below the fold only.
 
-An elegant serif on navy is the house style of every VC and holding-company site. These are
-the decisions that stop it being one of them, and they are derived from the brand rather
-than from a trend:
-
-1. **Headlines are lowercase.** The logotype is a lowercase `nocte`, so the voice is
-   lowercase too — "we build software worth owning.", "the products we own." Almost nobody in
-   this market does it, and it costs nothing. Write headline copy lowercase **in the source**;
-   there is no `text-transform`, because that would wreck genuine proper nouns. **Keep AI,
-   Nocte and product names capitalised.**
-2. **The accent is warm amber, not another blue.** `--accent` (`#8a5a0f` on light,
-   `--night-accent` `#e3b171` on navy) is the lamplight in "after dark". A blue accent on a
-   blue site is invisible and generic; amber against the navy is the thing people remember.
-   Two values because a readable amber on warm white has to be far darker than one on navy.
-3. **Oversized serif numerals mark structure.** `SectionHead` takes an `index`, and the home
-   page's two halves carry `01` / `02` — set in the display serif at low contrast, like a
-   printed book's chapter numbers. They need the `.figures` class: Cormorant defaults to
-   oldstyle figures, which renders "01" as something that reads as "OI".
-
-**Say less.** There are no specification tables, no counts of platforms or languages, no
-"hosted in X" bullet lists. The products and the copy carry the argument; a visitor should
-leave knowing what the company does and not much else. If you are tempted to add a metadata
-table, that is the instinct this pass removed.
-
-**Colour discipline.** One blue, one warm accent, two rule weights. Each product's own colour
-appears in three places and nowhere else: its band field, its tagline, and its status dot —
-and the status dot is only filled when the product is **live**, so colour means shipping.
-
-Re-inking the site is a **token change only** — edit the `:root` block in
-`src/styles/global.css`. No component reads a hard-coded colour.
-
-**Incorporation detail appears exactly once**, in the footer, from `COMPANY.legalLine`.
-
-**The old "a company that builds companies" line is gone** at Malte's request, along with the
-listy "builds, owns, and advises digital businesses" variant. The home headline is
-`We build software worth owning.` — set once in `src/App.tsx`.
+Every one is off under `prefers-reduced-motion`. There are still no particle fields, no
+gradient meshes and no glows — depth comes from `.panel` surfaces and real shadows.
 
 ### The primitives (`src/components/site.tsx`)
 
-`Container` · `Reveal` · `Label` · `Display` (one heading scale, `xxl`–`sm`) · `Prose` ·
-`SectionHead` · `FactStrip` (the hero's numbers) · `FactTable` · `Entry` · `Tag` · `Button` ·
-`ArrowLink` · `StatusMark` · `LogoMark` · `AppStoreButton` · `SiteNav` · `NightBand` ·
-`SiteFooter` · `PageMasthead` · `PageShell`.
+`Container` · `Reveal` · `Label` · `Display` · `MaskHeading` · `Prose` · `SectionHead` ·
+`Entry` · `ClosingBand` · `Button` · `ArrowLink` · `StatusMark` · `LogoMark` ·
+`AppStoreButton` · `SiteNav` · `SiteFooter` · `PageMasthead` · `PageShell`.
 
-Build new sections from these. If something seems to need a new visual treatment, the content
-usually belongs in an existing one.
+`Entry` is deliberately **unnumbered** — index numerals down the side are the capital site's
+device.
 
 ## How to run
 

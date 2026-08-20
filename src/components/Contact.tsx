@@ -2,7 +2,7 @@ import { ContactForm } from './ContactForm';
 import {
   Container,
   Label,
-  NightBand,
+  ClosingBand,
   PageMasthead,
   PageShell,
 } from './site';
@@ -32,7 +32,7 @@ export default function Contact() {
     <PageShell current="/contact/">
       <PageMasthead
         eyebrow="Contact"
-        title="tell us what you’re building."
+        title={['tell us what', 'you’re building.']}
         lead={
           <p>
             Whether you are a founder, a company looking for advisory or AI solutions, or just
@@ -66,7 +66,7 @@ export default function Contact() {
                 href={BOOKING_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-8 inline-flex items-center gap-3 border border-ink px-6 py-3 font-mono text-[11px] uppercase tracking-label text-ink transition-colors hover:bg-ink hover:text-paper"
+                className="mt-8 inline-flex items-center gap-3 border border-ink px-6 py-3 font-mono text-[11px] uppercase tracking-label text-ink transition-colors hover:bg-ink hover:text-bg"
               >
                 Book a call <span aria-hidden="true">&rarr;</span>
               </a>
@@ -78,7 +78,7 @@ export default function Contact() {
                 href={INSTAGRAM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="link-quiet mt-3 block font-mono text-[11px] uppercase tracking-label text-ink-muted hover:text-ink"
+                className="link-quiet mt-3 block font-mono text-[11px] uppercase tracking-label text-ink-dim hover:text-ink"
               >
                 Instagram &rarr;
               </a>
@@ -87,21 +87,21 @@ export default function Contact() {
         </div>
       </Container>
 
-      <NightBand
-        heading="who writes to us."
+      <ClosingBand
+        heading={['who writes to us.']}
         aside={
-          <div className="border-t border-night-rule">
+          <div className="border-t border-rule">
             {REASONS.map((reason) => (
-              <div key={reason.index} className="border-b border-night-rule py-4">
+              <div key={reason.index} className="border-b border-rule py-4">
                 <div className="flex items-baseline gap-3">
-                  <span className="tabular font-mono text-[10px] uppercase tracking-label text-night-muted">
+                  <span className="tabular font-mono text-[10px] uppercase tracking-label text-ink-dim">
                     {reason.index}
                   </span>
-                  <span className="font-sans text-[0.95rem] font-medium text-night-ink">
+                  <span className="font-sans text-[0.95rem] font-medium text-ink">
                     {reason.title}
                   </span>
                 </div>
-                <p className="mt-2 pl-8 font-sans text-[0.9rem] leading-[1.55] text-night-muted">
+                <p className="mt-2 pl-8 font-sans text-[0.9rem] leading-[1.55] text-ink-dim">
                   {reason.body}
                 </p>
               </div>
@@ -109,11 +109,11 @@ export default function Contact() {
           </div>
         }
       >
-        <p className="max-w-[44ch] font-sans text-[1.0625rem] leading-[1.65] text-night-muted">
+        <p className="max-w-[44ch] font-sans text-[1.0625rem] leading-[1.65] text-ink-dim">
           Most of what reaches us falls into one of three piles. Say which one you are in and we
           can skip a round of email.
         </p>
-      </NightBand>
+      </ClosingBand>
     </PageShell>
   );
 }

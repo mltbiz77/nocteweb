@@ -3,7 +3,7 @@ import {
   Container,
   Entry,
   Label,
-  NightBand,
+  ClosingBand,
   PageMasthead,
   PageShell,
   Prose,
@@ -22,11 +22,7 @@ export default function Advisory() {
     <PageShell current="/advisory/">
       <PageMasthead
         eyebrow="Advisory"
-        title={
-          <>
-            we work with companies the way we work on our own.
-          </>
-        }
+        title={['we work with companies', 'the way we work on our own.']}
         lead={
           <p>
             We work with founders and companies on strategy, product, and technical execution.
@@ -40,7 +36,6 @@ export default function Advisory() {
       <Container className="pt-16 sm:pt-24">
         <Reveal>
           <SectionHead
-            index="01"
             eyebrow="What we offer"
             title="four ways we get involved."
             lead={
@@ -55,7 +50,6 @@ export default function Advisory() {
           {OFFERINGS.map((offering) => (
             <Entry
               key={offering.numeral}
-              index={offering.numeral}
               title={offering.title}
             >
               <p>{offering.description}</p>
@@ -68,7 +62,6 @@ export default function Advisory() {
       <Container className="pt-20 sm:pt-28">
         <Reveal>
           <SectionHead
-            index="02"
             eyebrow="How we work"
             title="fewer decisions, made earlier."
             lead={
@@ -79,8 +72,8 @@ export default function Advisory() {
           />
         </Reveal>
         <div className="mt-14 border-t border-rule">
-          {HOW_WE_WORK.map((item, index) => (
-            <Entry key={item.title} index={String(index + 1).padStart(2, '0')} title={item.title}>
+          {HOW_WE_WORK.map((item) => (
+            <Entry key={item.title} title={item.title}>
               <p>{item.description}</p>
             </Entry>
           ))}
@@ -91,13 +84,12 @@ export default function Advisory() {
       {CASE_STUDIES.length > 0 ? (
         <Container className="pt-20 sm:pt-28">
           <Reveal>
-            <SectionHead index="03" eyebrow="Selected engagements" title="what that looked like." />
+            <SectionHead eyebrow="Selected engagements" title="what that looked like." />
           </Reveal>
           <div className="mt-14 border-t border-rule">
-            {CASE_STUDIES.map((study, index) => (
+            {CASE_STUDIES.map((study) => (
               <Entry
                 key={study.slug}
-                index={String(index + 1).padStart(2, '0')}
                 title={study.client}
                 aside={
                   <div className="flex flex-wrap items-center gap-5">
@@ -123,15 +115,15 @@ export default function Advisory() {
 
       <div className="pb-24 sm:pb-32" />
 
-      <NightBand heading="Where would you start?">
-        <Prose className="max-w-[48ch] text-night-muted">
+      <ClosingBand heading={["Where would you start?"]}>
+        <Prose className="max-w-[48ch] text-ink-dim">
           <p>
             If you are a founder or a company looking for strategic or technical help, get in
             touch. Tell us the problem in a paragraph and we will tell you honestly whether we are
             the right people for it.
           </p>
         </Prose>
-      </NightBand>
+      </ClosingBand>
     </PageShell>
   );
 }

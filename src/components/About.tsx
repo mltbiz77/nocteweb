@@ -3,7 +3,7 @@ import {
   Display,
   Entry,
   Label,
-  NightBand,
+  ClosingBand,
   PageMasthead,
   PageShell,
   Prose,
@@ -26,11 +26,7 @@ export default function About() {
     <PageShell current="/about/">
       <PageMasthead
         eyebrow="About"
-        title={
-          <>
-            we build companies, and then we run them.
-          </>
-        }
+        title={['we build companies,', 'and then we run them.']}
         lead={
           <p>
             Nocte Ventures is a parent company for digital products. We build and run our own,
@@ -45,7 +41,6 @@ export default function About() {
       <Container className="pt-16 sm:pt-24">
         <Reveal>
           <SectionHead
-            index="01"
             eyebrow="The shape of it"
             title="one team across strategy, design, and engineering."
           />
@@ -76,13 +71,12 @@ export default function About() {
       {/* ─── §02 How we think ─── */}
       <Container className="pt-20 sm:pt-28">
         <Reveal>
-          <SectionHead index="02" eyebrow="How we think" title="three things we hold to." />
+          <SectionHead eyebrow="How we think" title="three things we hold to." />
         </Reveal>
         <div className="mt-14 border-t border-rule">
-          {PRINCIPLES.map((principle, index) => (
+          {PRINCIPLES.map((principle) => (
             <Entry
               key={principle.title}
-              index={String(index + 1).padStart(2, '0')}
               title={principle.title}
             >
               <p>{principle.description}</p>
@@ -95,13 +89,12 @@ export default function About() {
       {TEAM.length > 0 ? (
         <Container className="pt-20 sm:pt-28">
           <Reveal>
-            <SectionHead index="03" eyebrow="The team" title="who you'd work with." />
+            <SectionHead eyebrow="The team" title="who you'd work with." />
           </Reveal>
           <div className="mt-14 border-t border-rule">
-            {TEAM.map((member, index) => (
+            {TEAM.map((member) => (
               <Entry
                 key={member.name}
-                index={String(index + 1).padStart(2, '0')}
                 title={member.name}
                 aside={
                   <div className="flex flex-wrap items-center gap-5">
@@ -143,14 +136,14 @@ export default function About() {
 
       <div className="pb-24 sm:pb-32" />
 
-      <NightBand heading="Two ways in.">
-        <Prose className="max-w-[44ch] text-night-muted">
+      <ClosingBand heading={["Two ways in."]}>
+        <Prose className="max-w-[44ch] text-ink-dim">
           <p>
             Look at what we own, or tell us what you are building. Either is a good place to
             start a conversation.
           </p>
         </Prose>
-      </NightBand>
+      </ClosingBand>
     </PageShell>
   );
 }

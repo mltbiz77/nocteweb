@@ -3,22 +3,29 @@
 @tailwind utilities;
 
 /* ── Fonts, self-hosted ──────────────────────────────────────────
-   Served from this origin rather than Fontshare's CSS endpoint.
-   That endpoint is not deterministic: asking for switzer@400,500
-   returns a stray Satoshi face, 400,600,700 returns Gambarino, and
-   400,500,600,700 returns Sentient — extra downloads we never use.
    Same-origin, so no third party sees the visitor's IP.
 
-   Cormorant Garamond (SIL OFL, Google Fonts) carries the headlines:
-   a classical high-contrast display serif, chosen as the closest
-   licence-free relative of the Orpheus Pro that a16z sets its titles
-   in. Display sizes only — its x-height is too small for body text.
+   Cabinet Grotesk (Fontshare, free for commercial use) carries the
+   display: an idiosyncratic grotesque with real personality at
+   scale. Switzer carries body, labels and UI.
 
-   Switzer (ITF/Fontshare, free for commercial use) carries everything
-   else: body copy, labels, buttons, navigation.
-
-   Re-fetch by requesting ONE weight at a time and picking the block
-   that actually declares the family you asked for. */
+   Fontshare's CSS endpoint is NOT deterministic — a multi-weight
+   request returns stray extra families. Request ONE weight at a
+   time and take the block that declares the family you asked for. */
+@font-face {
+  font-family: 'Cabinet Grotesk';
+  src: url('/fonts/cabinet-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Cabinet Grotesk';
+  src: url('/fonts/cabinet-800.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
 @font-face {
   font-family: 'Switzer';
   src: url('/fonts/switzer-400.woff2') format('woff2');
@@ -40,58 +47,32 @@
   font-style: normal;
   font-display: swap;
 }
-@font-face {
-  font-family: 'Cormorant Garamond';
-  src: url('/fonts/cormorant-400.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Cormorant Garamond';
-  src: url('/fonts/cormorant-500.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
 
 /* ── Nocte Ventures ───────────────────────────────────────────────
-   Deep blue opens and closes the site; the work itself is shown on
-   a soft warm white in between. Each product's own colour is used
-   at scale on its showcase band — the portfolio is the thing a
-   visitor came to look at, so it gets the room.
+   Nocte is night, so the site is night — one continuous near-black
+   field with a blue cast, lit by electric blue.
 
-   No gradient meshes, no glows, no glassmorphism. Depth comes from
-   real shadows and flat colour fields.
+   This is a deliberate break from the sibling 4 More Capital site,
+   which is warm cream + a dark saturated hue + a serif/sans pair +
+   numbered sections. None of those appear here.
 
-   The whole palette lives here. Nothing downstream hard-codes a
-   colour, so the site can be re-inked from this block alone. */
+   Still no gradient meshes, no glows, no particle fields. Depth
+   comes from flat raised surfaces and real shadows; personality
+   comes from type at scale and from motion. */
 :root {
-  /* Light ground: a soft warm white, so product artwork sits on it cleanly. */
-  --paper: #f7f5f0;
-  --paper-sunk: #efebe2;
+  --bg: #06080f;
+  --surface: #0c111f;
+  --surface-hi: #131a2c;
 
-  --ink: #0e1833;
-  --ink-muted: #4a5674;
-  --ink-faint: #6a7590;
+  --ink: #eef1f8;
+  --ink-dim: #8b94aa;
+  --ink-faint: #626c83;
 
-  /* Warm amber against the blue, not another tech-blue on blue. It is the
-     lamplight in "after dark", and it is what keeps the palette from reading
-     as a stock navy-and-white corporate site. Two values, because a readable
-     amber on warm white has to be far darker than one on navy. */
-  --accent: #8a5a0f;
-  --accent-deep: #6e4708;
+  --accent: #3f6dff;
+  --accent-hi: #6f92ff;
 
-  --rule: rgba(14, 24, 51, 0.16);
-  --rule-soft: rgba(14, 24, 51, 0.08);
-
-  /* The deep blue that opens and closes the site. */
-  --night: #0b1e4d;
-  --night-sunk: #081739;
-  --night-ink: #f2f4fa;
-  --night-muted: #9aa7c8;
-  --night-rule: rgba(242, 244, 250, 0.18);
-  --night-accent: #e3b171;
+  --rule: rgba(238, 241, 248, 0.13);
+  --rule-soft: rgba(238, 241, 248, 0.07);
 }
 
 * {
@@ -101,12 +82,12 @@
 }
 
 html {
-  background: var(--paper);
+  background: var(--bg);
   -webkit-text-size-adjust: 100%;
 }
 
 body {
-  @apply min-h-screen bg-paper text-ink antialiased font-sans;
+  @apply min-h-screen bg-bg text-ink antialiased font-sans;
   font-feature-settings: 'kern' 1;
 }
 
@@ -118,14 +99,6 @@ button {
   @apply font-sans;
 }
 
-/* Cormorant defaults to oldstyle figures, which turns "01" into something
-   that reads as "OI". Section numerals ask for lining figures explicitly. */
-.figures {
-  font-variant-numeric: lining-nums;
-  font-feature-settings: 'lnum' 1;
-}
-
-/* Numerals in tables and spec lists must line up in a column. */
 .tabular {
   font-variant-numeric: tabular-nums;
   font-feature-settings: 'tnum' 1;
@@ -133,80 +106,174 @@ button {
 
 ::selection {
   background: var(--accent);
-  color: var(--paper);
+  color: #fff;
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
+  outline: 2px solid var(--accent-hi);
+  outline-offset: 3px;
 }
 
-/* ── The one link treatment ──────────────────────────────────────
-   A rule under the text that thickens on hover. Inline links take
-   the accent; structural links inherit their surrounding colour. */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: #1b2338;
+  border: 3px solid var(--bg);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2a3450;
+}
+
+/* ── Links ───────────────────────────────────────────────────── */
 .link {
   background-image: linear-gradient(currentColor, currentColor);
   background-position: 0 100%;
   background-repeat: no-repeat;
   background-size: 100% 1px;
-  padding-bottom: 1px;
-  transition: background-size 140ms ease;
+  padding-bottom: 2px;
+  transition: background-size 160ms ease;
 }
 .link:hover {
   background-size: 100% 2px;
 }
 
-/* Standing link: the rule draws in from the left. */
 .link-quiet {
   background-image: linear-gradient(currentColor, currentColor);
   background-position: 0 100%;
   background-repeat: no-repeat;
   background-size: 0 1px;
-  padding-bottom: 1px;
-  transition: background-size 180ms ease;
+  padding-bottom: 2px;
+  transition: background-size 260ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 .link-quiet:hover,
 .link-quiet:focus-visible {
   background-size: 100% 1px;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .link,
-  .link-quiet {
-    transition: none;
-  }
-}
+/* ── Motion ──────────────────────────────────────────────────────
+   Two devices, used everywhere:
 
-/* ── Entrances ───────────────────────────────────────────────────
-   The hero animates itself in CSS so it never waits on JavaScript.
-   Below the fold, `Reveal` observes intersection instead. */
+   `.mask-rise` wipes a line of type up from behind its own edge —
+   a clip reveal, not a fade, which is what makes it read as
+   typeset rather than animated.
+
+   `.fade-rise` is the quieter version for blocks of content.
+
+   Both are pure CSS with an inline `animation-delay`, so nothing
+   waits on JavaScript. */
+.mask-line {
+  display: block;
+  overflow: hidden;
+  /* The clip would otherwise cut descenders off the bottom of the line.
+     Pad inside the clip, then pull the box back so line spacing is unchanged. */
+  padding-bottom: 0.16em;
+  margin-bottom: -0.16em;
+}
 @media (prefers-reduced-motion: no-preference) {
-  .rise {
+  .mask-rise {
+    display: block;
+    transform: translateY(105%);
+    animation: mask-rise 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  .fade-rise {
     opacity: 0;
-    transform: translateY(14px);
-    animation: rise 0.62s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    transform: translateY(16px);
+    animation: fade-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 }
-@keyframes rise {
+@keyframes mask-rise {
+  to {
+    transform: none;
+  }
+}
+@keyframes fade-rise {
   to {
     opacity: 1;
     transform: none;
   }
 }
 
-/* Screenshot plate: a real contact shadow, not a glow. */
-.plate {
-  box-shadow:
-    0 1px 2px rgba(9, 18, 40, 0.14),
-    0 18px 40px -12px rgba(9, 18, 40, 0.28);
+/* ── The opening ─────────────────────────────────────────────────
+   A curtain over the whole viewport that draws the wordmark, then
+   lifts. It runs once per browser session and is removed from the
+   DOM afterwards, so it never blocks interaction. */
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: var(--bg);
+  animation: curtain-lift 0.9s cubic-bezier(0.76, 0, 0.24, 1) 1.5s forwards;
 }
-.plate-lift {
-  box-shadow:
-    0 1px 2px rgba(9, 18, 40, 0.18),
-    0 40px 70px -20px rgba(9, 18, 40, 0.4);
+@keyframes curtain-lift {
+  to {
+    transform: translateY(-100%);
+  }
+}
+.curtain-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: flex-start;
+}
+.curtain-mark {
+  width: clamp(170px, 26vw, 320px);
+  aspect-ratio: 826 / 231;
+  background-color: var(--ink);
+  -webkit-mask: url(/nocte-wordmark.png) center / contain no-repeat;
+  mask: url(/nocte-wordmark.png) center / contain no-repeat;
+  clip-path: inset(0 100% 0 0);
+  animation: mark-in 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes mark-in {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+/* A hairline that sweeps across under the wordmark as it draws. */
+.curtain-line {
+  height: 2px;
+  background: var(--accent);
+  width: clamp(170px, 26vw, 320px);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: line-sweep 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+}
+@keyframes line-sweep {
+  to {
+    transform: scaleX(1);
+  }
 }
 
-/* App icons keep the iOS corner curve rather than a plain radius. */
+@media (prefers-reduced-motion: reduce) {
+  .curtain {
+    display: none;
+  }
+}
+
+/* Raised panel. The only surface treatment on the site. */
+.panel {
+  background: var(--surface);
+  transition:
+    background-color 300ms ease,
+    transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.panel:hover {
+  background: var(--surface-hi);
+}
+
+.plate {
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.4),
+    0 24px 50px -16px rgba(0, 0, 0, 0.7);
+}
+
 .icon-mask {
   border-radius: 22.5%;
 }

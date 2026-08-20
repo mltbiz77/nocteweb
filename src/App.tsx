@@ -5,6 +5,7 @@ import {
   Container,
   Display,
   Label,
+  MaskHeading,
   PageShell,
   Prose,
   Reveal,
@@ -16,24 +17,31 @@ import { APPS, productPath } from '@/data/apps';
 import { CONTACT_EMAIL } from '@/data/company';
 
 /**
- * The landing page offers two doors and nothing else: work with us, or look at
- * what we own. The full product showcase lives on /portfolio/ — here the
- * products are named, not exhibited, so a business arriving with an AI or
- * digital problem is not made to scroll through four app pitches first.
+ * The landing page. Two doors, presented as two panels you can feel rather
+ * than two columns of text — the left for companies who need something built,
+ * the right for the products we own. The full showcase stays on /portfolio/.
  */
 export default function App() {
   return (
-    <PageShell current="/" navTone="night">
+    <PageShell current="/">
       {/* ─── Hero ─── */}
-      <section className="bg-night text-night-ink">
-        <Container className="pt-24 pb-20 sm:pt-32 sm:pb-28">
-          <Display as="h1" size="xxl" className="rise max-w-[20ch] text-night-ink">
-            we build software worth owning.
-          </Display>
+      <section className="border-b border-rule">
+        <Container className="pt-24 pb-24 sm:pt-32 sm:pb-32">
+          <div className="fade-rise">
+            <Label className="text-accent-hi">Nocte Ventures</Label>
+          </div>
 
-          <div className="mt-11 grid gap-x-12 gap-y-9 lg:grid-cols-12">
-            <div className="rise lg:col-span-5" style={{ animationDelay: '90ms' }}>
-              <Prose className="text-night-muted">
+          <MaskHeading
+            as="h1"
+            lines={['we build software', 'worth owning.']}
+            size="xxl"
+            className="mt-8"
+            delay={180}
+          />
+
+          <div className="mt-14 grid gap-x-12 gap-y-10 lg:grid-cols-12">
+            <div className="fade-rise lg:col-span-5" style={{ animationDelay: '520ms' }}>
+              <Prose>
                 <p>
                   A parent company for digital products. We build and run our own, and we design,
                   build, and advise on AI and digital solutions for other companies.
@@ -41,13 +49,11 @@ export default function App() {
               </Prose>
             </div>
             <div
-              className="rise flex flex-wrap items-center gap-4 lg:col-span-6 lg:col-start-7 lg:justify-end"
-              style={{ animationDelay: '150ms' }}
+              className="fade-rise flex flex-wrap items-center gap-4 lg:col-span-6 lg:col-start-7 lg:justify-end"
+              style={{ animationDelay: '620ms' }}
             >
-              <Button href="#advisory" variant="night-solid">
-                Work with us
-              </Button>
-              <Button href="/portfolio/" variant="night-outline">
+              <Button href="#work">Work with us</Button>
+              <Button href="/portfolio/" variant="outline">
                 Our products
               </Button>
             </div>
@@ -55,98 +61,102 @@ export default function App() {
         </Container>
       </section>
 
-      {/* ─── The two doors, side by side ─── */}
+      {/* ─── Two doors ─── */}
       <section>
         <Container className="py-16 sm:py-20">
-          <div className="grid lg:grid-cols-2">
-            {/* Left — for companies who need something built or advised on. */}
-            <Reveal className="border-t border-ink pt-8 lg:border-r lg:pr-14">
-              <span
-                aria-hidden="true"
-                className="figures mb-4 block font-display text-[2.75rem] leading-[0.8] text-ink/20"
+          <div className="grid gap-5 lg:grid-cols-2">
+            {/* For companies */}
+            <Reveal>
+              <a
+                href="/advisory/"
+                className="panel group flex h-full flex-col p-9 sm:p-11 hover:-translate-y-1"
               >
-                01
-              </span>
-              <Label className="text-accent">For companies</Label>
-              <Display as="h2" size="lg" className="mt-5 max-w-[20ch]">
-                AI and digital solutions, built properly.
-              </Display>
-              <Prose className="mt-5 max-w-[42ch]">
-                <p>
-                  If your business needs an AI capability, an automation, or a product built and
-                  you want it to survive contact with real customers, this is the side of the
-                  house you want. We advise, and we build.
-                </p>
-              </Prose>
-              <ul className="mt-7 space-y-3">
-                {OFFERINGS.map((offering) => (
-                  <li key={offering.numeral} className="flex items-baseline gap-3.5">
-                    <span className="mt-[0.5em] h-[5px] w-[5px] shrink-0 rounded-full bg-accent" aria-hidden="true" />
-                    <span className="font-sans text-[0.98rem] text-ink">{offering.title}</span>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-9">
-                <ArrowLink href="/advisory/">Advisory &amp; Solutions</ArrowLink>
-              </div>
+                <Label className="text-accent-hi">For companies</Label>
+                <Display as="h2" size="lg" weight={800} className="mt-6 max-w-[18ch]">
+                  AI and digital solutions, built properly.
+                </Display>
+                <Prose className="mt-5 max-w-[40ch]">
+                  <p>
+                    If your business needs an AI capability, an automation, or a product built and
+                    you want it to survive contact with real customers — this is the side of the
+                    house you want.
+                  </p>
+                </Prose>
+
+                <ul className="mt-9 space-y-3 border-t border-rule pt-7">
+                  {OFFERINGS.map((offering) => (
+                    <li key={offering.numeral} className="flex items-baseline gap-3.5">
+                      <span
+                        className="mt-[0.5em] h-[5px] w-[5px] shrink-0 rounded-full bg-accent"
+                        aria-hidden="true"
+                      />
+                      <span className="font-sans text-[0.98rem] text-ink">{offering.title}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <span className="mt-auto pt-10">
+                  <span className="link-quiet inline-flex items-center gap-2 font-sans text-[11px] font-medium uppercase tracking-label text-accent-hi">
+                    Advisory &amp; Solutions
+                    <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">
+                      &rarr;
+                    </span>
+                  </span>
+                </span>
+              </a>
             </Reveal>
 
-            {/* Right — the products we own, named rather than exhibited. */}
-            <Reveal
-              delay={80}
-              className="mt-14 border-t border-ink pt-8 lg:mt-0 lg:pl-14"
-            >
-              <span
-                aria-hidden="true"
-                className="figures mb-4 block font-display text-[2.75rem] leading-[0.8] text-ink/20"
-              >
-                02
-              </span>
-              <Label className="text-ink-faint">Our own products</Label>
-              <Display as="h2" size="lg" className="mt-5 max-w-[20ch]">
-                software we build, own, and run.
-              </Display>
-              <Prose className="mt-5 max-w-[42ch]">
-                <p>
-                  We create our own companies and keep them. It is where every position we take on
-                  pricing, retention, and launch timing gets tested before it reaches a client.
-                </p>
-              </Prose>
-              <ul className="mt-7">
-                {APPS.map((app) => (
-                  <li key={app.slug}>
-                    <a
-                      href={productPath(app)}
-                      className="group flex items-center gap-4 border-b border-rule-soft py-3.5 transition-colors hover:bg-paper-sunk/70"
-                    >
-                      <img
-                        src={app.icon}
-                        alt=""
-                        aria-hidden="true"
-                        width={512}
-                        height={512}
-                        loading="lazy"
-                        className="icon-mask plate h-9 w-9 shrink-0"
-                        draggable={false}
-                      />
-                      <span className="font-sans text-[0.98rem] font-medium text-ink">
-                        {app.name}
-                      </span>
-                      <span className="ml-auto flex items-center gap-4">
-                        <StatusMark status={app.status} accent={app.accent} />
-                        <span
+            {/* Our products */}
+            <Reveal delay={90}>
+              <div className="panel flex h-full flex-col p-9 sm:p-11">
+                <Label className="text-ink-faint">Our own products</Label>
+                <Display as="h2" size="lg" weight={800} className="mt-6 max-w-[18ch]">
+                  software we build, own, and run.
+                </Display>
+                <Prose className="mt-5 max-w-[40ch]">
+                  <p>
+                    We create our own companies and keep them. It is where every position we take
+                    on pricing, retention, and launch timing gets tested first.
+                  </p>
+                </Prose>
+
+                <ul className="mt-9 border-t border-rule pt-2">
+                  {APPS.map((app) => (
+                    <li key={app.slug}>
+                      <a
+                        href={productPath(app)}
+                        className="group flex items-center gap-4 border-b border-rule-soft py-4 last:border-0"
+                      >
+                        <img
+                          src={app.icon}
+                          alt=""
                           aria-hidden="true"
-                          className="text-ink-faint transition-transform group-hover:translate-x-0.5 group-hover:text-accent"
-                        >
-                          &rarr;
+                          width={512}
+                          height={512}
+                          loading="lazy"
+                          className="icon-mask h-10 w-10 shrink-0 transition-transform duration-300 ease-out group-hover:scale-110"
+                          draggable={false}
+                        />
+                        <span className="font-sans text-[1rem] font-medium text-ink transition-transform duration-300 ease-out group-hover:translate-x-1">
+                          {app.name}
                         </span>
-                      </span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-9">
-                <ArrowLink href="/portfolio/">See the portfolio</ArrowLink>
+                        <span className="ml-auto flex items-center gap-4">
+                          <StatusMark status={app.status} accent={app.accent} />
+                          <span
+                            aria-hidden="true"
+                            className="text-ink-faint transition-all duration-300 group-hover:translate-x-1 group-hover:text-accent-hi"
+                          >
+                            &rarr;
+                          </span>
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+
+                <span className="mt-auto pt-10">
+                  <ArrowLink href="/portfolio/">See the portfolio</ArrowLink>
+                </span>
               </div>
             </Reveal>
           </div>
@@ -154,11 +164,10 @@ export default function App() {
       </section>
 
       {/* ─── What we do for clients ─── */}
-      <section id="advisory" className="scroll-mt-4 bg-paper-sunk">
+      <section id="work" className="scroll-mt-4">
         <Container className="py-20 sm:py-28">
           <Reveal>
             <SectionHead
-              index="03"
               eyebrow="Advisory & Solutions"
               title="bring us the problem, not the spec."
               lead={
@@ -172,15 +181,14 @@ export default function App() {
             />
           </Reveal>
 
-          <div className="mt-12 grid gap-x-14 gap-y-11 sm:grid-cols-2">
+          <div className="mt-14 grid gap-5 sm:grid-cols-2">
             {OFFERINGS.map((offering, i) => (
-              <Reveal key={offering.numeral} delay={i * 60}>
-                <div className="border-t border-rule pt-6">
-                  <Label className="tabular text-accent">{offering.numeral}</Label>
-                  <Display as="h3" size="md" className="mt-3.5">
+              <Reveal key={offering.numeral} delay={i * 70}>
+                <div className="panel h-full p-8 sm:p-9">
+                  <Display as="h3" size="md" weight={800}>
                     {offering.title}
                   </Display>
-                  <Prose className="mt-3 text-[0.98rem]">
+                  <Prose className="mt-4 text-[0.98rem]">
                     <p>{offering.description}</p>
                   </Prose>
                 </div>
@@ -191,32 +199,36 @@ export default function App() {
       </section>
 
       {/* ─── Contact, on the page ─── */}
-      <section id="contact" className="scroll-mt-4 bg-night text-night-ink">
+      <section id="contact" className="scroll-mt-4 border-t border-rule">
         <Container className="py-20 sm:py-28">
           <div className="grid gap-x-14 gap-y-12 lg:grid-cols-12">
             <div className="lg:col-span-5">
-              <Label className="text-night-muted">Contact</Label>
-              <Display as="h2" size="xl" className="mt-5 max-w-[18ch] text-night-ink">
-                tell us what you need built.
-              </Display>
-              <Prose className="mt-6 max-w-[40ch] text-night-muted">
-                <p>
-                  Founders, companies looking for AI or digital work, and anyone with a product
-                  worth owning. A paragraph is enough to start.
+              <Reveal>
+                <Label className="text-accent-hi">Contact</Label>
+                <Display as="h2" size="xl" weight={800} className="mt-6 max-w-[16ch]">
+                  tell us what you need built.
+                </Display>
+                <Prose className="mt-7 max-w-[38ch]">
+                  <p>
+                    Founders, companies looking for AI or digital work, and anyone with a product
+                    worth owning. A paragraph is enough to start.
+                  </p>
+                </Prose>
+                <p className="mt-9">
+                  <a
+                    href={`mailto:${CONTACT_EMAIL}`}
+                    className="link font-sans text-[1.05rem] text-ink"
+                  >
+                    {CONTACT_EMAIL}
+                  </a>
                 </p>
-              </Prose>
-              <p className="mt-8">
-                <a
-                  href={`mailto:${CONTACT_EMAIL}`}
-                  className="link font-sans text-[1.05rem] text-night-ink"
-                >
-                  {CONTACT_EMAIL}
-                </a>
-              </p>
+              </Reveal>
             </div>
 
             <div className="lg:col-span-6 lg:col-start-7">
-              <ContactForm tone="night" />
+              <Reveal delay={90}>
+                <ContactForm />
+              </Reveal>
             </div>
           </div>
         </Container>
