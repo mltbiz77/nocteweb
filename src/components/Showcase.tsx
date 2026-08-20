@@ -104,7 +104,7 @@ const Band = ({ app, index }: { app: AppData; index: number }) => {
                   />
                 ) : null}
                 <div>
-                  <Display as="h3" size="lg" weight={800}>
+                  <Display as="h3" size="lg" weight={900}>
                     {app.name}
                   </Display>
                   <div className="mt-1.5">

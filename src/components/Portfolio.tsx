@@ -81,10 +81,10 @@ export default function Portfolio() {
           </p>
         </Prose>
         <div className="mt-9 flex flex-wrap gap-4">
-          <Button href="/contact/" variant="solid">
+          <Button href="/contact/">
             Get in touch
           </Button>
-          <Button href="/advisory/" variant="outline">
+          <Button href="/advisory/" variant="quiet">
             Work with us
           </Button>
         </div>

@@ -22,57 +22,68 @@ own HTML entry point mounting its own React tree, so each page loads only its ow
 
 ## The design, and why
 
-**Nocte is night, so the site is night.** One continuous near-black field with a blue cast
-(`--bg: #06080f`), raised panels for structure, and electric blue (`--accent: #3f6dff`) as the
-only colour that isn't ink. No cream, no serif, no numbered sections.
+**Nocte is night.** One continuous near-black field with a blue cast (`--bg: #06080f`) and
+electric blue (`--accent: #3f6dff`) as the only colour that isn't ink.
 
-### Why not the obvious thing
+### Three standing rules
 
-The sibling **4 More Capital** site (`~/code/capital-website`) is warm cream `#F1ECE3` + a dark
-saturated hue + a Spectral-serif / IBM-Plex-Sans pair + `01 / 02 / 03` section numerals + a
-two-column "two disciplines" split. Earlier versions of this site drifted into all five of
-those and Malte rightly said it looked like the same company twice.
-
-**Do not reintroduce any of them here.** If a change starts to look like cream paper, a serif
-headline, or numbered sections, it is wrong for Nocte regardless of how good it looks.
+1. **No boxes.** No cards, no panels, no filled buttons. Structure comes from full-bleed
+   bands (`.band`), space, and type scale. Buttons are type on a rule. If a change starts
+   wanting a container to sit in, the layout is wrong.
+2. **Nothing that resembles 4 More Capital** (`~/code/capital-website`) — that sibling site is
+   warm cream `#F1ECE3` + a dark saturated hue + a Spectral-serif/IBM-Plex pair + `01/02/03`
+   section numerals + a two-column "two disciplines" split. Earlier versions of this site
+   drifted into all five and read as the same company twice.
+3. **Keep the motion.** Malte likes it. See below.
 
 ### Type
 
-| Family | Weights | Used for |
-|---|---|---|
-| `Cabinet Grotesk` | 500, 800 | Display — huge, tight, lowercase |
-| `Switzer` | 400, 500, 600 | Body, labels, buttons, navigation |
+**One family: `Satoshi`** at 400 / 500 / 900, self-hosted. It is geometric — its circular `o`
+and `c` echo the lowercase `nocte` logotype, which is why the display and the wordmark now
+look related rather than merely adjacent. Weight does all the work; there is no second family.
 
-Headlines are **lowercase**, echoing the lowercase `nocte` logotype — written lowercase in the
-source, never via `text-transform`, so AI, Nocte and the product names keep their capitals.
+Headlines are **lowercase**, written lowercase in the source (never `text-transform`, which
+would wreck AI, Nocte and the product names).
 
-### Motion — the thing that actually makes it feel like something
+Rejected along the way, and why: Zodiak and Fraunces ("very AI"), Cormorant Garamond (read as
+the a16z/capital serif genre), Cabinet Grotesk (novelty sheared terminals at heavy weight).
+
+### Structure — interactive indexes, not sections of cards
+
+The landing page is four moves: a statement, what we do for companies, what we own, and a way
+to start. The two middle moves are **`HoverIndex`** — a stack of large lowercase lines where
+pointing at one brings its detail up in the facing column and dims the rest.
+
+- Services index: the detail is a description.
+- Products index: the detail is the product's actual App Store screenshot.
+
+Same mechanic, different payload, so it reads as a system. Below `lg` there is no pointer, so
+each detail renders inline under its own label and **nothing is dimmed** — the facing column
+would be unreachable otherwise.
+
+The full product showcase stays on `/portfolio/`. Do not put it on the home page.
+
+### Motion
 
 1. **The opening.** `#nv-curtain` in `index.html` covers the viewport, wipes the wordmark in
    left to right with a blue hairline sweeping under it, then lifts. It lives in the **HTML,
-   not React**, so it is in the first painted frame rather than appearing a beat late, and an
-   inline script removes it from the DOM afterwards so it can never swallow a click. Once per
-   browser session (`sessionStorage`), and skipped entirely for `prefers-reduced-motion`.
-   Home page only — an intro on every navigation is a tax.
-2. **`MaskHeading`** wipes each line of a headline up from behind its own edge. A clip reveal,
-   not a fade, which is what makes it read as typeset rather than animated. Pass the lines
-   explicitly; the clip has to be per line. `.mask-line` pads inside the clip and pulls the box
-   back, because otherwise the clip cuts descenders off.
-3. **Magnetic buttons.** `useMagnet` pulls a button toward the cursor while it is over it —
-   direct style writes, so no re-render on mousemove. Hover-capable devices only.
+   not React**, so it is in the first painted frame; an inline script removes it from the DOM
+   afterwards so it can never swallow a click. Once per browser session (`sessionStorage`),
+   home page only, skipped entirely under `prefers-reduced-motion`.
+2. **`MaskHeading`** wipes each headline line up from behind its own edge — a clip reveal, not
+   a fade. Pass the lines explicitly. `.mask-line` pads inside the clip and pulls the box back,
+   because otherwise the clip shears descenders.
+3. **Magnetic buttons.** `useMagnet` pulls a button toward the cursor with direct style writes,
+   so mousemove never triggers a re-render. Hover-capable devices only.
 4. **`Reveal`** fades blocks up on intersection, below the fold only.
 
-Every one is off under `prefers-reduced-motion`. There are still no particle fields, no
-gradient meshes and no glows — depth comes from `.panel` surfaces and real shadows.
+No particle fields, no gradient meshes, no glows — that was the slop this started from.
 
 ### The primitives (`src/components/site.tsx`)
 
 `Container` · `Reveal` · `Label` · `Display` · `MaskHeading` · `Prose` · `SectionHead` ·
-`Entry` · `ClosingBand` · `Button` · `ArrowLink` · `StatusMark` · `LogoMark` ·
+`HoverIndex` · `Entry` · `ClosingBand` · `Button` · `ArrowLink` · `StatusMark` · `LogoMark` ·
 `AppStoreButton` · `SiteNav` · `SiteFooter` · `PageMasthead` · `PageShell`.
-
-`Entry` is deliberately **unnumbered** — index numerals down the side are the capital site's
-device.
 
 ## How to run
 

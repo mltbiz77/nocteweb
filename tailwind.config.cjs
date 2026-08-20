@@ -17,10 +17,9 @@ module.exports = {
       },
       borderColor: { DEFAULT: 'var(--rule)' },
       fontFamily: {
-        // Display only — huge, tight, lowercase.
-        display: ['Cabinet Grotesk', 'Helvetica Neue', 'Arial', 'sans-serif'],
-        // Everything else.
-        sans: ['Switzer', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        // One family for the whole site; weight does the work.
+        sans: ['Satoshi', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        display: ['Satoshi', 'Helvetica Neue', 'Arial', 'sans-serif'],
       },
       letterSpacing: { label: '0.16em' },
     },

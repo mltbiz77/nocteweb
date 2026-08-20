@@ -159,7 +159,7 @@ export const Display = ({
 }: {
   as?: 'h1' | 'h2' | 'h3' | 'p' | 'span';
   size?: keyof typeof SCALE;
-  weight?: 500 | 800;
+  weight?: 500 | 900;
   className?: string;
   style?: React.CSSProperties;
   children: ReactNode;
@@ -183,14 +183,14 @@ export const MaskHeading = ({
   lines,
   as: Tag = 'h2',
   size = 'xl',
-  weight = 800,
+  weight = 900,
   delay = 0,
   className = '',
 }: {
   lines: string[];
   as?: 'h1' | 'h2' | 'p';
   size?: keyof typeof SCALE;
-  weight?: 500 | 800;
+  weight?: 500 | 900;
   /** Milliseconds before the first line moves. */
   delay?: number;
   className?: string;
@@ -236,7 +236,7 @@ export const SectionHead = ({
       {aside}
     </div>
     <div className="mt-8 grid gap-x-12 gap-y-6 lg:grid-cols-12">
-      <Display as="h2" size="xl" weight={800} className="lg:col-span-7">
+      <Display as="h2" size="xl" weight={900} className="lg:col-span-7">
         {title}
       </Display>
       {lead ? (
@@ -265,7 +265,7 @@ export const Entry = ({
   aside?: ReactNode;
 }) => (
   <div className="group grid grid-cols-1 gap-x-12 gap-y-3 border-b border-rule py-8 transition-colors sm:grid-cols-[minmax(0,17rem)_minmax(0,1fr)] hover:border-rule-soft">
-    <Display as="h3" size="md" weight={800} className="text-ink">
+    <Display as="h3" size="md" weight={900} className="text-ink">
       {title}
     </Display>
     <div>
@@ -292,7 +292,7 @@ export const ClosingBand = ({
         <div className="lg:col-span-7">
           <Reveal>
             <Label className="text-accent-hi">{COMPANY.tagline.replace(/\.$/, '')}</Label>
-            <Display as="h2" size="xl" weight={800} className="mt-6 max-w-[20ch]">
+            <Display as="h2" size="xl" weight={900} className="mt-6 max-w-[20ch]">
               {heading.join(' ')}
             </Display>
             {children ? <div className="mt-8">{children}</div> : null}
@@ -325,39 +325,106 @@ export const ClosingBand = ({
    Controls
    ──────────────────────────────────────────────────────────────── */
 
-/** The one button. Magnetic on hover. */
+/**
+ * The one call to action: type on a rule, magnetic on hover.
+ *
+ * Not a filled rectangle — there are no boxes on this site, buttons included.
+ * `primary` is simply larger and brighter than `quiet`.
+ */
 export const Button = ({
   href,
   children,
-  variant = 'solid',
+  variant = 'primary',
   className = '',
   ...rest
 }: {
   href: string;
   children: ReactNode;
-  variant?: 'solid' | 'outline';
+  variant?: 'primary' | 'quiet';
   className?: string;
 } & Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href' | 'className'>) => {
-  const ref = useMagnet<HTMLAnchorElement>(0.18);
+  const ref = useMagnet<HTMLAnchorElement>(0.2);
   const skin =
-    variant === 'solid'
-      ? 'bg-ink text-bg hover:bg-accent hover:text-white'
-      : 'border border-rule text-ink hover:border-accent-hi hover:text-accent-hi';
+    variant === 'primary'
+      ? 'text-[1.05rem] text-ink border-ink hover:border-accent-hi hover:text-accent-hi'
+      : 'text-[1.05rem] text-ink-dim border-rule hover:border-ink hover:text-ink';
 
   return (
     <a
       ref={ref}
       href={href}
-      className={`group inline-flex items-center gap-3 px-8 py-4 font-sans text-[11px] font-medium uppercase tracking-label transition-[background-color,color,border-color,transform] duration-300 ease-out ${skin} ${className}`}
+      className={`group inline-flex items-center gap-3 border-b pb-2 font-sans font-medium transition-[color,border-color,transform] duration-300 ease-out ${skin} ${className}`}
       {...rest}
     >
       {children}
-      <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">
+      <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1.5">
         &rarr;
       </span>
     </a>
   );
 };
+
+/**
+ * An interactive index — the site's main structural device, and the reason
+ * there are no cards.
+ *
+ * The labels are a stack of large lines. Pointing at one brings its detail up
+ * in the facing column; everything else dims. On narrow screens the facing
+ * column would be unreachable, so each detail renders inline under its own
+ * label instead.
+ */
+export function HoverIndex({
+  items,
+}: {
+  items: { key: string; label: ReactNode; href?: string; detail: ReactNode }[];
+}) {
+  const [active, setActive] = useState(0);
+
+  return (
+    <div className="grid gap-x-16 lg:grid-cols-12">
+      <ul className="lg:col-span-7">
+        {items.map((item, i) => {
+          const on = i === active;
+          const Tag = item.href ? 'a' : 'div';
+          return (
+            <li key={item.key} className="border-b border-rule-soft last:border-0">
+              <Tag
+                {...(item.href ? { href: item.href } : {})}
+                onMouseEnter={() => setActive(i)}
+                onFocus={() => setActive(i)}
+                tabIndex={item.href ? undefined : 0}
+                /* Dimming only makes sense where a pointer can pick a line.
+                   Below lg every detail is already on screen, so every label
+                   stays at full strength. */
+                className={`group block py-7 transition-colors duration-300 sm:py-8 ${
+                  on ? 'text-ink' : 'text-ink lg:text-ink-faint lg:hover:text-ink'
+                }`}
+              >
+                <span className="flex items-center gap-5">
+                  <span className="flex-1">{item.label}</span>
+                  <span
+                    aria-hidden="true"
+                    className={`shrink-0 text-lg transition-all duration-300 ${
+                      on ? 'translate-x-0 text-accent-hi opacity-100' : '-translate-x-2 opacity-0'
+                    }`}
+                  >
+                    &rarr;
+                  </span>
+                </span>
+                {/* Narrow screens cannot hover, so the detail lives here. */}
+                <span className="mt-4 block lg:hidden">{item.detail}</span>
+              </Tag>
+            </li>
+          );
+        })}
+      </ul>
+
+      <div className="hidden lg:col-span-5 lg:block">
+        <div className="sticky top-32">{items[active]?.detail}</div>
+      </div>
+    </div>
+  );
+}
 
 export const ArrowLink = ({
   href,

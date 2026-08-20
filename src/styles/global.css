@@ -3,47 +3,31 @@
 @tailwind utilities;
 
 /* ── Fonts, self-hosted ──────────────────────────────────────────
-   Same-origin, so no third party sees the visitor's IP.
+   One family, three weights. Satoshi is geometric — its circular
+   o and c echo the `nocte` logotype, which is why the display and
+   the wordmark now look related instead of merely adjacent.
 
-   Cabinet Grotesk (Fontshare, free for commercial use) carries the
-   display: an idiosyncratic grotesque with real personality at
-   scale. Switzer carries body, labels and UI.
-
-   Fontshare's CSS endpoint is NOT deterministic — a multi-weight
-   request returns stray extra families. Request ONE weight at a
-   time and take the block that declares the family you asked for. */
+   Same-origin, so no third party sees the visitor's IP. Fontshare's
+   CSS endpoint is NOT deterministic: request ONE weight at a time
+   and take the block that declares the family you asked for. */
 @font-face {
-  font-family: 'Cabinet Grotesk';
-  src: url('/fonts/cabinet-500.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Cabinet Grotesk';
-  src: url('/fonts/cabinet-800.woff2') format('woff2');
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Switzer';
-  src: url('/fonts/switzer-400.woff2') format('woff2');
+  font-family: 'Satoshi';
+  src: url('/fonts/satoshi-400.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Switzer';
-  src: url('/fonts/switzer-500.woff2') format('woff2');
+  font-family: 'Satoshi';
+  src: url('/fonts/satoshi-500.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: 'Switzer';
-  src: url('/fonts/switzer-600.woff2') format('woff2');
-  font-weight: 600;
+  font-family: 'Satoshi';
+  src: url('/fonts/satoshi-900.woff2') format('woff2');
+  font-weight: 900;
   font-style: normal;
   font-display: swap;
 }
@@ -257,15 +241,10 @@ button {
   }
 }
 
-/* Raised panel. The only surface treatment on the site. */
-.panel {
+/* Full-bleed band, one step off the ground. Used instead of cards —
+   there are no boxes on this site. */
+.band {
   background: var(--surface);
-  transition:
-    background-color 300ms ease,
-    transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-.panel:hover {
-  background: var(--surface-hi);
 }
 
 .plate {

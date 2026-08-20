@@ -65,7 +65,7 @@ export default function AppPage({ app }: { app: AppData }) {
                   draggable={false}
                 />
                 <div>
-                  <Display as="h1" size="xl" weight={800} className="text-ink">
+                  <Display as="h1" size="xl" weight={900} className="text-ink">
                     {app.name}
                   </Display>
                   <div className="mt-2">
@@ -204,10 +204,10 @@ export default function AppPage({ app }: { app: AppData }) {
           <p>{t.builtBy}. Look at the rest of the portfolio, or tell us what you are building.</p>
         </Prose>
         <div className="mt-9 flex flex-wrap gap-4">
-          <Button href="/portfolio/" variant="solid">
+          <Button href="/portfolio/">
             {t.allProducts}
           </Button>
-          <Button href="/contact/" variant="outline">
+          <Button href="/contact/" variant="quiet">
             {t.contact}
           </Button>
         </div>
