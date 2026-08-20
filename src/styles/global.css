@@ -44,16 +44,30 @@
    comes from flat raised surfaces and real shadows; personality
    comes from type at scale and from motion. */
 :root {
-  --bg: #06080f;
+  /* Triplets, not hex, for the colours that take an opacity modifier —
+     Tailwind cannot compose alpha onto a bare var(). */
+  --bg-rgb: 6 8 15;
+  --blue-rgb: 22 54 224;
+  --ink-rgb: 238 241 248;
+
+  --bg: rgb(var(--bg-rgb));
   --surface: #0c111f;
   --surface-hi: #131a2c;
 
-  --ink: #eef1f8;
+  --ink: rgb(var(--ink-rgb));
   --ink-dim: #8b94aa;
   --ink-faint: #626c83;
 
   --accent: #3f6dff;
   --accent-hi: #6f92ff;
+
+  /* A saturated blue used as a whole field, not as an accent — the hero and
+     the closing band sit on it. Malte's "I love blue", taken literally.
+     White on it clears AA comfortably (8.1:1). */
+  --blue: rgb(var(--blue-rgb));
+  --blue-ink: rgb(255 255 255);
+  --blue-dim: rgba(255, 255, 255, 0.72);
+  --blue-rule: rgba(255, 255, 255, 0.28);
 
   --rule: rgba(238, 241, 248, 0.13);
   --rule-soft: rgba(238, 241, 248, 0.07);
@@ -192,7 +206,7 @@ button {
   z-index: 100;
   display: grid;
   place-items: center;
-  background: var(--bg);
+  background: var(--blue);
   animation: curtain-lift 0.9s cubic-bezier(0.76, 0, 0.24, 1) 1.5s forwards;
 }
 @keyframes curtain-lift {
@@ -209,7 +223,7 @@ button {
 .curtain-mark {
   width: clamp(170px, 26vw, 320px);
   aspect-ratio: 826 / 231;
-  background-color: var(--ink);
+  background-color: var(--blue-ink);
   -webkit-mask: url(/nocte-wordmark.png) center / contain no-repeat;
   mask: url(/nocte-wordmark.png) center / contain no-repeat;
   clip-path: inset(0 100% 0 0);
@@ -223,7 +237,7 @@ button {
 /* A hairline that sweeps across under the wordmark as it draws. */
 .curtain-line {
   height: 2px;
-  background: var(--accent);
+  background: var(--blue-ink);
   width: clamp(170px, 26vw, 320px);
   transform: scaleX(0);
   transform-origin: left;

@@ -22,8 +22,25 @@ own HTML entry point mounting its own React tree, so each page loads only its ow
 
 ## The design, and why
 
-**Nocte is night.** One continuous near-black field with a blue cast (`--bg: #06080f`) and
-electric blue (`--accent: #3f6dff`) as the only colour that isn't ink.
+**Blue bookends, night in between.** The hero and the contact close sit on a saturated blue
+field (`--blue: #1636e0`, white on it clears AA at 8.1:1); everything between them is on the
+near-black ground (`--bg: #06080f`).
+
+### Where this came from
+
+Two references, studied directly rather than guessed at:
+
+- **[tiny.com](https://www.tiny.com/)** — a holding company that buys and builds internet
+  businesses, i.e. almost exactly this business model. Its lessons: commit to one saturated
+  brand colour as a *whole field* rather than an accent, make the **portfolio itself the hero
+  artwork**, and write a blunt headline with a point of view.
+- **[metalab.com](https://www.metalab.com/)** — a product studio known for craft. Its lessons:
+  distribute type across the viewport instead of stacking it top-left, anchor the hero with one
+  strong visual, and put small precise detail in the *margins* rather than in a fact table.
+
+Applied here: the hero is a blue field with the statement centred in it and the four product
+icons arranged around the edges as the artwork, drifting with the cursor at different depths
+(`Hero.tsx`). The only margin detail is the brand line — not a fact sheet.
 
 ### Three standing rules
 
@@ -172,6 +189,17 @@ four product pages all build and render; zero console errors; no horizontal over
 - [ ] Set `BOOKING_URL` in `src/data/company.ts` to show a "Book a call" button on /contact/.
 
 ## Gotchas
+
+- **Tailwind cannot apply an opacity modifier to a bare `var()` colour.** `bg-blue/90` with
+  `blue: 'var(--blue)'` compiles to nothing and the class is silently dropped — which is why
+  the nav rendered black over the blue hero once. Colours that take a `/opacity` modifier are
+  therefore defined as `rgb(var(--x-rgb) / <alpha-value>)` with RGB **triplets** in the CSS
+  (`--blue-rgb: 22 54 224`). `--blue-dim` and `--blue-rule` are already `rgba()`, so never put
+  a modifier on those either; use them at full strength.
+- **`ch` units resolve against the element's own font-size.** A `max-w-[19ch]` on a wrapper
+  whose font-size is 16px is ~170px, not 19 headline characters — that collapsed the hero
+  heading and `.mask-line`'s clip sheared every word. Put `ch` measures on the text element,
+  never on a wrapper around display type.
 
 - **Do not poll the live site in a loop.** Repeated automated requests to
   nocteventures.com trip Vercel's bot mitigation, which then answers with a 403 and a

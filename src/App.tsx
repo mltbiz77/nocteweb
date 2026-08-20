@@ -1,11 +1,11 @@
 import { ContactForm } from './components/ContactForm';
+import { Hero } from './components/Hero';
 import {
   Button,
   Container,
   Display,
   HoverIndex,
   Label,
-  MaskHeading,
   PageShell,
   Prose,
   Reveal,
@@ -23,43 +23,8 @@ import { CONTACT_EMAIL } from '@/data/company';
  */
 export default function App() {
   return (
-    <PageShell current="/">
-      {/* ─── Hero ─── */}
-      <section>
-        <Container className="pt-24 pb-28 sm:pt-32 sm:pb-36">
-          <div className="fade-rise">
-            <Label className="text-accent-hi">Nocte Ventures</Label>
-          </div>
-
-          <MaskHeading
-            as="h1"
-            lines={['we build software', 'worth owning.']}
-            size="xxl"
-            className="mt-8"
-            delay={180}
-          />
-
-          <div className="mt-16 grid gap-x-16 gap-y-12 lg:grid-cols-12">
-            <div className="fade-rise lg:col-span-5" style={{ animationDelay: '520ms' }}>
-              <Prose>
-                <p>
-                  We build and run our own digital products, and we design, build, and advise on
-                  AI and digital solutions for other companies.
-                </p>
-              </Prose>
-            </div>
-            <div
-              className="fade-rise flex flex-wrap items-end gap-x-12 gap-y-6 lg:col-span-6 lg:col-start-7 lg:justify-end"
-              style={{ animationDelay: '620ms' }}
-            >
-              <Button href="#work">Work with us</Button>
-              <Button href="/portfolio/" variant="quiet">
-                Our products
-              </Button>
-            </div>
-          </div>
-        </Container>
-      </section>
+    <PageShell current="/" navTone="blue">
+      <Hero />
 
       {/* ─── What we do for companies ─── */}
       <section id="work" className="band scroll-mt-4 border-y border-rule">
@@ -185,16 +150,16 @@ export default function App() {
       </section>
 
       {/* ─── Contact ─── */}
-      <section id="contact" className="band scroll-mt-4 border-t border-rule">
+      <section id="contact" className="scroll-mt-4 bg-blue text-blue-ink">
         <Container className="py-24 sm:py-32">
           <div className="grid gap-x-16 gap-y-14 lg:grid-cols-12">
             <div className="lg:col-span-5">
               <Reveal>
-                <Label className="text-accent-hi">Contact</Label>
+                <Label className="text-blue-dim">Contact</Label>
                 <Display as="h2" size="xl" weight={900} className="mt-6 max-w-[16ch]">
                   tell us what you need built.
                 </Display>
-                <Prose className="mt-8 max-w-[38ch]">
+                <Prose className="mt-8 max-w-[38ch] text-blue-dim">
                   <p>
                     Founders, companies looking for AI or digital work, and anyone with a product
                     worth owning. A paragraph is enough to start.
@@ -203,7 +168,7 @@ export default function App() {
                 <p className="mt-10">
                   <a
                     href={`mailto:${CONTACT_EMAIL}`}
-                    className="link font-sans text-[1.05rem] text-ink"
+                    className="link font-sans text-[1.05rem] text-blue-ink"
                   >
                     {CONTACT_EMAIL}
                   </a>
@@ -213,7 +178,7 @@ export default function App() {
 
             <div className="lg:col-span-6 lg:col-start-7">
               <Reveal delay={90}>
-                <ContactForm />
+                <ContactForm tone="blue" />
               </Reveal>
             </div>
           </div>

@@ -335,19 +335,26 @@ export const Button = ({
   href,
   children,
   variant = 'primary',
+  tone = 'dark',
   className = '',
   ...rest
 }: {
   href: string;
   children: ReactNode;
   variant?: 'primary' | 'quiet';
+  /** `blue` for the saturated field, `dark` for the near-black ground. */
+  tone?: 'dark' | 'blue';
   className?: string;
 } & Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href' | 'className'>) => {
   const ref = useMagnet<HTMLAnchorElement>(0.2);
   const skin =
-    variant === 'primary'
-      ? 'text-[1.05rem] text-ink border-ink hover:border-accent-hi hover:text-accent-hi'
-      : 'text-[1.05rem] text-ink-dim border-rule hover:border-ink hover:text-ink';
+    tone === 'blue'
+      ? variant === 'primary'
+        ? 'text-[1.05rem] text-blue-ink border-blue-ink hover:border-blue-ink/60'
+        : 'text-[1.05rem] text-blue-dim border-blue-rule hover:border-blue-ink hover:text-blue-ink'
+      : variant === 'primary'
+        ? 'text-[1.05rem] text-ink border-ink hover:border-accent-hi hover:text-accent-hi'
+        : 'text-[1.05rem] text-ink-dim border-rule hover:border-ink hover:text-ink';
 
   return (
     <a
@@ -579,11 +586,23 @@ export const AppStoreButton = ({
    Chrome
    ──────────────────────────────────────────────────────────────── */
 
-export const SiteNav = ({ current }: { current?: string }) => {
+export const SiteNav = ({
+  current,
+  tone = 'dark',
+}: {
+  current?: string;
+  /** `blue` where the nav sits directly on the saturated field. */
+  tone?: 'dark' | 'blue';
+}) => {
   const [open, setOpen] = useState(false);
+  const blue = tone === 'blue';
 
   return (
-    <header className="sticky top-0 z-50 border-b border-rule bg-bg/85 backdrop-blur-md">
+    <header
+      className={`sticky top-0 z-50 border-b backdrop-blur-md ${
+        blue ? 'border-blue-rule bg-blue/90 text-blue-ink' : 'border-rule bg-bg/85'
+      }`}
+    >
       <Container>
         <div className="flex items-center justify-between py-5">
           <a href="/" aria-label="Nocte Ventures — Home" className="flex items-center">
@@ -599,14 +618,20 @@ export const SiteNav = ({ current }: { current?: string }) => {
                   href={link.href}
                   aria-current={active ? 'page' : undefined}
                   className={`font-sans text-[11px] font-medium uppercase tracking-label transition-colors ${
-                    active ? 'text-ink' : 'text-ink-dim hover:text-ink'
+                    blue
+                      ? active
+                        ? 'text-blue-ink'
+                        : 'text-blue-dim hover:text-blue-ink'
+                      : active
+                        ? 'text-ink'
+                        : 'text-ink-dim hover:text-ink'
                   }`}
                 >
                   <span className={active ? 'link' : 'link-quiet'}>{link.label}</span>
                 </a>
               );
             })}
-            <Button href="/contact/" className="!px-6 !py-3">
+            <Button href="/contact/" tone={blue ? 'blue' : 'dark'} className="!text-[0.95rem]">
               Get in touch
             </Button>
           </nav>
@@ -623,15 +648,27 @@ export const SiteNav = ({ current }: { current?: string }) => {
         </div>
       </Container>
 
-      <div id="site-menu" hidden={!open} className="border-t border-rule bg-bg md:hidden">
+      <div
+        id="site-menu"
+        hidden={!open}
+        className={`border-t md:hidden ${blue ? 'border-blue-rule bg-blue' : 'border-rule bg-bg'}`}
+      >
         <Container>
           {[...NAV_LINKS, { label: 'Contact', href: '/contact/' }].map((link) => (
             <a
               key={link.href}
               href={link.href}
               aria-current={current === link.href ? 'page' : undefined}
-              className={`block border-b border-rule-soft py-4 font-sans text-[11px] font-medium uppercase tracking-label last:border-0 ${
-                current === link.href ? 'text-ink' : 'text-ink-dim'
+              className={`block border-b py-4 font-sans text-[11px] font-medium uppercase tracking-label last:border-0 ${
+                blue ? 'border-blue-rule' : 'border-rule-soft'
+              } ${
+                current === link.href
+                  ? blue
+                    ? 'text-blue-ink'
+                    : 'text-ink'
+                  : blue
+                    ? 'text-blue-dim'
+                    : 'text-ink-dim'
               }`}
             >
               {link.label}
@@ -754,13 +791,16 @@ export const PageMasthead = ({
 
 export const PageShell = ({
   current,
+  navTone = 'dark',
   children,
 }: {
   current?: string;
+  /** The tone of whatever sits directly under the nav. */
+  navTone?: 'dark' | 'blue';
   children: ReactNode;
 }) => (
   <div className="min-h-screen bg-bg text-ink">
-    <SiteNav current={current} />
+    <SiteNav current={current} tone={navTone} />
     <main>{children}</main>
     <SiteFooter />
   </div>

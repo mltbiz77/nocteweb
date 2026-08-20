@@ -15,13 +15,17 @@ type Status = 'idle' | 'sending' | 'sent' | 'error';
  * Delivery is handled by `api/contact.js`, which needs one environment
  * variable set on the Vercel project before it can actually send.
  */
-export function ContactForm() {
+export function ContactForm({ tone = 'dark' }: { tone?: 'dark' | 'blue' }) {
   const [form, setForm] = useState({ name: '', email: '', company: '', message: '', website: '' });
   const [status, setStatus] = useState<Status>('idle');
   const [copied, setCopied] = useState(false);
 
-  const field =
-    'w-full border-0 border-b border-rule bg-transparent px-0 py-3 font-sans text-[1rem] text-ink placeholder:text-ink-faint transition-colors focus:border-accent-hi focus:outline-none focus:ring-0';
+  const blue = tone === 'blue';
+  const field = `w-full border-0 border-b bg-transparent px-0 py-3 font-sans text-[1rem] transition-colors focus:outline-none focus:ring-0 ${
+    blue
+      ? 'border-blue-rule text-blue-ink placeholder:text-blue-dim focus:border-blue-ink'
+      : 'border-rule text-ink placeholder:text-ink-faint focus:border-accent-hi'
+  }`;
 
   const set = (key: keyof typeof form) => (event: { target: { value: string } }) =>
     setForm((current) => ({ ...current, [key]: event.target.value }));
@@ -161,7 +165,11 @@ export function ContactForm() {
         <button
           type="submit"
           disabled={status === 'sending'}
-          className="inline-flex items-center gap-3 bg-ink px-8 py-4 font-sans text-[11px] font-medium uppercase tracking-label text-bg transition-colors hover:bg-accent hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
+          className={`group inline-flex items-center gap-3 border-b pb-2 font-sans text-[1.05rem] font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${
+            blue
+              ? 'border-blue-ink text-blue-ink hover:border-blue-ink/60'
+              : 'border-ink text-ink hover:border-accent-hi hover:text-accent-hi'
+          }`}
         >
           {status === 'sending' ? 'Sending' : 'Send message'}
           <span aria-hidden="true">&rarr;</span>
@@ -199,7 +207,11 @@ export function ContactForm() {
             <button
               type="button"
               onClick={copyAddress}
-              className="border border-rule px-4 py-2 font-sans text-[10.5px] font-medium uppercase tracking-label text-ink transition-colors hover:border-accent-hi hover:text-accent-hi"
+              className={`border px-4 py-2 font-sans text-[10.5px] font-medium uppercase tracking-label transition-colors ${
+                blue
+                  ? 'border-blue-rule text-blue-ink hover:border-blue-ink'
+                  : 'border-rule text-ink hover:border-accent-hi hover:text-accent-hi'
+              }`}
             >
               {copied ? 'Copied' : 'Copy address'}
             </button>

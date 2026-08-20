@@ -4,14 +4,18 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        bg: 'var(--bg)',
+        bg: 'rgb(var(--bg-rgb) / <alpha-value>)',
         surface: 'var(--surface)',
         'surface-hi': 'var(--surface-hi)',
-        ink: 'var(--ink)',
+        ink: 'rgb(var(--ink-rgb) / <alpha-value>)',
         'ink-dim': 'var(--ink-dim)',
         'ink-faint': 'var(--ink-faint)',
         accent: 'var(--accent)',
         'accent-hi': 'var(--accent-hi)',
+        blue: 'rgb(var(--blue-rgb) / <alpha-value>)',
+        'blue-ink': 'rgb(255 255 255 / <alpha-value>)',
+        'blue-dim': 'var(--blue-dim)',
+        'blue-rule': 'var(--blue-rule)',
         rule: 'var(--rule)',
         'rule-soft': 'var(--rule-soft)',
       },
