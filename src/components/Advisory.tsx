@@ -44,7 +44,7 @@ export default function Advisory() {
           { label: 'Engagements', value: 'Fixed scope' },
           { label: 'Team', value: 'Senior, small' },
           { label: 'Sectors', value: 'SaaS · Mobile · AI' },
-          { label: 'Based', value: 'England & Wales' },
+          { label: 'Starts with', value: 'A paragraph by email' },
         ]}
       />
 

@@ -9,7 +9,6 @@ import {
   Prose,
   SectionMark,
 } from './site';
-import { COMPANY } from '@/data/company';
 import { PRINCIPLES, TEAM } from '@/data/team';
 import { APPS } from '@/data/apps';
 
@@ -49,10 +48,10 @@ export default function About() {
           </>
         }
         facts={[
-          { label: 'Incorporated', value: COMPANY.founded },
-          { label: 'Jurisdiction', value: COMPANY.jurisdiction },
-          { label: 'Company no.', value: COMPANY.companyNumber },
-          { label: 'Products', value: `${APPS.length} · ${live} live` },
+          { label: 'Products owned', value: String(APPS.length) },
+          { label: 'Live on the App Store', value: String(live) },
+          { label: 'Team', value: 'Small, senior' },
+          { label: 'Focus', value: 'SaaS · Mobile · AI' },
         ]}
       />
 

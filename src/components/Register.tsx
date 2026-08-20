@@ -15,7 +15,9 @@ const Row = ({ app, index }: { app: AppData; index: number }) => (
       href={productPath(app)}
       className="group grid grid-cols-[2.25rem_1fr] items-baseline gap-x-4 gap-y-2 border-b border-rule py-6 transition-colors hover:bg-paper-sunk/70 lg:grid-cols-[3.5rem_minmax(0,15rem)_minmax(0,1fr)_9.5rem_7.5rem] lg:gap-x-8 lg:py-5"
     >
-      <Label className="tabular self-center">{String(index + 1).padStart(2, '0')}</Label>
+      <Label className="tabular self-center transition-colors group-hover:text-accent">
+        {String(index + 1).padStart(2, '0')}
+      </Label>
 
       <div className="flex items-center gap-3 self-center">
         <img
@@ -42,7 +44,7 @@ const Row = ({ app, index }: { app: AppData; index: number }) => (
         <StatusMark status={app.status} accent={app.accent} />
         <span
           aria-hidden="true"
-          className="font-mono text-ink-faint transition-transform group-hover:translate-x-1 group-hover:text-ink"
+          className="font-mono text-ink-faint transition-all group-hover:translate-x-1 group-hover:text-accent"
         >
           &rarr;
         </span>
@@ -79,7 +81,7 @@ export const Register = ({ apps = APPS }: { apps?: AppData[] }) => (
           </span>
           <p className="col-start-2 font-text text-[0.95rem] leading-[1.55] text-ink-muted lg:col-start-3 lg:self-center">
             More in build, and we buy products worth owning.{' '}
-            <a href="/contact/" className="link text-ink">
+            <a href="/contact/" className="link text-accent">
               Tell us about yours
             </a>
             .

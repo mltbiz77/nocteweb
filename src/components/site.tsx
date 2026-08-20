@@ -20,13 +20,19 @@ export { CONTACT_EMAIL, CONTACT_MAILTO, INSTAGRAM_URL };
    ──────────────────────────────────────────────────────────────── */
 
 export const Container = ({
+  id,
   className = '',
   children,
 }: {
+  /** Set when the page index links to this block. */
+  id?: string;
   className?: string;
   children: ReactNode;
 }) => (
-  <div className={`mx-auto w-full max-w-[1320px] px-6 sm:px-10 lg:px-14 ${className}`}>
+  <div
+    id={id}
+    className={`mx-auto w-full max-w-[1320px] scroll-mt-20 px-6 sm:px-10 lg:px-14 ${className}`}
+  >
     {children}
   </div>
 );
@@ -59,8 +65,8 @@ export const SectionMark = ({
   title: string;
   aside?: ReactNode;
 }) => (
-  <div className="flex items-baseline gap-4 border-t border-rule pt-3 pb-10 sm:pb-14">
-    <Label className="tabular">§{index}</Label>
+  <div className="flex items-baseline gap-4 border-t-2 border-ink pt-3 pb-8 sm:pb-10">
+    <Label className="tabular text-accent">§{index}</Label>
     <h2 className="font-mono text-[10px] uppercase tracking-label text-ink">{title}</h2>
     {aside ? <div className="ml-auto">{aside}</div> : null}
   </div>
@@ -79,7 +85,7 @@ export const Display = ({
   children: ReactNode;
 }) => {
   const scale = {
-    xl: 'text-[clamp(2.5rem,6.2vw,5.25rem)] leading-[0.94] tracking-masthead',
+    xl: 'text-[clamp(2.5rem,6.4vw,5.5rem)] leading-[0.93] tracking-[-0.042em]',
     lg: 'text-[clamp(2rem,4.4vw,3.5rem)] leading-[1.0] tracking-masthead',
     md: 'text-[clamp(1.5rem,2.6vw,2.25rem)] leading-[1.08] tracking-[-0.025em]',
     sm: 'text-[clamp(1.15rem,1.7vw,1.4rem)] leading-[1.2] tracking-[-0.015em]',
@@ -162,7 +168,7 @@ export const Entry = ({
 }) => {
   const inner = (
     <div className="grid grid-cols-[2.5rem_1fr] gap-x-4 gap-y-3 border-b border-rule py-7 sm:grid-cols-[4rem_minmax(0,15rem)_minmax(0,1fr)] sm:gap-x-8">
-      <Label className="tabular pt-1.5">{index}</Label>
+      <Label className="tabular pt-1.5 text-accent">{index}</Label>
       <Display as="h3" size="sm" className="text-ink">
         {title}
       </Display>
@@ -174,7 +180,7 @@ export const Entry = ({
   );
 
   return href ? (
-    <a href={href} className="group block transition-colors hover:bg-paper-sunk/60">
+    <a href={href} className="group block transition-colors hover:bg-paper-sunk/70">
       {inner}
     </a>
   ) : (
@@ -196,9 +202,9 @@ export const Button = ({
   className?: string;
 } & Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href' | 'className'>) => {
   const skin = {
-    solid: 'bg-ink text-paper hover:bg-ink/85',
+    solid: 'bg-ink text-paper hover:bg-accent',
     outline: 'border border-ink text-ink hover:bg-ink hover:text-paper',
-    night: 'bg-night-ink text-night hover:bg-night-ink/85',
+    night: 'bg-night-ink text-night hover:bg-night-accent',
   }[variant];
 
   return (
@@ -226,7 +232,7 @@ export const ArrowLink = ({
 } & Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href' | 'className'>) => (
   <a
     href={href}
-    className={`link-quiet inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label text-ink ${className}`}
+    className={`link-quiet inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-label text-accent transition-colors hover:text-accent-deep ${className}`}
     {...rest}
   >
     {children}
@@ -242,7 +248,7 @@ export const StatusMark = ({ status, accent }: { status: 'live' | 'soon'; accent
       style={
         status === 'live'
           ? { background: accent }
-          : { border: `1px solid ${accent}`, background: 'transparent' }
+          : { border: '1px solid var(--ink-faint)', background: 'transparent' }
       }
       aria-hidden="true"
     />
@@ -255,26 +261,32 @@ export const StatusMark = ({ status, accent }: { status: 'live' | 'soon'; accent
    ──────────────────────────────────────────────────────────────── */
 
 /**
+ * The wordmark, painted rather than drawn.
+ *
  * `nocte-wordmark.png` is the supplied logo re-cut for this site: the flat
  * #F4F4F4 field turned into real transparency and the canvas trimmed to the
- * artwork, so a height class sizes the wordmark rather than its padding. It
- * is black, so a dark surface only needs an invert.
+ * artwork, so a height class sizes the wordmark and not its padding.
+ *
+ * It is used as a CSS mask over `currentColor` instead of as an image, which
+ * means one asset renders in ink blue on paper and in near-white on the night
+ * band without a second file, an invert filter, or a blend mode.
  */
-export const LogoMark = ({
-  className = 'h-5',
-  tone = 'paper',
-}: {
-  className?: string;
-  tone?: 'paper' | 'night';
-}) => (
-  <img
-    src="/nocte-wordmark.png"
-    alt="Nocte"
-    width={826}
-    height={231}
-    className={`${className} w-auto select-none`}
-    style={tone === 'night' ? { filter: 'invert(1)' } : undefined}
-    draggable={false}
+export const LogoMark = ({ className = 'h-5' }: { className?: string }) => (
+  <span
+    role="img"
+    aria-label="Nocte"
+    className={`block w-auto select-none bg-current ${className}`}
+    style={{
+      aspectRatio: '826 / 231',
+      WebkitMaskImage: 'url(/nocte-wordmark.png)',
+      maskImage: 'url(/nocte-wordmark.png)',
+      WebkitMaskSize: 'contain',
+      maskSize: 'contain',
+      WebkitMaskRepeat: 'no-repeat',
+      maskRepeat: 'no-repeat',
+      WebkitMaskPosition: 'center',
+      maskPosition: 'center',
+    }}
   />
 );
 
@@ -474,7 +486,7 @@ export const NightBand = ({
   aside?: ReactNode;
 }) => (
   <section className="bg-night text-night-ink">
-    <Container className="py-20 sm:py-28">
+    <Container className="py-16 sm:py-24">
       <div className="grid gap-10 lg:grid-cols-12">
         <div className="lg:col-span-7">
           <span className="font-mono text-[10px] uppercase tracking-label text-night-muted">
@@ -489,21 +501,16 @@ export const NightBand = ({
         <div className="lg:col-span-4 lg:col-start-9">
           {aside ?? (
             <>
+              <Label className="text-night-muted">Write to us</Label>
               <a
                 href={CONTACT_MAILTO}
-                className="link block break-words font-sans text-[clamp(1.1rem,2vw,1.5rem)] tracking-[-0.02em] text-night-ink"
+                className="link mt-4 block break-words font-sans text-[clamp(1.2rem,2.2vw,1.6rem)] tracking-[-0.02em] text-night-ink"
               >
                 {CONTACT_EMAIL}
               </a>
-              <div className="mt-8">
-                <FactTable
-                  tone="night"
-                  rows={[
-                    { label: 'Reply within', value: '2 working days' },
-                    { label: 'Registered', value: `${COMPANY.jurisdiction} · ${COMPANY.companyNumber}` },
-                  ]}
-                />
-              </div>
+              <p className="mt-5 font-mono text-[10px] uppercase tracking-label text-night-muted">
+                We reply within two working days
+              </p>
             </>
           )}
         </div>
@@ -577,16 +584,46 @@ export const SiteFooter = () => (
         </nav>
       </div>
 
+      {/* The statutory trading disclosure, and the only place on the site
+          where incorporation details appear. */}
       <div className="mt-14 flex flex-col gap-2 border-t border-rule pt-6 sm:flex-row sm:items-center sm:justify-between">
         <span className="font-mono text-[10px] uppercase tracking-label text-ink-faint">
-          {COMPANY.registration}
+          {COMPANY.legalLine}
         </span>
         <span className="font-mono text-[10px] uppercase tracking-label text-ink-faint">
-          &copy; {new Date().getFullYear()} {COMPANY.legalName}
+          &copy; {new Date().getFullYear()}
         </span>
       </div>
     </Container>
   </footer>
+);
+
+/**
+ * A page's own table of contents, sitting in the masthead's right margin.
+ * It earns that space by being navigation — it replaced a stack of
+ * incorporation facts that told a visitor nothing they came for.
+ */
+export const PageIndex = ({
+  sections,
+}: {
+  sections: { index: string; title: string; href: string }[];
+}) => (
+  <nav aria-label="On this page">
+    <Label>On this page</Label>
+    <ol className="mt-4 border-t border-rule">
+      {sections.map((section) => (
+        <li key={section.href} className="border-b border-rule-soft">
+          <a
+            href={section.href}
+            className="group flex items-baseline gap-3 py-2.5 font-mono text-[11px] uppercase tracking-label text-ink-muted transition-colors hover:text-ink"
+          >
+            <span className="tabular text-accent">§{section.index}</span>
+            <span className="link-quiet">{section.title}</span>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </nav>
 );
 
 /**
@@ -606,7 +643,7 @@ export const PageMasthead = ({
   facts?: { label: string; value: ReactNode }[];
 }) => (
   <Container className="pt-14 sm:pt-20">
-    <div className="flex items-baseline justify-between gap-6 border-b border-ink pb-3">
+    <div className="flex items-baseline justify-between gap-6 border-b-2 border-ink pb-3">
       <Label className="text-ink">{slug}</Label>
       <Label>{COMPANY.name}</Label>
     </div>

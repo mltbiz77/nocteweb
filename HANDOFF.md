@@ -23,8 +23,14 @@ own HTML entry point mounting its own React tree, so each page loads only its ow
 ## The design, and why
 
 The site is **a document, not a theme**. Nocte is a holding company, so the site is built to
-read like a register: warm paper, black ink, hairline rules, and the portfolio as an actual
-table of holdings on the front page rather than a grid of cards.
+read like a register: **blue-black ink on warm cream stock**, the way a ledger or an
+aerogramme is printed. Hairline rules, and the portfolio as an actual table of holdings on
+the front page rather than a grid of cards.
+
+**Blue is the ink and the night, not a coat of paint.** There are no blue gradients and no
+blue glows. It appears in exactly three roles: the body ink (`--ink`, a deep navy), the
+single accent for links and section numerals (`--accent`), and the midnight band that closes
+every page (`--night`).
 
 Everything that reads as decoration was removed on purpose. There are **no gradients, no
 glows, no particle fields, no grain overlays, no rounded cards, and no scroll animations** —
@@ -39,15 +45,22 @@ looked like. Structure comes from rules, the grid, and type alone.
 | Reading | `Erode` (Fontshare) | Paragraphs, legal text, table descriptions |
 | Data | System monospace | Numbers, labels, statuses, index numerals, nav |
 
-**Colour is almost absent.** One warm paper (`--paper`), one near-black ink, two rule
-weights. The only saturated colour on the site is each product's accent, used solely as a
-7px status square in the register — a filled square is live, an outlined one is in build.
+**Colour is almost absent.** One cream paper, one ink, one accent, two rule weights. Beyond
+that, the only saturated colour on the site is each product's own accent, used solely as a
+7px status square in the register — and only when the product is **live**. In-build products
+get a hollow grey square, so colour on the register means "this is shipping".
 
-**One black band closes every page** (`NightBand`). That is where "Digital Craftsmanship
+**One midnight band closes every page** (`NightBand`). That is where "Digital Craftsmanship
 After Dark" earns its place, instead of being the wallpaper for the whole site.
 
-Flipping the whole site to a dark palette is a **token change only** — invert the values in
-`:root` in `src/styles/global.css`. No component reads a hard-coded colour.
+Re-inking the site is a **token change only** — edit the `:root` block in
+`src/styles/global.css`. No component reads a hard-coded colour, so a different blue, or a
+full dark inversion, is one block of edits.
+
+**Incorporation detail appears exactly once**, in the footer, from `COMPANY.legalLine`. It
+used to be scattered across five pages and read like a filing. Everywhere it was removed,
+the space now carries something a visitor actually wants: the page's own index on the home
+masthead, and product/engagement facts elsewhere.
 
 ### The primitives (`src/components/site.tsx`)
 
@@ -116,6 +129,11 @@ four product pages all build and render; zero console errors; no horizontal over
       pre-filled mail draft. Set **one** env var in the Vercel project and it starts
       delivering: `RESEND_API_KEY` (+ `CONTACT_FROM`, needs DNS verification, 3k emails/mo
       free) or `WEB3FORMS_ACCESS_KEY` (no DNS, 250 submissions/mo free). See `api/contact.js`.
+- [ ] **Add the registered office address to `COMPANY.legalLine`.** UK law (the Company, LLP
+      and Business (Names and Trading Disclosures) Regulations 2015) requires a company's
+      website to state its registered name, number, place of registration *and registered
+      office address*. The first three are there; the address is missing because it was not
+      to hand.
 - [ ] Have the legal text in `src/data/legal.ts` reviewed by a solicitor — it is an
       accurate description of what the site does, not vetted advice.
 - [ ] Point the App Store Connect "Privacy Policy URL" for each app at

@@ -177,7 +177,7 @@ export function ContactForm() {
         </button>
         <p className="font-mono text-[10px] uppercase tracking-label text-ink-faint">
           Used only to reply ·{' '}
-          <a href="/privacy/" className="link text-ink-muted">
+          <a href="/privacy/" className="link text-accent">
             Privacy
           </a>
         </p>
@@ -191,7 +191,7 @@ export function ContactForm() {
         <p className="mt-6 max-w-[52ch] font-text text-[0.95rem] leading-[1.6] text-ink-muted">
           We opened a pre-filled draft in your mail app — press send there and it reaches us. If
           nothing opened, email{' '}
-          <a href={`mailto:${CONTACT_EMAIL}`} className="link text-ink">
+          <a href={`mailto:${CONTACT_EMAIL}`} className="link text-accent">
             {CONTACT_EMAIL}
           </a>{' '}
           directly.
@@ -202,7 +202,7 @@ export function ContactForm() {
         <p className="mt-6 max-w-[52ch] font-text text-[0.95rem] leading-[1.6] text-ink-muted">
           Something in the form was rejected — check the name, email, and message fields, or just
           email{' '}
-          <a href={`mailto:${CONTACT_EMAIL}`} className="link text-ink">
+          <a href={`mailto:${CONTACT_EMAIL}`} className="link text-accent">
             {CONTACT_EMAIL}
           </a>
           .

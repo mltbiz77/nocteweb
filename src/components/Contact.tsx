@@ -54,7 +54,7 @@ export default function Contact() {
             <SectionMark index="02" title="Direct" />
             <a
               href={CONTACT_MAILTO}
-              className="link block break-words font-sans text-[clamp(1.1rem,1.9vw,1.35rem)] tracking-[-0.02em] text-ink"
+              className="link block break-words font-sans text-[clamp(1.1rem,1.9vw,1.35rem)] tracking-[-0.02em] text-accent"
             >
               {CONTACT_EMAIL}
             </a>
@@ -64,7 +64,6 @@ export default function Contact() {
                 rows={[
                   { label: 'Reply within', value: '2 working days' },
                   { label: 'Language', value: 'English · Deutsch' },
-                  { label: 'Registered', value: 'England & Wales' },
                 ]}
               />
             </div>

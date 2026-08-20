@@ -4,16 +4,15 @@ import {
   Container,
   Display,
   Entry,
-  FactTable,
   Label,
   NightBand,
+  PageIndex,
   PageShell,
   Prose,
   SectionMark,
 } from './components/site';
 import { COMPANY } from '@/data/company';
 import { MODES } from '@/data/services';
-import { APPS } from '@/data/apps';
 
 /**
  * The front page of the register.
@@ -23,17 +22,13 @@ import { APPS } from '@/data/apps';
  * is the document, and the document leads with facts.
  */
 export default function App() {
-  const live = APPS.filter((app) => app.status === 'live').length;
-
   return (
     <PageShell current="/">
       {/* ─── Masthead ─── */}
       <Container className="pt-14 sm:pt-20">
-        <div className="flex items-baseline justify-between gap-6 border-b border-ink pb-3">
+        <div className="flex items-baseline justify-between gap-6 border-b-2 border-ink pb-3">
           <Label className="text-ink">{COMPANY.name}</Label>
-          <Label>
-            {COMPANY.jurisdiction} · Est. {COMPANY.founded}
-          </Label>
+          <Label>Build · Own · Advise</Label>
         </div>
 
         <div className="grid gap-x-8 gap-y-12 pt-10 sm:pt-14 lg:grid-cols-12">
@@ -58,12 +53,10 @@ export default function App() {
           </div>
 
           <div className="lg:col-span-4 lg:col-start-9">
-            <FactTable
-              rows={[
-                { label: 'Products owned', value: String(APPS.length) },
-                { label: 'Live on the App Store', value: String(live) },
-                { label: 'Incorporated', value: `${COMPANY.founded} · ${COMPANY.jurisdiction}` },
-                { label: 'Company no.', value: COMPANY.companyNumber },
+            <PageIndex
+              sections={[
+                { index: '01', title: 'The register', href: '#register' },
+                { index: '02', title: 'What we do', href: '#what-we-do' },
               ]}
             />
           </div>
@@ -71,7 +64,7 @@ export default function App() {
       </Container>
 
       {/* ─── §01 The register ─── */}
-      <Container className="pt-20 sm:pt-28">
+      <Container id="register" className="pt-16 sm:pt-20">
         <SectionMark
           index="01"
           title="The register"
@@ -81,7 +74,7 @@ export default function App() {
       </Container>
 
       {/* ─── §02 What we do ─── */}
-      <Container className="pt-20 pb-24 sm:pt-28 sm:pb-32">
+      <Container id="what-we-do" className="pt-16 pb-20 sm:pt-20 sm:pb-24">
         <SectionMark index="02" title="What we do" />
         <div className="border-t border-rule">
           {MODES.map((mode) => (

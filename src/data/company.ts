@@ -15,10 +15,17 @@ export const COMPANY = {
   subline: 'A company that builds, owns, and advises digital businesses.',
   /** Kept as a motif, never as the primary explanation of what we do. */
   tagline: 'Digital Craftsmanship After Dark.',
-  registration: 'Registered in England · Company No. 16579177',
-  companyNumber: '16579177',
-  jurisdiction: 'England & Wales',
-  founded: '2025',
+  /**
+   * The statutory trading disclosure, and the only place incorporation
+   * details appear on the site — once, in the footer.
+   *
+   * UK law (the Company, LLP and Business (Names and Trading Disclosures)
+   * Regulations 2015) requires a company's website to state its registered
+   * name, its registered number, its place of registration **and its
+   * registered office address**. The address is still missing here; add it
+   * to this string once it is confirmed.
+   */
+  legalLine: 'Nocte Ventures Ltd · Registered in England & Wales, No. 16579177',
 } as const;
 
 export const CONTACT_EMAIL = 'hello@nocteventures.com';

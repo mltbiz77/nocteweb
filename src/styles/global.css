@@ -3,22 +3,34 @@
 @tailwind utilities;
 
 /* ── Nocte Ventures ───────────────────────────────────────────────
-   The site is a document, not a theme: warm paper, black ink,
-   hairline rules, a visible column grid, and one true-black band.
-   No gradients, no glows, no scroll animation. Anything that reads
-   as decoration has been removed on purpose. */
+   Blue-black ink on warm cream stock, the way a ledger or an
+   aerogramme is printed. Blue is the ink and the night, not a
+   decoration laid over the top: there are no blue gradients, no
+   blue glows, and no scroll animation anywhere.
+
+   The whole palette lives here. Nothing downstream hard-codes a
+   colour, so the site can be re-inked from this block alone. */
 :root {
-  --paper: #f4f2ed;
-  --paper-sunk: #eae7df;
-  --ink: #16150f;
-  --ink-muted: #6b675c;
-  --ink-faint: #97928a;
-  --rule: rgba(22, 21, 15, 0.18);
-  --rule-soft: rgba(22, 21, 15, 0.09);
-  --night: #111110;
-  --night-ink: #f4f2ed;
-  --night-muted: #8d897f;
-  --night-rule: rgba(244, 242, 237, 0.16);
+  --paper: #f5f2ea;
+  --paper-sunk: #ece7db;
+
+  --ink: #131f3d;
+  --ink-muted: #4a5876;
+  --ink-faint: #616c87;
+
+  /* The one accent: links, section numerals, marks. */
+  --accent: #1a3fd0;
+  --accent-deep: #12309f;
+
+  --rule: rgba(19, 31, 61, 0.18);
+  --rule-soft: rgba(19, 31, 61, 0.09);
+
+  /* Midnight — the single dark band that closes every page. */
+  --night: #0b1430;
+  --night-ink: #edeff6;
+  --night-muted: #8e99b8;
+  --night-rule: rgba(237, 239, 246, 0.18);
+  --night-accent: #8fa3ff;
 }
 
 * {
@@ -52,18 +64,18 @@ button {
 }
 
 ::selection {
-  background: var(--ink);
+  background: var(--accent);
   color: var(--paper);
 }
 
 :focus-visible {
-  outline: 2px solid var(--ink);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
 /* ── The one link treatment ──────────────────────────────────────
-   A rule that sits under the text and thickens on hover. Used for
-   every inline link so nothing needs its own hover invention. */
+   A rule under the text that thickens on hover. Inline links take
+   the accent; structural links inherit their surrounding colour. */
 .link {
   background-image: linear-gradient(currentColor, currentColor);
   background-position: 0 100%;
@@ -76,7 +88,7 @@ button {
   background-size: 100% 2px;
 }
 
-/* ── Standing link: rule appears from the left on hover ── */
+/* Standing link: the rule draws in from the left. */
 .link-quiet {
   background-image: linear-gradient(currentColor, currentColor);
   background-position: 0 100%;
