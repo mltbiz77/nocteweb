@@ -84,7 +84,14 @@ function appleClientSecret({ key, keyId, teamId, clientId }) {
   return `${header}.${payload}.${base64url(raw)}`;
 }
 
-/** Exchange the fresh authorization code for a refresh token, then revoke it. */
+/**
+ * Exchange the fresh authorization code, prove who it belongs to, then revoke.
+ *
+ * Returns Apple's `sub` for the user, taken from the `id_token` that comes back
+ * with the exchange. That value is the ONLY thing in this request that proves
+ * ownership: the caller-supplied `appUserId` is just a string and cannot be
+ * trusted. The caller must compare the two before deleting anything.
+ */
 async function revokeApple(authorizationCode, config) {
   const clientSecret = appleClientSecret(config);
 
@@ -122,6 +129,27 @@ async function revokeApple(authorizationCode, config) {
   if (!revokeResponse.ok) {
     const detail = await revokeResponse.text().catch(() => '');
     throw new Error(`Apple refused the revocation (${revokeResponse.status} ${detail.slice(0, 120)})`);
+  }
+
+  // The subject from Apple's own id_token. Read without signature verification
+  // only because it arrived directly from Apple's token endpoint over TLS in the
+  // call above — there is no untrusted hop in between.
+  const sub = subjectFromIdToken(token.id_token);
+  if (!sub) throw new Error('Apple returned no id_token subject to verify ownership against');
+  return sub;
+}
+
+/** The `sub` claim from a JWT, base64url-decoded. */
+function subjectFromIdToken(idToken) {
+  if (typeof idToken !== 'string') return null;
+  const parts = idToken.split('.');
+  if (parts.length < 2) return null;
+  let b64 = parts[1].replace(/-/g, '+').replace(/_/g, '/');
+  while (b64.length % 4) b64 += '=';
+  try {
+    return JSON.parse(Buffer.from(b64, 'base64').toString('utf8')).sub ?? null;
+  } catch {
+    return null;
   }
 }
 
@@ -164,12 +192,28 @@ export default async function handler(request, response) {
   if (!appUserId || !['apple', 'google'].includes(provider)) {
     return response.status(400).json({ error: 'bad_request' });
   }
-  // The identifier the app sends is namespaced by provider (see
-  // IdentityService.Account.appUserID). If the two disagree, something is wrong
-  // enough that deleting whatever the string happens to point at is the wrong
-  // move — a mismatch could otherwise delete a different customer's record.
+
+  // ⚠️ This prefix test proves NOTHING about ownership — it only checks that the
+  // string is shaped the way the app writes it. An earlier version of this file
+  // treated it as an authorisation check, which meant a request of
+  // {"provider":"google","appUserId":"google:<victim>"} deleted a stranger's
+  // subscription record with no credential at all. Ownership is established
+  // below, by Apple, and nothing destructive happens before it is.
   if (!appUserId.startsWith(`${provider}:`)) {
     return response.status(400).json({ error: 'identifier_mismatch' });
+  }
+
+  // Google sign-in is not shipped in the app yet, and there is no verification
+  // path for it here: proving a Google identity would need an id_token validated
+  // against Google's JWKS. Until that exists this branch has no legitimate
+  // traffic, so it is refused outright rather than left as an unauthenticated
+  // route to a destructive operation.
+  if (provider === 'google') {
+    return response.status(501).json({
+      error: 'provider_unsupported',
+      message:
+        'Google account deletion is not available yet. Please contact hello@nocteventures.com and we will remove the account.',
+    });
   }
 
   const rcKey = process.env.REVENUECAT_SECRET_KEY;
@@ -181,32 +225,46 @@ export default async function handler(request, response) {
   };
   const appleReady = Boolean(appleConfig.key && appleConfig.keyId && appleConfig.teamId);
 
-  if (!rcKey && !appleReady) {
+  if (!appleReady) {
     return response.status(503).json({
       error: 'not_configured',
       message:
         'Account deletion is not configured on the server yet. You are signed out on this device; please contact hello@nocteventures.com so we can finish removing the account.',
     });
   }
+  if (!authorizationCode) {
+    return response.status(400).json({
+      error: 'authorization_required',
+      message: 'A fresh Sign in with Apple authorization code is required to delete an account.',
+    });
+  }
 
   const done = [];
   const failed = [];
 
-  if (provider === 'apple' && appleReady) {
-    if (!authorizationCode) {
-      // The app is expected to re-present the Sign in with Apple sheet and send
-      // the fresh code. Without one there is nothing Apple will let us revoke.
-      failed.push('Apple revocation needs a fresh sign-in; none was provided.');
-    } else {
-      try {
-        await revokeApple(authorizationCode, appleConfig);
-        done.push('apple_token_revoked');
-      } catch (error) {
-        failed.push(error.message);
-      }
-    }
+  // Step 1: prove ownership. Apple exchanges the single-use code and tells us
+  // which subject it belongs to. If that disagrees with the identifier the
+  // caller claimed, this is somebody trying to delete an account that is not
+  // theirs — stop, and delete nothing.
+  let verifiedSubject;
+  try {
+    verifiedSubject = await revokeApple(authorizationCode, appleConfig);
+    done.push('apple_token_revoked');
+  } catch (error) {
+    return response.status(401).json({ error: 'verification_failed', message: error.message });
   }
 
+  if (appUserId !== `apple:${verifiedSubject}`) {
+    // The Apple credential is valid but belongs to a different person. The token
+    // has already been revoked, which is correct — it was theirs — but nothing
+    // else may happen.
+    return response.status(403).json({
+      error: 'identifier_mismatch',
+      message: 'That sign-in does not match the account being deleted.',
+    });
+  }
+
+  // Step 2: only now, with ownership proven, touch the subscription record.
   if (rcKey) {
     try {
       await deleteRevenueCatCustomer(appUserId, rcKey);
