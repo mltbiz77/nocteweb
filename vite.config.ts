@@ -32,6 +32,10 @@ const ROUTES = [
   'callback/terms',
   'fridgefox/privacy',
   'fridgefox/terms',
+  'track-my-subs/privacy',
+  'track-my-subs/terms',
+  'jott/privacy',
+  'jott/terms',
 ]
 
 const entry = (route: string) => {
