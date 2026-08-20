@@ -21,7 +21,7 @@ export const CALLBACK_PRIVACY: LegalDoc = {
   title: 'Callback AI privacy policy',
   updated: '2026-08-20',
   intro:
-    'What you study in Callback stays on your iPhone. Two things do leave it, both because they cannot work otherwise — signing in, if you choose to, and your subscription. Both are described below. There is no analytics, no advertising and no tracking anywhere in the app.',
+    'What you study in Callback stays on your iPhone. Three things do leave it — signing in, if you choose to; your subscription; and anonymous usage measurement, which you can switch off in Settings. All three are described below. There is no advertising and no tracking anywhere in the app.',
   sections: [
     {
       heading: 'Who we are',
@@ -82,15 +82,25 @@ export const CALLBACK_PRIVACY: LegalDoc = {
       heading: 'What those requests reveal',
       body: [
         'They are plain read requests that carry no identifier of you or your device beyond what any web request necessarily reveals to the host it reaches, such as its IP address. Results are cached on the device so the tab still works offline. Opening an item hands the link to Safari, at which point that publisher’s own privacy policy applies.',
-        'Signing in contacts Apple or Google. The subscription check contacts RevenueCat. Neither happens unless you sign in or open the paywall.',
+        'Signing in contacts Apple or Google. The subscription check contacts RevenueCat. Usage measurement contacts PostHog in the EU, unless you have switched it off.',
         'The first spoken answer needs a network once: iOS downloads the speech recognition model for your language from Apple. That download is made by the system rather than by Callback, and once it is done, spoken answers work offline like everything else.',
         'Every other part of the app works with no network at all.',
       ],
     },
     {
-      heading: 'No tracking',
+      heading: 'Usage analytics, and how to switch them off',
       body: [
-        'There is no analytics SDK, no advertising identifier, no crash reporter and no third-party tracker in Callback. Nothing you do in the app is profiled, used to target advertising, or sold — to anyone, ever. RevenueCat is used for subscriptions and for nothing else.',
+        'Callback measures how the app is used, so we can tell which parts are worth building on. This is done with PostHog, hosted in the European Union, acting for us as a processor.',
+        'What it records is that something happened, never what it contained: which screen you opened, that a study round or a mock started and finished, how many questions were in it, that the paywall appeared and why, and whether a purchase or a sign-in succeeded. Every event name the app can send is listed in a single file in the source for exactly this reason.',
+        'What it never records: any question, any answer you give, any score, any spoken transcript, and anything you type to the tutor. Tap-level capture is switched off, because in this app the text on the screen is the product and capturing taps would sweep it up by accident.',
+        'You can turn it off, in Settings → Data → “Share anonymous usage”. That switch stops collection inside PostHog itself rather than merely hiding it, and it is remembered.',
+      ],
+    },
+    {
+      heading: 'No advertising and no tracking',
+      body: [
+        'There is no advertising in Callback, no advertising identifier, no crash reporter, and no data broker. Nothing you do in the app is used to target advertising, joined with data from other companies, or sold — to anyone, ever.',
+        'PostHog is used for the product measurement described above and RevenueCat for subscriptions. Neither is used for anything else, and no third party receives anything you study.',
       ],
     },
     {
@@ -103,6 +113,7 @@ export const CALLBACK_PRIVACY: LegalDoc = {
       heading: 'Your rights',
       body: [
         'Almost everything is already in your hands: your study data is on your device, and Settings can erase it. The only personal data we hold elsewhere is the account identifier and the subscription record described above, and “Delete account” removes both without needing to ask us.',
+        'Usage measurement is the one thing you cannot delete from inside the app, because it is not attached to a name — switching it off in Settings stops it, and we will delete the recorded events for your account on request.',
         'If you would rather we did it, or you want a copy of what we hold, or you object to any of it, write to hello@nocteventures.com and we will answer within one month. You also have the right to complain to your local data protection authority; in the UK that is the Information Commissioner’s Office.',
       ],
     },
