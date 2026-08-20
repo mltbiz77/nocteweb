@@ -136,8 +136,8 @@ export const CALLBACK_TERMS: LegalDoc = {
     {
       heading: 'Subscriptions',
       body: [
+        'Callback is a paid app. A subscription is required to use it, and there is no free tier — you can look around the app before you buy, but studying needs Pro. We would rather be straightforward about that than ration a free version down to something not worth using.',
         'Callback Pro is an auto-renewing subscription billed through your Apple Account. It renews at the end of each period unless you cancel at least 24 hours before that. Manage or cancel it in iOS Settings → Apple Account → Subscriptions.',
-        'The free tier is a usable product in its own right: the top areas for your target role, fit questions, brainteasers and practice drills. Pro adds depth — every area, timed tests with a scored report, mock rounds and the full plan. Nothing is ever gated behind grinding through material you already know.',
         'Refunds are handled by Apple, not by us. Apple’s terms govern the payment itself.',
       ],
     },
