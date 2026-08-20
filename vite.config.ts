@@ -23,6 +23,15 @@ const ROUTES = [
   'track-my-subs',
   'fridgefox',
   'callback',
+  // Per-app legal pages. App Store Connect requires a *hosted* privacy policy
+  // URL per app — the copy inside each app is not enough on its own, and App
+  // Review reads the page. FridgeFox's two are generated from the markdown that
+  // ships inside the app (`scripts/build-fridgefox-legal.mjs`) so the hosted and
+  // in-app texts cannot drift apart.
+  'callback/privacy',
+  'callback/terms',
+  'fridgefox/privacy',
+  'fridgefox/terms',
 ]
 
 const entry = (route: string) => {
@@ -42,7 +51,9 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, 'index.html'),
-        ...Object.fromEntries(ROUTES.map((route) => [route, entry(route)])),
+        ...Object.fromEntries(
+          ROUTES.map((route) => [route.replace(/\//g, '-'), entry(route)]),
+        ),
       },
     },
   },
