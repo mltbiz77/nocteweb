@@ -7,7 +7,8 @@ import {
   PageMasthead,
   PageShell,
   Prose,
-  SectionMark,
+  Reveal,
+  SectionHead,
 } from './site';
 import { PRINCIPLES, TEAM } from '@/data/team';
 import { APPS } from '@/data/apps';
@@ -27,7 +28,7 @@ export default function About() {
   return (
     <PageShell current="/about/">
       <PageMasthead
-        slug="About"
+        eyebrow="About"
         title={
           <>
             We build companies, and then we run them.
@@ -57,15 +58,19 @@ export default function About() {
 
       {/* ─── §01 The shape of it ─── */}
       <Container className="pt-16 sm:pt-24">
-        <SectionMark index="01" title="The shape of it" />
-        <div className="grid gap-x-8 gap-y-10 lg:grid-cols-12">
-          <div className="lg:col-span-7">
-            <Display as="h2" size="md">
-              One team across strategy, design, and engineering — no hand-offs between people who
-              never speak.
+        <Reveal>
+          <SectionHead
+            eyebrow="The shape of it"
+            title="One team across strategy, design, and engineering."
+          />
+        </Reveal>
+        <div className="mt-14 grid gap-x-12 gap-y-10 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <Display as="p" size="md">
+              No hand-offs between people who never speak.
             </Display>
           </div>
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-6 lg:col-start-7">
             <Prose>
               <p>
                 Most of what goes wrong in software goes wrong in the gap between deciding
@@ -84,8 +89,10 @@ export default function About() {
 
       {/* ─── §02 How we think ─── */}
       <Container className="pt-20 sm:pt-28">
-        <SectionMark index="02" title="How we think" />
-        <div className="border-t border-rule">
+        <Reveal>
+          <SectionHead eyebrow="How we think" title="Three things we hold to." />
+        </Reveal>
+        <div className="mt-14 border-t border-rule">
           {PRINCIPLES.map((principle, index) => (
             <Entry
               key={principle.title}
@@ -101,8 +108,10 @@ export default function About() {
       {/* ─── §03 Team: renders only once there is someone in `TEAM` ─── */}
       {TEAM.length > 0 ? (
         <Container className="pt-20 sm:pt-28">
-          <SectionMark index="03" title="Who you'd work with" />
-          <div className="border-t border-rule">
+          <Reveal>
+            <SectionHead eyebrow="The team" title="Who you'd work with." />
+          </Reveal>
+          <div className="mt-14 border-t border-rule">
             {TEAM.map((member, index) => (
               <Entry
                 key={member.name}

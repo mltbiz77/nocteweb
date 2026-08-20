@@ -6,7 +6,6 @@ import {
   NightBand,
   PageMasthead,
   PageShell,
-  SectionMark,
 } from './site';
 import { BOOKING_URL, CONTACT_EMAIL, CONTACT_MAILTO, INSTAGRAM_URL } from '@/data/company';
 
@@ -33,7 +32,7 @@ export default function Contact() {
   return (
     <PageShell current="/contact/">
       <PageMasthead
-        slug="Contact"
+        eyebrow="Contact"
         title="Tell us what you’re building."
         lead={
           <p>
@@ -46,12 +45,15 @@ export default function Contact() {
       <Container className="pt-16 pb-24 sm:pt-24 sm:pb-32">
         <div className="grid gap-x-8 gap-y-14 lg:grid-cols-12">
           <div className="lg:col-span-7">
-            <SectionMark index="01" title="Write to us" />
-            <ContactForm />
+            <Label className="text-ink-faint">Write to us</Label>
+            <div className="mt-6">
+              <ContactForm />
+            </div>
           </div>
 
           <div className="lg:col-span-4 lg:col-start-9">
-            <SectionMark index="02" title="Direct" />
+            <Label className="text-ink-faint">Direct</Label>
+            <div className="mt-6" />
             <a
               href={CONTACT_MAILTO}
               className="link block break-words font-sans text-[clamp(1.1rem,1.9vw,1.35rem)] tracking-[-0.02em] text-accent"

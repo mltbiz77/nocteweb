@@ -15,6 +15,7 @@ module.exports = {
         rule: 'var(--rule)',
         'rule-soft': 'var(--rule-soft)',
         night: 'var(--night)',
+        'night-sunk': 'var(--night-sunk)',
         'night-ink': 'var(--night-ink)',
         'night-muted': 'var(--night-muted)',
         'night-rule': 'var(--night-rule)',

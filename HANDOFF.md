@@ -22,56 +22,54 @@ own HTML entry point mounting its own React tree, so each page loads only its ow
 
 ## The design, and why
 
-The site is **a document, not a theme**. Nocte is a holding company, so the site is built to
-read like a register: **blue-black ink on warm cream stock**, the way a ledger or an
-aerogramme is printed. Hairline rules, and the portfolio as an actual table of holdings on
-the front page rather than a grid of cards.
+**The products are the argument.** Nocte owns real software that looks good, so the site's
+job is to show it at a size a visitor can judge — an investor or a client should be able to
+scroll the home page and see immediately that this company ships.
 
-**Blue is the ink and the night, not a coat of paint.** There are no blue gradients and no
-blue glows. It appears in exactly three roles: the body ink (`--ink`, a deep navy), the
-single accent for links and section numerals (`--accent`), and the midnight band that closes
-every page (`--night`).
-
-Everything that reads as decoration was removed on purpose. There are **no gradients, no
-glows, no particle fields, no grain overlays, no rounded cards, and no scroll animations** —
-those are the house style of every generated site, and they were what the previous version
-looked like. Structure comes from rules, the grid, and type alone.
+- **Deep blue opens and closes the site.** `--night` carries the hero, every interior
+  masthead and the closing band. The nav takes the tone of whatever sits under it
+  (`PageShell navTone`), so the home page reads as one continuous blue field from the top of
+  the window down. No scroll listener is involved.
+- **The work sits on a soft warm white in between**, so product artwork reads cleanly.
+- **Each product gets a full-width band** (`Showcase.tsx`): its own colour as a flat 5% field,
+  its real App Store screenshots at 280px, its proof points, and the two links that matter.
+  Bands alternate sides so a long scroll has rhythm. Products without screenshots lead with
+  their icon at 200px instead of a placeholder.
+- **The hero's numbers are all checkable on the App Store** — products owned, live count,
+  languages shipped, platforms. Nothing about downloads or revenue, because we cannot stand
+  behind those.
+- **Depth comes from real shadows and flat colour fields.** No gradient meshes, no glows, no
+  glassmorphism. The `.plate` / `.plate-lift` classes are the only shadows in the system.
+- **Motion is small and fast.** The hero animates itself in CSS (`.rise`, staggered) so it
+  never waits on JavaScript; below the fold `Reveal` fades content up 12px over 500ms on
+  intersection. Both are skipped under `prefers-reduced-motion`.
 
 **Three type voices, each with one job:**
 
 | Voice | Family | Used for |
 |---|---|---|
-| Structure | `Switzer` (Fontshare) | Headings, product names, UI |
-| Reading | `Erode` (Fontshare) | Paragraphs, legal text, table descriptions |
-| Data | System monospace | Numbers, labels, statuses, index numerals, nav |
+| Structure | `Switzer` 400–700 (Fontshare) | Headings, product names, big numbers |
+| Reading | `Erode` (Fontshare) | Paragraphs, legal text, descriptions |
+| Data | System monospace | Labels, eyebrows, statuses, buttons |
 
-**Colour is almost absent.** One cream paper, one ink, one accent, two rule weights. Beyond
-that, the only saturated colour on the site is each product's own accent, used solely as a
-7px status square in the register — and only when the product is **live**. In-build products
-get a hollow grey square, so colour on the register means "this is shipping".
-
-**One midnight band closes every page** (`NightBand`). That is where "Digital Craftsmanship
-After Dark" earns its place, instead of being the wallpaper for the whole site.
+**Colour discipline.** One blue, one accent, two rule weights. Each product's own colour
+appears in three places and nowhere else: its band field, its tagline, and its status dot —
+and the status dot is only filled when the product is **live**, so colour means shipping.
 
 Re-inking the site is a **token change only** — edit the `:root` block in
-`src/styles/global.css`. No component reads a hard-coded colour, so a different blue, or a
-full dark inversion, is one block of edits.
+`src/styles/global.css`. No component reads a hard-coded colour.
 
-**Incorporation detail appears exactly once**, in the footer, from `COMPANY.legalLine`. It
-used to be scattered across five pages and read like a filing. Everywhere it was removed,
-the space now carries something a visitor actually wants: the page's own index on the home
-masthead, and product/engagement facts elsewhere.
+**Incorporation detail appears exactly once**, in the footer, from `COMPANY.legalLine`.
 
 ### The primitives (`src/components/site.tsx`)
 
-`Container` · `Label` · `SectionMark` (the `§01 ───── TITLE` rule) · `Display` (the one
-heading scale) · `Prose` (serif reading text) · `FactTable` (mono key/value rows) · `Entry`
-(the numbered ruled row that services, principles, features and clauses all use) ·
-`StatusMark` · `Button` · `ArrowLink` · `SiteNav` · `NightBand` · `SiteFooter` ·
-`PageMasthead` · `PageShell`.
+`Container` · `Reveal` · `Label` · `Display` (one heading scale, `xxl`–`sm`) · `Prose` ·
+`SectionHead` · `FactStrip` (the hero's numbers) · `FactTable` · `Entry` · `Tag` · `Button` ·
+`ArrowLink` · `StatusMark` · `LogoMark` · `AppStoreButton` · `SiteNav` · `NightBand` ·
+`SiteFooter` · `PageMasthead` · `PageShell`.
 
-Build new sections out of these. If something needs a new visual treatment, it is usually a
-sign the content belongs in an existing one.
+Build new sections from these. If something seems to need a new visual treatment, the content
+usually belongs in an existing one.
 
 ## How to run
 
@@ -116,7 +114,18 @@ their array has entries. Adding the first one is a data change alone.
 4. Add the slug to `ROUTES` in `vite.config.ts`.
 5. Add the URL to `public/sitemap.xml`.
 
-Icons go in `public/apps/<slug>/icon.png`, screenshots in the same folder.
+Icons go in `public/apps/<slug>/icon.png` at 512px, screenshots in the same folder.
+
+**Screenshots must be 660px wide** — that covers the 280px showcase plate at 2x. The current
+set was generated from source assets at quality 82, progressive:
+
+- Jott: from `~/code/jott/jott app store pics/` (1290×2796 originals).
+- Track My Subs: pulled from the live App Store listing via
+  `https://itunes.apple.com/lookup?id=<id>`, replacing the `320x480bb.jpg` suffix on each
+  `screenshotUrls` entry with `1290x2796bb.jpg`.
+
+`highlights` on each `AppData` is two or three short, checkable proof points for the band.
+Facts only — no download or revenue claims.
 
 ## Current state
 

@@ -7,7 +7,8 @@ import {
   PageMasthead,
   PageShell,
   Prose,
-  SectionMark,
+  Reveal,
+  SectionHead,
 } from './site';
 import { CASE_STUDIES, HOW_WE_WORK, OFFERINGS } from '@/data/services';
 
@@ -20,7 +21,7 @@ export default function Advisory() {
   return (
     <PageShell current="/advisory/">
       <PageMasthead
-        slug="Advisory & Solutions"
+        eyebrow="Advisory & Solutions"
         title={
           <>
             We work with companies the way we work on our own.
@@ -50,8 +51,19 @@ export default function Advisory() {
 
       {/* ─── §01 What we offer ─── */}
       <Container className="pt-16 sm:pt-24">
-        <SectionMark index="01" title="What we offer" />
-        <div className="border-t border-rule">
+        <Reveal>
+          <SectionHead
+            eyebrow="What we offer"
+            title="Four ways we get involved."
+            lead={
+              <p>
+                Pick the one that matches where you are. Most engagements start with the first and
+                grow into the third.
+              </p>
+            }
+          />
+        </Reveal>
+        <div className="mt-14 border-t border-rule">
           {OFFERINGS.map((offering) => (
             <Entry
               key={offering.numeral}
@@ -75,8 +87,18 @@ export default function Advisory() {
 
       {/* ─── §02 How we work ─── */}
       <Container className="pt-20 sm:pt-28">
-        <SectionMark index="02" title="How we work" />
-        <div className="border-t border-rule">
+        <Reveal>
+          <SectionHead
+            eyebrow="How we work"
+            title="Fewer decisions, made earlier."
+            lead={
+              <p>
+                Four habits that decide more about the outcome than any roadmap does.
+              </p>
+            }
+          />
+        </Reveal>
+        <div className="mt-14 border-t border-rule">
           {HOW_WE_WORK.map((item, index) => (
             <Entry key={item.title} index={String(index + 1).padStart(2, '0')} title={item.title}>
               <p>{item.description}</p>
@@ -88,8 +110,10 @@ export default function Advisory() {
       {/* ─── §03 Case studies: only once there is one to show ─── */}
       {CASE_STUDIES.length > 0 ? (
         <Container className="pt-20 sm:pt-28">
-          <SectionMark index="03" title="Selected engagements" />
-          <div className="border-t border-rule">
+          <Reveal>
+            <SectionHead eyebrow="Selected engagements" title="What that looked like." />
+          </Reveal>
+          <div className="mt-14 border-t border-rule">
             {CASE_STUDIES.map((study, index) => (
               <Entry
                 key={study.slug}

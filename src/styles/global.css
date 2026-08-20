@@ -3,34 +3,38 @@
 @tailwind utilities;
 
 /* ── Nocte Ventures ───────────────────────────────────────────────
-   Blue-black ink on warm cream stock, the way a ledger or an
-   aerogramme is printed. Blue is the ink and the night, not a
-   decoration laid over the top: there are no blue gradients, no
-   blue glows, and no scroll animation anywhere.
+   Deep blue opens and closes the site; the work itself is shown on
+   a soft warm white in between. Each product's own colour is used
+   at scale on its showcase band — the portfolio is the thing a
+   visitor came to look at, so it gets the room.
+
+   No gradient meshes, no glows, no glassmorphism. Depth comes from
+   real shadows and flat colour fields.
 
    The whole palette lives here. Nothing downstream hard-codes a
    colour, so the site can be re-inked from this block alone. */
 :root {
-  --paper: #f5f2ea;
-  --paper-sunk: #ece7db;
+  /* Light ground: a soft warm white, so product artwork sits on it cleanly. */
+  --paper: #f7f5f0;
+  --paper-sunk: #efebe2;
 
-  --ink: #131f3d;
-  --ink-muted: #4a5876;
-  --ink-faint: #616c87;
+  --ink: #0e1833;
+  --ink-muted: #4a5674;
+  --ink-faint: #6a7590;
 
-  /* The one accent: links, section numerals, marks. */
-  --accent: #1a3fd0;
-  --accent-deep: #12309f;
+  --accent: #1b4ae0;
+  --accent-deep: #1339b4;
 
-  --rule: rgba(19, 31, 61, 0.18);
-  --rule-soft: rgba(19, 31, 61, 0.09);
+  --rule: rgba(14, 24, 51, 0.16);
+  --rule-soft: rgba(14, 24, 51, 0.08);
 
-  /* Midnight — the single dark band that closes every page. */
-  --night: #0b1430;
-  --night-ink: #edeff6;
-  --night-muted: #8e99b8;
-  --night-rule: rgba(237, 239, 246, 0.18);
-  --night-accent: #8fa3ff;
+  /* The deep blue that opens and closes the site. */
+  --night: #0b1e4d;
+  --night-sunk: #081739;
+  --night-ink: #f2f4fa;
+  --night-muted: #9aa7c8;
+  --night-rule: rgba(242, 244, 250, 0.18);
+  --night-accent: #7fa0ff;
 }
 
 * {
@@ -107,4 +111,38 @@ button {
   .link-quiet {
     transition: none;
   }
+}
+
+/* ── Entrances ───────────────────────────────────────────────────
+   The hero animates itself in CSS so it never waits on JavaScript.
+   Below the fold, `Reveal` observes intersection instead. */
+@media (prefers-reduced-motion: no-preference) {
+  .rise {
+    opacity: 0;
+    transform: translateY(14px);
+    animation: rise 0.62s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+}
+@keyframes rise {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Screenshot plate: a real contact shadow, not a glow. */
+.plate {
+  box-shadow:
+    0 1px 2px rgba(9, 18, 40, 0.14),
+    0 18px 40px -12px rgba(9, 18, 40, 0.28);
+}
+.plate-lift {
+  box-shadow:
+    0 1px 2px rgba(9, 18, 40, 0.18),
+    0 40px 70px -20px rgba(9, 18, 40, 0.4);
+}
+
+/* App icons keep the iOS corner curve rather than a plain radius. */
+.icon-mask {
+  border-radius: 22.5%;
 }

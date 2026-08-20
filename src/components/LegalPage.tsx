@@ -25,7 +25,7 @@ export default function LegalPage({ doc, path }: { doc: LegalDoc; path: string }
   return (
     <PageShell current={path}>
       <PageMasthead
-        slug={doc.title}
+        eyebrow={doc.title}
         title={doc.title}
         lead={<p>{doc.intro}</p>}
         facts={[

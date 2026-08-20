@@ -37,6 +37,11 @@ export type AppData = {
   meta: { label: string; value: string }[];
   /** Overrides the default "Built around one idea" features heading. */
   featuresTitle?: string;
+  /**
+   * Two or three short, checkable proof points shown on the showcase band.
+   * Facts only — no download or revenue claims we cannot stand behind.
+   */
+  highlights: string[];
   /** Omitted for unreleased apps: the page hides its "Screens" section. */
   screenshots?: { src: string; alt: string }[];
   features: AppFeature[];
@@ -63,11 +68,11 @@ export const JOTT: AppData = {
     { label: 'Requires', value: 'iOS 17+' },
   ],
   screenshots: [
-    { src: '/apps/jott/shot-1.jpg', alt: 'Jott task list on iPhone' },
-    { src: '/apps/jott/shot-2.jpg', alt: 'Jott themes' },
-    { src: '/apps/jott/shot-3.jpg', alt: 'Jott completion streak' },
-    { src: '/apps/jott/shot-4.jpg', alt: 'Jott completion history' },
-    { src: '/apps/jott/shot-5.jpg', alt: 'Jott shareable stats card' },
+    { src: '/apps/jott/shot-2.jpg', alt: 'Jott’s six themes' },
+    { src: '/apps/jott/shot-3.jpg', alt: 'Tracking a completion streak in Jott' },
+    { src: '/apps/jott/shot-4.jpg', alt: 'Jott’s completion history' },
+    { src: '/apps/jott/shot-5.jpg', alt: 'A shareable Jott stats card' },
+    { src: '/apps/jott/shot-1.jpg', alt: 'Jott’s task list on iPhone' },
   ],
   features: [
     {
@@ -91,6 +96,7 @@ export const JOTT: AppData = {
       description: 'A full record of everything you have finished.',
     },
   ],
+  highlights: ['Free, no subscription', 'Six handcrafted themes', 'Nothing leaves the device'],
   privacy: 'No account, no ads, no tracking. Your list stays on your device.',
 };
 
@@ -100,7 +106,7 @@ export const TRACK_MY_SUBS: AppData = {
   locale: 'en',
   tagline: 'See and cut what you pay every month.',
   short: 'Every recurring charge in one place, on iPhone.',
-  platforms: ['iOS'],
+  platforms: ['iOS', 'iPadOS'],
   status: 'live',
   brief:
     'Most people have 12+ subscriptions and forget about a third of them. Track My Subs puts every recurring charge in one place — so a free trial never turns into a yearly bill.',
@@ -109,16 +115,15 @@ export const TRACK_MY_SUBS: AppData = {
   accent: '#34d399',
   glow: 'rgba(52,211,153,0.14)',
   meta: [
-    { label: 'Platform', value: 'iPhone' },
+    { label: 'Platform', value: 'iPhone · iPad' },
     { label: 'Category', value: 'Finance' },
+    { label: 'Languages', value: '44' },
     { label: 'Requires', value: 'iOS 18.5+' },
   ],
   screenshots: [
-    { src: '/apps/track-my-subs/shot-1.jpg', alt: 'Track My Subs home screen' },
-    { src: '/apps/track-my-subs/shot-2.jpg', alt: 'Track My Subs spending insights' },
-    { src: '/apps/track-my-subs/shot-3.jpg', alt: 'Track My Subs insights by category' },
-    { src: '/apps/track-my-subs/shot-4.jpg', alt: 'Track My Subs renewal calendar' },
-    { src: '/apps/track-my-subs/shot-5.jpg', alt: 'Track My Subs subscription list' },
+    { src: '/apps/track-my-subs/shot-1.jpg', alt: 'Track My Subs showing a monthly subscription total' },
+    { src: '/apps/track-my-subs/shot-2.jpg', alt: 'Track My Subs spending insights by category' },
+    { src: '/apps/track-my-subs/shot-3.jpg', alt: 'The Track My Subs renewal calendar' },
   ],
   features: [
     {
@@ -142,6 +147,7 @@ export const TRACK_MY_SUBS: AppData = {
       description: 'Your monthly total, always in view.',
     },
   ],
+  highlights: ['Live in 44 languages', '50+ currencies, auto-detected', 'Home Screen widget'],
   privacy:
     'Stored on your device. No account, no sign-up, and we never collect what you track.',
 };
@@ -195,6 +201,7 @@ export const FRIDGEFOX: AppData = {
         'Pantry, shopping list and weekly plan belong to the whole household — flatshare, family or couple.',
     },
   ],
+  highlights: ['Reads a receipt in one photo', 'Hosted in Frankfurt', 'Shared household pantry'],
   privacy:
     'No ads, no tracking, no data selling. Everything is stored in Frankfurt, Germany. Receipt photos are read and never kept, and your contacts never leave the device.',
 };
@@ -247,6 +254,7 @@ export const CALLBACK: AppData = {
         'A daily markets snapshot to walk in current — cached, with an honest "as of" date.',
     },
   ],
+  highlights: ['On-device Apple Intelligence', 'Hundreds of real questions', 'Works fully offline'],
   privacy:
     'The tutor runs on-device with Apple Intelligence — your answers never leave your phone. The study product works fully offline. No account, no tracking.',
 };
