@@ -210,6 +210,17 @@ four product pages all build and render; zero console errors; no horizontal over
 
 ## Gotchas
 
+- **Do not poll the live site in a loop.** Repeated automated requests to
+  nocteventures.com trip Vercel's bot mitigation, which then answers with a 403 and a
+  "Vercel Security Checkpoint" page (`x-vercel-mitigated: challenge` in the response
+  headers). It happened on 2026-08-20 from tight `until curl ...; do sleep 8; done` deploy
+  polls. To check a deploy landed, use `vercel ls nocteweb` / `vercel inspect` instead of
+  hammering the domain, and verify page content against the local `npm run preview` build.
+  Clearing it: `vercel firewall attack-mode disable` — **the CLI refuses to run this for an
+  agent** ("dangerous_operation_requires_user"), so a human has to run it interactively or
+  toggle it in the Vercel dashboard under Project → Firewall. It also decays on its own once
+  traffic normalises.
+
 - **`node_modules` and `dist` used to be committed.** They were untracked on 2026-08-20.
   Never `git add -f` them back — Vercel builds from source.
 - **Tailwind responsive overrides.** `Section` sets `py-24 sm:py-32`. A bare `pt-0` in
