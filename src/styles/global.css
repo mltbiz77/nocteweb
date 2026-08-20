@@ -7,8 +7,15 @@
    That endpoint is not deterministic: asking for switzer@400,500
    returns a stray Satoshi face, 400,600,700 returns Gambarino, and
    400,500,600,700 returns Sentient — extra downloads we never use.
-   Four files, fixed, same-origin, and no third party sees the
-   visitor's IP. Both faces are ITF/Fontshare free-for-commercial-use.
+   Same-origin, so no third party sees the visitor's IP.
+
+   Cormorant Garamond (SIL OFL, Google Fonts) carries the headlines:
+   a classical high-contrast display serif, chosen as the closest
+   licence-free relative of the Orpheus Pro that a16z sets its titles
+   in. Display sizes only — its x-height is too small for body text.
+
+   Switzer (ITF/Fontshare, free for commercial use) carries everything
+   else: body copy, labels, buttons, navigation.
 
    Re-fetch by requesting ONE weight at a time and picking the block
    that actually declares the family you asked for. */
@@ -34,9 +41,16 @@
   font-display: swap;
 }
 @font-face {
-  font-family: 'Erode';
-  src: url('/fonts/erode-400.woff2') format('woff2');
+  font-family: 'Cormorant Garamond';
+  src: url('/fonts/cormorant-400.woff2') format('woff2');
   font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('/fonts/cormorant-500.woff2') format('woff2');
+  font-weight: 500;
   font-style: normal;
   font-display: swap;
 }

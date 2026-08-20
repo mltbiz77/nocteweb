@@ -113,12 +113,9 @@ const Band = ({ app, index }: { app: AppData; index: number }) => {
                 </div>
               </div>
 
-              <p
-                className="mt-7 font-sans text-[clamp(1.25rem,2vw,1.6rem)] leading-[1.2] tracking-[-0.025em]"
-                style={{ fontWeight: 500, color: app.accent }}
-              >
+              <Display as="p" size="md" className="mt-7" style={{ color: app.accent }}>
                 {app.cardTagline ?? app.tagline}
-              </p>
+              </Display>
 
               <Prose className="mt-5 max-w-[46ch]">
                 <p>{app.brief}</p>

@@ -25,10 +25,10 @@ module.exports = {
         DEFAULT: 'var(--rule)',
       },
       fontFamily: {
-        // Structure, headings, UI.
+        // Body copy, labels, buttons, navigation.
         sans: ['Switzer', 'Helvetica Neue', 'Arial', 'sans-serif'],
-        // Reading text — paragraphs, legal, long prose.
-        text: ['Erode', 'Iowan Old Style', 'Georgia', 'serif'],
+        // Headlines only. Small x-height, so never below ~1.3rem.
+        display: ['Cormorant Garamond', 'Iowan Old Style', 'Georgia', 'serif'],
       },
       letterSpacing: {
         masthead: '-0.035em',

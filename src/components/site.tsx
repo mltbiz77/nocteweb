@@ -124,16 +124,16 @@ export const Display = ({
   children: ReactNode;
 }) => {
   const scale = {
-    xxl: 'text-[clamp(2.6rem,7vw,6.25rem)] leading-[0.93] tracking-[-0.045em]',
-    xl: 'text-[clamp(2.15rem,4.8vw,3.9rem)] leading-[0.99] tracking-[-0.038em]',
-    lg: 'text-[clamp(1.8rem,3.4vw,2.85rem)] leading-[1.04] tracking-[-0.03em]',
-    md: 'text-[clamp(1.35rem,2.1vw,1.85rem)] leading-[1.14] tracking-[-0.022em]',
-    sm: 'text-[clamp(1.08rem,1.5vw,1.28rem)] leading-[1.22] tracking-[-0.015em]',
+    xxl: 'text-[clamp(2.9rem,7.4vw,6.5rem)] leading-[1.02] tracking-[-0.018em]',
+    xl: 'text-[clamp(2.3rem,5vw,4.1rem)] leading-[1.06] tracking-[-0.015em]',
+    lg: 'text-[clamp(1.95rem,3.6vw,3rem)] leading-[1.1] tracking-[-0.012em]',
+    md: 'text-[clamp(1.5rem,2.3vw,2.05rem)] leading-[1.18] tracking-[-0.01em]',
+    sm: 'text-[clamp(1.3rem,1.7vw,1.5rem)] leading-[1.25] tracking-[-0.005em]',
   }[size];
 
   return (
     <Tag
-      className={`font-sans [text-wrap:balance] ${scale} ${className}`}
+      className={`font-display [text-wrap:balance] ${scale} ${className}`}
       style={{ fontWeight: weight, ...style }}
     >
       {children}
@@ -150,7 +150,7 @@ export const Prose = ({
   children: ReactNode;
 }) => (
   <div
-    className={`font-text text-[1.0625rem] leading-[1.68] text-ink-muted [&_p+p]:mt-5 ${className}`}
+    className={`font-sans text-[1.0rem] leading-[1.65] text-ink-muted [&_p+p]:mt-5 ${className}`}
   >
     {children}
   </div>
@@ -543,7 +543,7 @@ export const SiteNav = ({ current, tone = 'paper' }: { current?: string; tone?: 
         }`}
       >
         <Container>
-          {NAV_LINKS.map((link) => (
+          {[...NAV_LINKS, { label: 'Contact', href: '/contact/' }].map((link) => (
             <a
               key={link.href}
               href={link.href}
@@ -596,7 +596,7 @@ export const NightBand = ({
               <Label className="text-night-muted">Write to us</Label>
               <a
                 href={CONTACT_MAILTO}
-                className="link mt-4 block break-words font-sans text-[clamp(1.2rem,2.2vw,1.6rem)] tracking-[-0.025em] text-night-ink"
+                className="link mt-4 block break-words font-sans text-[clamp(1.1rem,1.9vw,1.4rem)] tracking-[-0.02em] text-night-ink"
               >
                 {CONTACT_EMAIL}
               </a>
@@ -617,7 +617,7 @@ export const SiteFooter = () => (
       <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-12">
         <div className="lg:col-span-4">
           <LogoMark className="h-[17px]" />
-          <p className="mt-4 max-w-[30ch] font-text text-[0.95rem] leading-[1.6] text-ink-muted">
+          <p className="mt-4 max-w-[30ch] font-sans text-[0.95rem] leading-[1.6] text-ink-muted">
             {COMPANY.subline}
           </p>
         </div>
@@ -625,7 +625,7 @@ export const SiteFooter = () => (
         <nav aria-label="Company" className="lg:col-span-2 lg:col-start-6">
           <Label className="text-ink-faint">Company</Label>
           <ul className="mt-4 space-y-2.5">
-            {NAV_LINKS.map((link) => (
+            {[...NAV_LINKS, { label: 'Contact', href: '/contact/' }].map((link) => (
               <li key={link.href}>
                 <a href={link.href} className="link-quiet text-sm text-ink-muted hover:text-ink">
                   {link.label}

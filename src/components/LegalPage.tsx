@@ -76,7 +76,7 @@ export default function LegalPage({ doc, path }: { doc: LegalDoc; path: string }
                   </h2>
                 </div>
 
-                <div className="mt-4 max-w-measure font-text text-[1.0625rem] leading-[1.7] text-ink-muted [&_p+p]:mt-4">
+                <div className="mt-4 max-w-measure font-sans text-[1.0625rem] leading-[1.7] text-ink-muted [&_p+p]:mt-4">
                   {section.body.map((paragraph, i) => (
                     <p key={i}>{paragraph}</p>
                   ))}
@@ -87,7 +87,7 @@ export default function LegalPage({ doc, path }: { doc: LegalDoc; path: string }
                     {section.bullets.map((bullet, i) => (
                       <li
                         key={i}
-                        className="grid grid-cols-[2rem_1fr] gap-3 border-b border-rule-soft py-3 font-text text-[1rem] leading-[1.6] text-ink-muted"
+                        className="grid grid-cols-[2rem_1fr] gap-3 border-b border-rule-soft py-3 font-sans text-[1rem] leading-[1.6] text-ink-muted"
                       >
                         <span className="tabular font-mono text-[10px] tracking-label text-ink-faint">
                           {String.fromCharCode(97 + i)}.

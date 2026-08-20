@@ -74,12 +74,14 @@ export default function AppPage({ app }: { app: AppData }) {
                 </div>
               </div>
 
-              <p
-                className="rise mt-8 max-w-[24ch] font-sans text-[clamp(1.4rem,2.6vw,2rem)] leading-[1.15] tracking-[-0.03em]"
-                style={{ fontWeight: 500, color: app.accent, animationDelay: '120ms' }}
+              <Display
+                as="p"
+                size="lg"
+                className="rise mt-8 max-w-[24ch]"
+                style={{ color: app.accent, animationDelay: '120ms' }}
               >
                 {app.tagline}
-              </p>
+              </Display>
 
               <div className="rise" style={{ animationDelay: '180ms' }}>
                 <Prose className="mt-6 max-w-[48ch] text-night-muted">

@@ -40,12 +40,15 @@ export const BOOKING_URL: string | null = null;
 
 export type NavLink = { label: string; href: string };
 
-/** The primary navigation, in order, on every page. */
+/**
+ * The primary navigation. Contact is deliberately absent — the nav's
+ * "Get in touch" button already goes to /contact/, and having both was two
+ * links to the same page.
+ */
 export const NAV_LINKS: NavLink[] = [
   { label: 'Portfolio', href: '/portfolio/' },
   { label: 'Advisory', href: '/advisory/' },
   { label: 'About', href: '/about/' },
-  { label: 'Contact', href: '/contact/' },
 ];
 
 export const LEGAL_LINKS: NavLink[] = [

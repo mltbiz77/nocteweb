@@ -101,7 +101,7 @@ export default function Contact() {
                     {reason.title}
                   </span>
                 </div>
-                <p className="mt-2 pl-8 font-text text-[0.9rem] leading-[1.55] text-night-muted">
+                <p className="mt-2 pl-8 font-sans text-[0.9rem] leading-[1.55] text-night-muted">
                   {reason.body}
                 </p>
               </div>
@@ -109,7 +109,7 @@ export default function Contact() {
           </div>
         }
       >
-        <p className="max-w-[44ch] font-text text-[1.0625rem] leading-[1.65] text-night-muted">
+        <p className="max-w-[44ch] font-sans text-[1.0625rem] leading-[1.65] text-night-muted">
           Most of what reaches us falls into one of three piles. Say which one you are in and we
           can skip a round of email.
         </p>

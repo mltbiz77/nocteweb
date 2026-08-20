@@ -1,37 +1,31 @@
 import { useState, type FormEvent } from 'react';
 import { CONTACT_EMAIL } from '@/data/company';
+import { Label, type Tone } from './site';
 
-type Status = 'idle' | 'sending' | 'sent' | 'fallback' | 'error';
-
-/* Underlined fields, not boxes — the page is a document, so the form is a
-   form on paper rather than a stack of rounded inputs. */
-const FIELD =
-  'w-full border-0 border-b border-rule bg-transparent px-0 py-2.5 font-sans text-[1rem] text-ink placeholder:text-ink-faint/70 transition-colors focus:border-ink focus:outline-none focus:ring-0';
-
-const LABEL = 'block font-mono text-[10px] uppercase tracking-label text-ink-faint mb-1';
-
-/** Builds the mail draft used when no delivery provider is configured. */
-const mailtoFor = (form: { name: string; email: string; company: string; message: string }) => {
-  const subject = `Enquiry from ${form.name || 'the website'}${form.company ? ` — ${form.company}` : ''}`;
-  const body = [
-    `Name: ${form.name}`,
-    `Email: ${form.email}`,
-    `Company: ${form.company || '—'}`,
-    '',
-    form.message,
-  ].join('\n');
-  return `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-};
+type Status = 'idle' | 'sending' | 'sent' | 'error';
 
 /**
- * Posts to `/api/contact/`. If that endpoint has no mail provider configured
- * yet (503) or cannot be reached, we open a pre-filled draft in the visitor's
- * mail client instead of failing — the message still gets written and sent,
- * just by them rather than by us.
+ * Sends the message from the page.
+ *
+ * There is deliberately no `mailto:` fallback — opening the visitor's mail
+ * client is a dead end on a phone and on any machine without a configured
+ * client. If delivery fails we say so in place and show the address as
+ * selectable text with a copy button, so the visitor is never stranded.
+ *
+ * Delivery is handled by `api/contact.js`, which needs one environment
+ * variable set on the Vercel project before it can actually send.
  */
-export function ContactForm() {
+export function ContactForm({ tone = 'paper' }: { tone?: Tone }) {
   const [form, setForm] = useState({ name: '', email: '', company: '', message: '', website: '' });
   const [status, setStatus] = useState<Status>('idle');
+  const [copied, setCopied] = useState(false);
+  const night = tone === 'night';
+
+  const field = `w-full border-0 border-b bg-transparent px-0 py-2.5 font-sans text-[1rem] transition-colors focus:outline-none focus:ring-0 ${
+    night
+      ? 'border-night-rule text-night-ink placeholder:text-night-muted/70 focus:border-night-ink'
+      : 'border-rule text-ink placeholder:text-ink-faint/70 focus:border-ink'
+  }`;
 
   const set = (key: keyof typeof form) => (event: { target: { value: string } }) =>
     setForm((current) => ({ ...current, [key]: event.target.value }));
@@ -49,62 +43,64 @@ export function ContactForm() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       });
-
-      if (response.ok) {
-        setStatus('sent');
-        return;
-      }
-      if (response.status === 400) {
-        setStatus('error');
-        return;
-      }
-      window.location.href = mailtoFor(form);
-      setStatus('fallback');
+      setStatus(response.ok ? 'sent' : 'error');
     } catch {
-      window.location.href = mailtoFor(form);
-      setStatus('fallback');
+      setStatus('error');
+    }
+  }
+
+  async function copyAddress() {
+    try {
+      await navigator.clipboard.writeText(CONTACT_EMAIL);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      /* Clipboard unavailable — the address is selectable either way. */
     }
   }
 
   if (status === 'sent') {
     return (
-      <div className="border-t border-ink pt-8">
-        <span className="font-mono text-[10px] uppercase tracking-label text-ink-faint">
-          Received
-        </span>
-        <p className="mt-4 font-sans text-[clamp(1.25rem,2.4vw,1.75rem)] tracking-[-0.02em] text-ink">
-          Message sent.
+      <div className={`border-t pt-8 ${night ? 'border-night-rule' : 'border-rule'}`}>
+        <Label className={night ? 'text-night-muted' : 'text-ink-faint'}>Received</Label>
+        <p
+          className={`mt-4 font-display text-[clamp(1.6rem,3vw,2.2rem)] leading-[1.1] ${
+            night ? 'text-night-ink' : 'text-ink'
+          }`}
+        >
+          Thank you — your message is with us.
         </p>
-        <p className="mt-4 max-w-[42ch] font-text text-[1rem] leading-[1.6] text-ink-muted">
-          Thank you — we read everything that comes in and normally reply within two working days.
+        <p
+          className={`mt-4 max-w-[44ch] font-sans text-[1rem] leading-[1.65] ${
+            night ? 'text-night-muted' : 'text-ink-muted'
+          }`}
+        >
+          We read everything that comes in and normally reply within two working days.
         </p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={onSubmit} className="border-t border-ink pt-8">
+    <form onSubmit={onSubmit} className={`border-t pt-8 ${night ? 'border-night-rule' : 'border-rule'}`}>
       <div className="grid gap-x-8 gap-y-7 sm:grid-cols-2">
         <div>
-          <label className={LABEL} htmlFor="cf-name">
-            Name
-          </label>
+          <Label className={night ? 'text-night-muted' : 'text-ink-faint'}>Name</Label>
           <input
             id="cf-name"
             name="name"
             required
             maxLength={120}
             autoComplete="name"
-            className={FIELD}
+            className={`${field} mt-1.5`}
             placeholder="Your name"
             value={form.name}
             onChange={set('name')}
+            aria-label="Name"
           />
         </div>
         <div>
-          <label className={LABEL} htmlFor="cf-email">
-            Email
-          </label>
+          <Label className={night ? 'text-night-muted' : 'text-ink-faint'}>Email</Label>
           <input
             id="cf-email"
             name="email"
@@ -112,44 +108,43 @@ export function ContactForm() {
             required
             maxLength={200}
             autoComplete="email"
-            className={FIELD}
+            className={`${field} mt-1.5`}
             placeholder="you@company.com"
             value={form.email}
             onChange={set('email')}
+            aria-label="Email"
           />
         </div>
       </div>
 
       <div className="mt-7">
-        <label className={LABEL} htmlFor="cf-company">
-          Company <span className="text-ink-faint/60">(optional)</span>
-        </label>
+        <Label className={night ? 'text-night-muted' : 'text-ink-faint'}>Company (optional)</Label>
         <input
           id="cf-company"
           name="company"
           maxLength={160}
           autoComplete="organization"
-          className={FIELD}
+          className={`${field} mt-1.5`}
           placeholder="Where you work"
           value={form.company}
           onChange={set('company')}
+          aria-label="Company"
         />
       </div>
 
       <div className="mt-7">
-        <label className={LABEL} htmlFor="cf-message">
-          Message
-        </label>
+        <Label className={night ? 'text-night-muted' : 'text-ink-faint'}>Message</Label>
         <textarea
           id="cf-message"
           name="message"
           required
-          rows={5}
+          rows={4}
           maxLength={5000}
-          className={`${FIELD} resize-y`}
+          className={`${field} mt-1.5 resize-y`}
           placeholder="What are you working on, and where could we help?"
           value={form.message}
           onChange={set('message')}
+          aria-label="Message"
         />
       </div>
 
@@ -166,47 +161,62 @@ export function ContactForm() {
         />
       </div>
 
-      <div className="mt-9 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mt-9 flex flex-wrap items-center gap-5">
         <button
           type="submit"
           disabled={status === 'sending'}
-          className="inline-flex items-center gap-3 bg-ink px-6 py-3 font-mono text-[11px] uppercase tracking-label text-paper transition-colors hover:bg-ink/85 disabled:cursor-not-allowed disabled:opacity-50"
+          className={`inline-flex items-center gap-3 px-7 py-3.5 font-sans text-[11px] font-medium uppercase tracking-label transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${
+            night
+              ? 'bg-night-ink text-night hover:bg-night-accent'
+              : 'bg-ink text-paper hover:bg-accent'
+          }`}
         >
           {status === 'sending' ? 'Sending' : 'Send message'}
           <span aria-hidden="true">&rarr;</span>
         </button>
-        <p className="font-mono text-[10px] uppercase tracking-label text-ink-faint">
-          Used only to reply ·{' '}
-          <a href="/privacy/" className="link text-accent">
-            Privacy
-          </a>
-        </p>
+        <Label className={night ? 'text-night-muted' : 'text-ink-faint'}>
+          Used only to reply
+        </Label>
       </div>
 
       <p role="status" aria-live="polite" className="sr-only">
         {status === 'sending' ? 'Sending your message' : ''}
       </p>
 
-      {status === 'fallback' ? (
-        <p className="mt-6 max-w-[52ch] font-text text-[0.95rem] leading-[1.6] text-ink-muted">
-          We opened a pre-filled draft in your mail app — press send there and it reaches us. If
-          nothing opened, email{' '}
-          <a href={`mailto:${CONTACT_EMAIL}`} className="link text-accent">
-            {CONTACT_EMAIL}
-          </a>{' '}
-          directly.
-        </p>
-      ) : null}
-
       {status === 'error' ? (
-        <p className="mt-6 max-w-[52ch] font-text text-[0.95rem] leading-[1.6] text-ink-muted">
-          Something in the form was rejected — check the name, email, and message fields, or just
-          email{' '}
-          <a href={`mailto:${CONTACT_EMAIL}`} className="link text-accent">
-            {CONTACT_EMAIL}
-          </a>
-          .
-        </p>
+        <div
+          className={`mt-7 border-t pt-6 ${night ? 'border-night-rule' : 'border-rule-soft'}`}
+          role="alert"
+        >
+          <p
+            className={`max-w-[52ch] font-sans text-[0.95rem] leading-[1.6] ${
+              night ? 'text-night-muted' : 'text-ink-muted'
+            }`}
+          >
+            That did not go through. Please email us directly and we will pick it up straight
+            away.
+          </p>
+          <div className="mt-4 flex flex-wrap items-center gap-4">
+            <span
+              className={`select-all font-sans text-[1.05rem] ${
+                night ? 'text-night-ink' : 'text-ink'
+              }`}
+            >
+              {CONTACT_EMAIL}
+            </span>
+            <button
+              type="button"
+              onClick={copyAddress}
+              className={`border px-4 py-2 font-sans text-[10.5px] font-medium uppercase tracking-label transition-colors ${
+                night
+                  ? 'border-night-rule text-night-ink hover:border-night-ink'
+                  : 'border-rule text-ink hover:border-ink'
+              }`}
+            >
+              {copied ? 'Copied' : 'Copy address'}
+            </button>
+          </div>
+        </div>
       ) : null}
     </form>
   );

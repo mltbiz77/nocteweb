@@ -36,18 +36,43 @@ scroll the home page and see immediately that this company ships.
   sides so a long scroll has rhythm. Products without screenshots lead with their icon at
   200px instead of a placeholder — and in that case the icon is **not** repeated beside the
   name, which is what `hasShots` guards.
-- **The hero is deliberately spare**: headline, one paragraph, two buttons, and the four
-  product icons as wordless proof. No counts, no captions.
+- **The hero is deliberately spare**: headline, one paragraph, two buttons. No counts, no
+  captions, no product imagery.
+- **The landing page offers two doors, side by side, early.** A left half for companies who
+  need AI or digital work built, and a right half for the products we own — where the products
+  are *named*, not exhibited. This is on purpose: a business arriving with a problem should
+  not have to scroll past four app pitches to find us.
+- **The full product showcase lives only on `/portfolio/`.** Do not put it back on the home
+  page.
 - **Depth comes from real shadows and flat colour fields.** No gradient meshes, no glows, no
   glassmorphism. The `.plate` / `.plate-lift` classes are the only shadows in the system.
 - **Motion is small and fast.** The hero animates itself in CSS (`.rise`, staggered) so it
   never waits on JavaScript; below the fold `Reveal` fades content up 12px over 500ms on
   intersection. Both are skipped under `prefers-reduced-motion`.
+- **The contact form is on the landing page as well as `/contact/`**, same `ContactForm`
+  component, which takes a `tone` prop so it renders on navy or paper.
+- **`ContactForm` has no `mailto:` fallback, deliberately.** Opening a mail client is a dead
+  end on a phone. If delivery fails it says so in place and shows the address as selectable
+  text with a copy button. Plain email links elsewhere on the site are fine — those are a
+  deliberate click.
+- **Contact appears once in the nav**, as the "Get in touch" button. `NAV_LINKS` does not
+  contain it; the mobile drawer and footer append it explicitly.
 
-**Two families, self-hosted.** `Switzer` (400/500/600) carries everything structural,
-including the small letterspaced caps used for labels, eyebrows and buttons. `Erode` (400)
-carries prose. There is **no monospace** — it read as a different, techier register, and a
-letterspaced mono label sitting next to the geometric logotype was the most visible symptom.
+**Two families, self-hosted.**
+
+| Family | Weights | Used for |
+|---|---|---|
+| `Cormorant Garamond` | 400, 500 | Headlines and product taglines only |
+| `Switzer` | 400, 500, 600 | Body copy, labels, buttons, navigation |
+
+Malte asked for the typography of **a16z.com/portfolio**. That site sets its titles in
+**Orpheus Pro** (Adobe Typekit) on a deep navy, with a grotesque for everything small —
+Orpheus is licensed and cannot be self-hosted, so headlines use **Cormorant Garamond**, the
+closest licence-free relative: classical, high contrast, small delicate serifs.
+
+Cormorant has a small x-height and is **display-only** — never set it below about 1.3rem.
+`Display` is the only component that uses it, which is the guardrail. There is no monospace
+anywhere; it read as a techier register and clashed with the geometric logotype.
 
 **Say less.** There are no specification tables, no counts of platforms or languages, no
 "hosted in X" bullet lists. The products and the copy carry the argument; a visitor should
@@ -140,10 +165,16 @@ four product pages all build and render; zero console errors; no horizontal over
 
 ## Next steps
 
-- [ ] **Wire the contact form to a real inbox.** It currently falls back to opening a
-      pre-filled mail draft. Set **one** env var in the Vercel project and it starts
-      delivering: `RESEND_API_KEY` (+ `CONTACT_FROM`, needs DNS verification, 3k emails/mo
-      free) or `WEB3FORMS_ACCESS_KEY` (no DNS, 250 submissions/mo free). See `api/contact.js`.
+- [ ] **The contact form does not deliver mail yet — this is the one blocking item.**
+      `api/contact.js` is written and wired; it needs **one** environment variable on the
+      Vercel project. Until then every submission shows the "email us directly" state.
+      - `WEB3FORMS_ACCESS_KEY` — free, 250/mo, no DNS. Confirm an email at web3forms.com,
+        paste the key. Fastest path.
+      - or `RESEND_API_KEY` + `CONTACT_FROM` — free 3k/mo, but needs nocteventures.com
+        verified in Resend with DNS records.
+
+      Set it with `npx vercel env add WEB3FORMS_ACCESS_KEY production` in this repo, then
+      redeploy. No code change needed.
 - [ ] **Add the registered office address to `COMPANY.legalLine`.** UK law (the Company, LLP
       and Business (Names and Trading Disclosures) Regulations 2015) requires a company's
       website to state its registered name, number, place of registration *and registered
