@@ -12,7 +12,7 @@ export const COMPANY = {
   name: 'Nocte Ventures',
   legalName: 'Nocte Ventures Ltd',
   /** One line under the wordmark in the footer. Kept deliberately short. */
-  subline: 'A parent company for digital products.',
+  subline: 'We build and own digital products.',
   /** Kept as a motif, never as the primary explanation of what we do. */
   tagline: 'Digital Craftsmanship After Dark.',
   /**

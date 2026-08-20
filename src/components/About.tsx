@@ -29,10 +29,9 @@ export default function About() {
         title={['we build companies,', 'and then we run them.']}
         lead={
           <p>
-            Nocte Ventures is a parent company for digital products. We build and run our own,
-            acquire the ones worth owning, and work with a small number of companies on theirs.
-            The goal is simple to say and hard to do: create and operate valuable digital
-            companies, repeatedly.
+            We build and run our own digital products, acquire the ones worth owning, and work
+            with a small number of companies on theirs. The goal is simple to say and hard to
+            do: create and operate valuable digital companies, repeatedly.
           </p>
         }
       />

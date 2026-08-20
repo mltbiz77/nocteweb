@@ -43,8 +43,8 @@ export default function App() {
             <div className="fade-rise lg:col-span-5" style={{ animationDelay: '520ms' }}>
               <Prose>
                 <p>
-                  A parent company for digital products. We build and run our own, and we design,
-                  build, and advise on AI and digital solutions for other companies.
+                  We build and run our own digital products, and we design, build, and advise on
+                  AI and digital solutions for other companies.
                 </p>
               </Prose>
             </div>
