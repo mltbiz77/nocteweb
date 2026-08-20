@@ -28,7 +28,8 @@ export const FRIDGEFOX_PRIVACY: LegalDoc = {
       "body": [],
       "bullets": [
         "Your data is stored on servers in Frankfurt am Main, Germany (EU).",
-        "FridgeFox shows no advertising, sells no data and uses no tracking and no third-party analytics.",
+        "FridgeFox shows no advertising, sells no data and uses no cross-app tracking.",
+        "For product measurement FridgeFox uses PostHog (hosted in the EU). Only the fact THAT something happened is measured — never an item name, a recipe, a receipt photo, and explicitly never an allergy or dietary setting. It can be switched off in Settings → Data (section 5a).",
         "To read receipts and to suggest recipes, FridgeFox uses an AI model through a service provider in the USA (section 5).",
         "Your allergies and dietary preferences are a special category of personal data. They are processed only with your explicit consent and are visible to the members of your household. The app tells you this in both places (onboarding and joining) before you agree."
       ]
@@ -80,6 +81,16 @@ export const FRIDGEFOX_PRIVACY: LegalDoc = {
         "1. Reading a receipt: the photo is passed through our server to the API provider OpenRouter, Inc. (USA) and evaluated there by the model \"Claude\" (Anthropic). Receipts can allow conclusions about shopping behaviour; they do not usually contain your name or contact details. 2. Suggesting recipes: the model receives your pantry summarised by category, your store cupboard, the titles of earlier suggestions and the combined diets and allergies of the selected diners. The latter is necessary so that no dish containing your allergens is suggested, and is covered by your consent under section 3.",
         "The language you use the app in is also transmitted, so that the answer comes back in your language. Nothing else: account data (email, names, profile picture) is never sent to the model.",
         "Transfer to the USA takes place on the basis of the EU standard contractual clauses, which form part of OpenRouter's data processing terms. Only what is described above is transferred. We do not store receipt photos — they are passed on for the duration of the evaluation and discarded afterwards — and we do not use photos or pantry data to train any model."
+      ]
+    },
+    {
+      "heading": "5a. Product measurement (PostHog)",
+      "body": [
+        "So that we can see which parts of the app are actually used, we measure usage with PostHog (PostHog, Inc.), hosted in the European Union and acting for us as a processor. The lawful basis is our legitimate interest in a working product (Art. 6(1)(f) GDPR); you may object at any time.",
+        "What is measured is that something happened: a receipt was captured or failed, a recipe round ran, the daily check-in was completed, the purchase sheet was shown, a free limit was reached, a household was created or joined. Alongside that: device model, app version, language and country, and a random identifier.",
+        "The content is not measured: no receipt photo, no item name, no recipe title, no household name and — explicitly — no allergy and no dietary setting. That last point is not a matter of interpretation: allergies and diet are special categories under Art. 9 GDPR and do not belong in an analytics tool, not even as a count, because \"has allergies: yes\" would itself be a health statement. Tap-level capture is disabled in the SDK so that text from the screen cannot be swept up by accident.",
+        "Switching it off: Settings → Data → \"Share anonymous usage\". The switch stops collection inside the SDK, not merely in the interface.",
+        "There is no tracking prompt (ATT), because no cross-app tracking takes place. The current list of every event name lives in a single file in the source (`AnalyticsManager.swift`) — precisely so this promise is checkable."
       ]
     },
     {
@@ -139,7 +150,8 @@ export const FRIDGEFOX_PRIVACY: LegalDoc = {
       "body": [],
       "bullets": [
         "Deine Daten liegen auf Servern in Frankfurt am Main (EU).",
-        "FridgeFox zeigt keine Werbung, verkauft keine Daten und setzt kein Tracking und keine Analyse-Werkzeuge Dritter ein.",
+        "FridgeFox zeigt keine Werbung, verkauft keine Daten und setzt kein App-übergreifendes Tracking ein.",
+        "Zur Produktmessung nutzt FridgeFox PostHog (EU-Hosting). Gemessen wird nur, DASS etwas passiert ist — nie ein Artikelname, ein Rezept, ein Bon-Foto und ausdrücklich nie eine Allergie oder Ernährungsweise. Abschaltbar in Einstellungen → Daten (Abschnitt 5a).",
         "Für das Auslesen von Kassenbons und für Rezeptvorschläge nutzt FridgeFox ein KI-Modell über einen Dienstleister in den USA (Abschnitt 5).",
         "Deine Allergien und Ernährungsweise sind besonders geschützte Daten. Sie werden nur mit deiner ausdrücklichen Einwilligung verarbeitet und sind für die Mitglieder deines Haushalts sichtbar. Das sagt dir die App an beiden Stellen (Onboarding und Beitritt), bevor du zustimmst."
       ]
@@ -171,7 +183,8 @@ export const FRIDGEFOX_PRIVACY: LegalDoc = {
         "Zahlungsdaten sehen wir nie. Kauf, Verlängerung, Kündigung und Erstattung laufen ausschließlich über Apple.",
         "Beim Abruf unserer Server fallen Verbindungsdaten an (IP-Adresse, Zeitpunkt), wie bei jedem Internetdienst. Wir werten sie nicht aus; unser Hosting-Dienstleister nutzt sie zur Betriebssicherheit.",
         "Zähler für KI-Aufrufe je Konto und je Haushalt (Kosten- und Missbrauchsschutz sowie die Anzeige deines Kontingents).",
-        "Kein Standort, keine Werbe-IDs, kein App-übergreifendes Tracking, keine Analyse-SDKs, keine Weitergabe an Werbenetzwerke.",
+        "Kein Standort, keine Werbe-IDs, kein App-übergreifendes Tracking, keine Weitergabe an Werbenetzwerke. Es gibt keinen ATT-Dialog, weil nicht getrackt wird.",
+        "Die Produktmessung (Abschnitt 5a) erhält keine Allergien, keine Ernährungsweisen, keine Artikelnamen, keine Rezepte und keine Bon-Fotos.",
         "Kontakte: Wenn du beim Haushalt-Gründen „Aus Kontakten wählen\" nutzt, öffnet sich die Kontaktauswahl des Systems. Die App erhält nur den EINEN gewählten Kontakt (Name, Telefonnummer) und verwendet ihn ausschließlich lokal auf deinem Gerät, um einen Nachrichten-Entwurf vorzubefüllen. Er wird nicht an unsere Server übertragen. Gesendet wird die Nachricht nur von dir selbst.",
         "Benachrichtigungen: Die tägliche Erinnerung wird lokal auf deinem Gerät geplant (keine Push-Server); sie ist abschaltbar und wird nur angelegt, wenn wirklich etwas abläuft.",
         "Deine Einstellungen zu Erscheinungsbild, Haptik und Erinnerungszeit bleiben auf dem Gerät."
@@ -191,6 +204,16 @@ export const FRIDGEFOX_PRIVACY: LegalDoc = {
         "1. Bon auslesen: Das Bon-Foto wird über unseren Server an den API-Dienstleister OpenRouter, Inc. (USA) übermittelt und dort vom Modell „Claude\" (Anthropic) ausgewertet. Kassenbons können Rückschlüsse auf Einkaufsverhalten zulassen; Name oder Kontaktdaten enthalten sie üblicherweise nicht. 2. Rezepte vorschlagen: An das Modell gehen dein zusammengefasster Vorrat (Warengruppen), dein Vorratsschrank, die Titel früherer Vorschläge sowie die vereinigten Ernährungsweisen und Allergien der ausgewählten Mitesser. Letzteres ist nötig, damit keine Gerichte mit euren Allergenen vorgeschlagen werden, und von deiner Einwilligung aus Abschnitt 3 umfasst.",
         "Mit übermittelt wird die Sprache, in der du die App benutzt, damit die Antwort in deiner Sprache kommt. Sonst nichts: Kontodaten (E-Mail, Namen, Profilbild) gehen nie an das Modell.",
         "Übermittlung in die USA: Sie erfolgt auf Grundlage der EU-Standardvertragsklauseln, die Teil der Auftragsverarbeitungsbedingungen von OpenRouter sind. Übermittelt wird ausschließlich, was oben beschrieben ist. Bon-Fotos speichern wir nicht — sie werden für die Dauer der Auswertung weitergegeben und danach verworfen —, und wir verwenden weder Fotos noch Vorratsdaten zum Trainieren von Modellen."
+      ]
+    },
+    {
+      "heading": "DE — 5a. Produktmessung (PostHog)",
+      "body": [
+        "Damit wir sehen, welche Teile der App tatsächlich benutzt werden, messen wir die Nutzung mit PostHog (PostHog, Inc.), gehostet in der Europäischen Union und für uns als Auftragsverarbeiter tätig. Rechtsgrundlage ist unser berechtigtes Interesse an einem funktionierenden Produkt (Art. 6 Abs. 1 lit. f DSGVO); du kannst jederzeit widersprechen.",
+        "Gemessen wird, dass etwas passiert ist: Ein Bon wurde erfasst oder es ging schief, eine Rezeptrunde lief, die Kurzabfrage wurde abgeschlossen, die Kauf-Ansicht war offen, eine Free-Grenze wurde erreicht, ein Haushalt wurde gegründet oder betreten. Dazu kommen Gerätemodell, App-Fassung, Sprache und Land sowie eine zufällige Kennung.",
+        "Nicht gemessen wird der Inhalt: kein Bon-Foto, kein Artikelname, kein Rezepttitel, kein Haushaltsname und — ausdrücklich — keine Allergie und keine Ernährungsweise. Letzteres ist keine Auslegungsfrage: Allergien und Diät sind besondere Kategorien nach Art. 9 DSGVO und gehören in kein Analyse-Werkzeug, auch nicht als Zählwert, weil schon „hat Allergien: ja\" eine Gesundheitsangabe wäre. Die Erfassung von Tipp-Ereignissen ist im SDK abgeschaltet, damit nicht versehentlich Text vom Bildschirm mitgeht.",
+        "Abschalten: Einstellungen → Daten → „Anonyme Nutzung teilen\". Der Schalter beendet die Erhebung im SDK selbst, nicht bloss in der Anzeige.",
+        "Es gibt keinen Tracking-Dialog (ATT), weil app-übergreifend nicht getrackt wird. Die jeweils aktuelle Liste aller Ereignisnamen steht im Quellcode in einer einzigen Datei (`AnalyticsManager.swift`) — genau damit diese Zusage prüfbar ist."
       ]
     },
     {
